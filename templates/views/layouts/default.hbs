@@ -4,8 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>CloseBrace</title>
+		<title>CloseBrace - JavaScript Tutorials and Resources</title>
+    <meta name="description" content="CloseBrace - Tutorials and Recources By JavaScript Developers, For JavaScript Developers">
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 		<link href="/styles/site.css" rel="stylesheet">
 
 		{{!-- This file provides the default styling for the KeystoneJS Content Editor
@@ -21,85 +24,49 @@
 
 	</head>
 	<body>
-		<div id="header">
-			<div class="container">
-				<div role="navigation" class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-							</button>
-							<a href="/" class="navbar-brand">CloseBrace</a>
-						</div>
-						<div class="collapse navbar-collapse">
-							<ul class="nav navbar-nav navbar-left">
-									{{# each navLinks}}
-									<li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
-										<a href="{{ href }}">{{ label }}</a>
-									</li>
-								{{/each}}
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								{{#if user}}
-								<li><a href="/keystone/signout">Sign Out</a></li>
-								{{else}}
-								<li><a href="/keystone/signin">Sign In</a></li>
-								{{/if}}
-							</ul>
-						</div>
+
+    <!--[if lt IE 11]>
+      <h3 class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</h3>
+    <![endif]-->
+
+		<!-- HEADER -->
+		<header>
+			<div class="inner">
+				<div class="logo">
+					<img src="/images/logo_closebrace.png" alt="CloseBrace Logo" class="img-logo" />
+				</div>
+				<nav class="main-menu">
+					<ul>
+						<li><a href="/tutorials">Tutorials</a></li>
+						<li><a href="/articles">Articles</a></li>
+						<li><a href="/jobs">Jobs</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="http://blog.closebrace.com">Blog</a></li>
+					</ul>
+				</nav>
+				<div class="search">
+					<button type="button" class="btn-secondary btn-outline btn-search">Search</button>
+					<!--
+					<div class="search-box">
 					</div>
+					-->
+				</div>
+				<div class="user-box">
+					<p>
+	          {{#if user}}
+	          	Welcome, {{user.name.first }}<br />
+	          	<a href="">My Account</a> | <a href="/keystone/signout">Log Out</a>
+	          {{else}}
+	          	<a href="/keystone/signin">Log In</a>
+	          {{/if}}
+					</p>
+					<img src="/images/tempuser.jpg" alt="User Icon" class="user-icon" />
 				</div>
 			</div>
-		</div>
-		<div id="body">
-			<!--
-				Flash messages allow you to display once-off status messages to users, e.g. form
-				validation errors, success messages, etc
-			-->
-			{{#if messages}}
-			<div id="flash-messages" class="container">
-				{{#if messages.info}}
-				<div class="alert alert-info">
-						{{{flashMessages messages.info}}}
-				</div>
-				{{/if}}
-				{{#if messages.success}}
-				<div class="alert alert-success">
-						{{{flashMessages messages.success}}}
-				</div>
-				{{/if}}
-				{{#if messages.warning}}
-				<div class="alert alert-warning">
-						{{{flashMessages messages.warning}}}
-				</div>
-				{{/if}}
-				{{#if messages.error}}
-				<div class="alert alert-danger">
-						{{{flashMessages messages.error}}}
-				</div>
-				{{/if}}
-			</div>
-			{{/if}}
-			<!-- The content block should contain the body of your template's content-->
-			{{{body}}}
-		</div>
-		<div class="container">
-			<div id="footer">
-				<p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
-			</div>
-		</div>
-		{{!--
-			//- jQuery 1.11.3 is included by default, and required by both Bootstrap
-			//- and the KeystoneJS Content Editor. If you are not targeting IE8,
-			//- you can upgrade to 2.1.4 (also bundled) for better performance.
-		--}}
-		<script src="/js/jquery/jquery-1.11.3.min.js"></script>
-		{{!--
-			//- Customise which Bootstrap javascript files are served by including
-			//- them specifically here, instead of bootstrap-3.3.5.min.js
-		--}}
-		<script src="/js/bootstrap/bootstrap-3.3.5.min.js"></script>
-		{{{isAdminEditorJS user}}}
+		</header>
+		<!-- /HEADER -->
+
+
+
 	</body>
 </html>
