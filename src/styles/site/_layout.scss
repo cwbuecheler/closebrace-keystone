@@ -113,10 +113,12 @@ header {
     }
   }
   .main-menu {
-    height: 60px;
     display: flex;
     align-items: center;
+    justify-content: center;
     order: 3;
+    flex-basis: 100%;
+    padding: 15px 0;
 
     ul {
       padding: 0;
@@ -141,7 +143,9 @@ header {
   }
   .search {
     order: 4;
-    flex-basis: 25%;
+    flex-basis: 100%;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid $color-grey-light;
 
     .btn-search {
       padding-left: 28px;
@@ -178,43 +182,29 @@ header {
 /* Medium-sized screens */
 @media only screen and (min-width: 601px) {
   header {
-    background-color: #FFF;
     border-top: 10px solid $color-grey-dark;
-    position: fixed;
-    top: 0; left: 0;
-    display: flex;
-    height: 60px;
-    border-bottom: 1px solid $color-grey-light;
-    box-shadow: 0px 0px 5px rgba(16,147,71,0.5);
-    width: 100%;
-    padding: 0;
-    justify-content: center;
-    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
 
-    .inner {
-      padding:0;
-      width: 100%;
-      max-width: 1200px;
-      height: 60px;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-    }
     .logo {
-      border-left: 1px solid $color-grey-light;
-      border-right: 1px solid $color-grey-light;
-      padding: 15px;
+      flex-basis: 50%;
+      height: 60px;
+      justify-content: center;
 
       img.img-logo {
-      height: 30px;
-      display: flex;
+        max-width: 233px;
+        max-height: 30px;
       }
     }
     .main-menu {
-      height: 60px;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
+      order: 3;
+      flex-basis: 75%;
+      height: 50px;
+      padding: 0;
+      padding-left: 15px;
+      border-bottom: 1px solid $color-grey-light;
+      border-left: 1px solid $color-grey-light;
 
       ul {
         padding: 0;
@@ -238,6 +228,14 @@ header {
       }
     }
     .search {
+      display: flex;
+      order: 4;
+      flex-basis: 25%;
+      justify-content: flex-end;
+      align-items: center;
+      height: 50px;
+      padding: 0 15px 0 0;
+      border-bottom: 1px solid $color-grey-light;
 
       .btn-search {
         padding-left: 28px;
@@ -249,11 +247,15 @@ header {
     }
     .user-box {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       padding-right: 15px;
       border-right: 1px solid $color-grey-light;
+      border-bottom: 1px solid $color-grey-light;
       height: 60px;
+      order: 2;
+      flex-basis: 50%;
+      flex-shrink: 2;
 
       p {
         font-size: .875rem;
