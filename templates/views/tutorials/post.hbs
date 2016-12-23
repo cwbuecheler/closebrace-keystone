@@ -1,0 +1,47 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <span class="tags">
+            <ul>
+              {{#each post.tags}}
+                <li><a href="/tags/{{this.key}}">{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          </span>
+          <h1>{{post.title}}</h1>
+          <h2>{{post.subHead}}</h2>
+          {{#with post.author}}
+          <div class="byline">
+            By <a href="http://closebrace.com/users/cwbuecheler">{{name.full}}</a> &nbsp; | &nbsp;
+            <a href="https://twitter.com/{{twitterUsername}}" target="_blank">@{{twitterUsername}}</a> &nbsp; | &nbsp;
+          {{/with}}
+            Last Updated: {{post.updatedAtFormatted}}
+          </div>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <!-- INTRO IMAGE -->
+        <section class="intro-image">
+          <img src="https://res.cloudinary.com/closebrace/image/upload/w_720/v{{post.mainImage.version}}/{{post.mainImage.public_id}}.{{post.mainImage.format}}" alt="Main Content Image" />
+        </section>
+        <!-- /INTRO IMAGE -->
+
+        <!-- ARTICLE TEXT -->
+        <section class="article-text">
+          {{{post.content.html}}}
+        </section>
+        <!-- /ARTICLE TEXT -->
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+      </aside>
+      <!-- /SIDEBAR -->

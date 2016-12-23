@@ -31,11 +31,17 @@ keystone.init({
 	'auto update': true,
 	'session': true,
 	'auth': true,
+	'cloudinary': true,
 	'user model': 'User',
 });
 
+// Cloudinary Config
+keystone.set('cloudinary config', 'cloudinary://767492972112919:LxjCrzyUGTtuk5H8Yfdl6h-fFgM@closebrace' );
+
 // Load your project's Models
 keystone.import('models');
+
+
 
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely

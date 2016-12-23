@@ -1,72 +1,85 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>CloseBrace - JavaScript Tutorials and Resources</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CloseBrace - JavaScript Tutorials and Resources</title>
     <meta name="description" content="CloseBrace - Tutorials and Recources By JavaScript Developers, For JavaScript Developers">
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-		<link href="/styles/site.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="/styles/site.css" rel="stylesheet">
 
-		{{!-- This file provides the default styling for the KeystoneJS Content Editor
-			- only renders when user is logged in and admin--}}
-		{{{isAdminEditorCSS user}}}
+    {{!-- This file provides the default styling for the KeystoneJS Content Editor
+      - only renders when user is logged in and admin--}}
+    {{{isAdminEditorCSS user}}}
 
-		{{!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-		//- Safely remove this block if you are not targeting IE8 --}}
-		<!--[if lt IE 9]>
-			<script src="//cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js"></script>
-			<script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-	</head>
-	<body>
+  </head>
+  <body>
 
     <!--[if lt IE 11]>
       <h3 class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</h3>
     <![endif]-->
 
-		<!-- HEADER -->
-		<header>
-			<div class="inner">
-				<div class="logo">
-					<img src="/images/logo_closebrace.png" alt="CloseBrace Logo" class="img-logo" />
-				</div>
-				<nav class="main-menu">
-					<ul>
-						<li><a href="/tutorials">Tutorials</a></li>
-						<li><a href="/articles">Articles</a></li>
-						<li><a href="/jobs">Jobs</a></li>
-						<li><a href="/about">About</a></li>
-						<li><a href="http://blog.closebrace.com">Blog</a></li>
-					</ul>
-				</nav>
-				<div class="search">
-					<button type="button" class="btn-secondary btn-outline btn-search">Search</button>
-					<!--
-					<div class="search-box">
-					</div>
-					-->
-				</div>
-				<div class="user-box">
-					<p>
-	          {{#if user}}
-	          	Welcome, {{user.name.first }}<br />
-	          	<a href="">My Account</a> | <a href="/keystone/signout">Log Out</a>
-	          {{else}}
-	          	<a href="/keystone/signin">Log In</a>
-	          {{/if}}
-					</p>
-					<img src="/images/tempuser.jpg" alt="User Icon" class="user-icon" />
-				</div>
-			</div>
-		</header>
-		<!-- /HEADER -->
+    <!-- HEADER -->
+    <header>
+      <div class="inner">
+        <div class="logo">
+          <a href="/"><img src="/images/logo_closebrace.png" alt="CloseBrace Logo" class="img-logo" /></a>
+        </div>
+        {{> main_menu headerMenu=true }}
+        {{> search }}
+        {{> userbox }}
+      </div>
+    </header>
+    <!-- /HEADER -->
 
+    {{> ad_horizontal }}
 
+    {{#if messages}}
+      <div id="flash-messages" class="container">
+        {{#if messages.info}}
+          <div class="alert alert-info">
+              {{{flashMessages messages.info}}}
+          </div>
+        {{/if}}
+        {{#if messages.success}}
+          <div class="alert alert-success">
+              {{{flashMessages messages.success}}}
+          </div>
+        {{/if}}
+        {{#if messages.warning}}
+          <div class="alert alert-warning">
+              {{{flashMessages messages.warning}}}
+          </div>
+        {{/if}}
+        {{#if messages.error}}
+          <div class="alert alert-danger">
+              {{{flashMessages messages.error}}}
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
 
-	</body>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+
+      {{{body}}}
+
+    </div>
+    <!-- /WRAPPER -->
+
+    <!-- FOOTER -->
+    <footer>
+      &copy; <span class="copy-date">2017</span> CloseBrace, LLC.<br />
+      {{> main_menu }}
+      {{> powered_by }}
+    </footer>
+    <!-- /FOOTER -->
+
+  </body>
+  <script src="/js/ads.js"></script>
+  <script src="/js/build.js"></script>
+  {{{isAdminEditorJS user}}}
 </html>

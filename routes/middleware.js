@@ -20,7 +20,12 @@ var _ = require('lodash');
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
 		{ label: 'Home', key: 'home', href: '/' },
-		{ label: 'Contact', key: 'contact', href: '/contact' },
+		{ label: 'Tutorials', key: 'tutorials', href: '/tutorials', main: true },
+		{ label: 'Articles', key: 'articles', href: '/articles', main: true },
+		// { label: 'Jobs', key: 'jobs', href: '/jobs', main: true },
+		{ label: 'About', key: 'about', href: '/about', main: true },
+		{ label: 'Blog', key: 'blog', href: 'http://blog.closebrace.com/', main: true },
+		{ label: 'Contact Us', key: 'contact', href: '/contact' },
 	];
 	res.locals.user = req.user;
 	next();

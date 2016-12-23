@@ -1,0 +1,62 @@
+/* Really big tablets and desktops */
+
+@media only screen and (min-width: 1001px) {
+  body {
+    padding-top: 90px;
+  }
+
+  header {
+    position: fixed;
+    top: 0; left: 0;
+    height: 70px;
+    border-bottom: 1px solid $color-grey-light;
+
+    .inner {
+      height: 60px;
+    }
+    .logo {
+      border-bottom: none;
+      flex-basis: auto;
+      order: 1;
+      display: flex;
+      align-items: auto;
+
+      img.img-logo {
+        width: auto;
+        height: 30px;
+      }
+    }
+    .main-menu {
+      height: 60px;
+      flex-basis: auto;
+      order: 2;
+      border: none;
+    }
+    .search {
+      flex-basis: auto;
+      order: 3;
+      border: none;
+    }
+    .user-box {
+      flex-basis: auto;
+      justify-content: space-between;
+      order: 4;
+    }
+  }
+
+  /* Big Horizontal Ad */
+  .ad-horizontal {
+    max-width: 990px;
+  }
+
+  /* Content Wrapper */
+  #wrapper {
+    max-width: 1200px;
+
+    /* Sidebar */
+    aside {
+      flex-basis: 390px;
+    } // end sidebar
+  } // end wrapper
+
+}

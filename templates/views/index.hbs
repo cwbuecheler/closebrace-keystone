@@ -1,21 +1,110 @@
 {{!< default}}
-<div class="container">
-	<div class="jumbotron"><img src="/images/logo.svg" width="160">
-		<h1>Welcome</h1>
-		<p>This is your new <a href='http://keystonejs.com' target='_blank'>KeystoneJS</a> website.</p>
-		<p>
-			It includes the latest versions of
-			<a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
-			and <a href='http://www.jquery.com/' target='_blank'>jQuery</a>.
-		</p>
-		<p>Visit the <a href='http://keystonejs.com/guide' target='_blank'>Getting Started</a> guide to learn how to customise it.</p>
-		<hr>
-		<p>We have created a default Admin user for you with the email <strong>chris@closebrace.com</strong> and the password <strong>hojillion</strong>.</p>
-		<p><a href="/keystone/signin" style="margin-right: 10px" class="btn btn-lg btn-primary">Sign in</a> to use the Admin UI.</p>
-		<hr>
-		<p>
-			Remember to <a href='https://github.com/keystonejs/keystone' target='_blank'>Star KeystoneJS on GitHub</a> and
-			<a href='https://twitter.com/keystonejs' target='_blank'>follow @keystonejs</a> on twitter for updates.
-		</p>
-	</div>
-</div>
+
+			<!-- CONTENT -->
+			<div class="home">
+
+				<!-- LAST TWO FEATURES -->
+				<div class="main-features">
+
+          {{#each topTwo}}
+						<!-- ITEM -->
+						<div class="feature">
+							<div class="top-border"></div>
+							<div class="image-box">
+								<a href="/tutorials/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+								<span class="feature-type">Tutorial</span>
+								<div class="text-box">
+									<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
+									<p>
+										{{this.subHead}}
+									</p>
+								</div>
+							</div>
+						</div>
+						<!-- /ITEM -->
+          {{/each}}
+
+				</div>
+				<!-- /LAST TWO FEATURES -->
+
+				<!-- SIB WRAP -->
+				<div class="sub-wrap">
+
+					<!-- SUB CONTENT -->
+					<div class="sub-content">
+
+						<!-- EXTRA FEATURES -->
+						<div class="extra-features">
+
+		          {{#each nextFour}}
+								<!-- ITEM -->
+								<div class="feature">
+									<div class="top-border"></div>
+									<div class="image-box">
+										<a href="/tutorials/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+										<span class="feature-type">Tutorial</span>
+										<div class="text-box">
+											<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
+											<p>
+												{{this.subHead}}
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- /ITEM -->
+		          {{/each}}
+
+						</div>
+						<!-- /EXTRA FEATURES -->
+
+						<!-- FEATURE TABLE -->
+						<div class="feature-list">
+							<div class="top-border"></div>
+							<h2>More Features</h2>
+			        <!-- POST TABLE -->
+			        <table class="table table-posts">
+			          <tbody>
+			          {{#each posts}}
+			            <tr>
+			              <td class="shot hide-mobile"><a href="/tutorials/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
+			              <td class="info">
+			                <p>
+			                  <a href="/tutorials/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
+			                  <em>{{this.subHead}}</em>
+			                </p>
+			              </td>
+			              <td>
+			                <a href="/tutorials/{{this.slug}}" class="btn btn-primary">Read</a>
+			              </td>
+			            </tr>
+			          {{/each}}
+			          </tbody>
+			        </table>
+			        <!-- /POST TABLE -->
+			        <!-- MORE LINKS -->
+			        <nav class="more-links">
+			        	<ul>
+			        		<li><a href="/tutorials">All Tutorials</a></li>
+			        		<li><a href="/articles">All Articles</a></li>
+			        	</ul>
+			        </nav>
+			        <!-- /MORE LINKS -->
+						</div>
+						<!-- /FEATURE TABLE -->
+
+					</div>
+					<!-- /SUB CONTENT -->
+
+					<!-- SIDEBAR -->
+					<aside>
+						<div class="ad-vertical">
+							<img src="/images/temp_ad_vertical.png" alt="Temp Ad" />
+						</div>
+					</aside>
+					<!-- /SIDEBAR -->
+
+				</div>
+				<!-- /SUB WRAP -->
+
+			</div>
+			<!-- /CONTENT -->

@@ -1,0 +1,17 @@
+        <nav class="main-menu">
+          <ul>
+            {{# each navLinks}}
+              {{#if ../headerMenu}}
+                {{#if main }}
+                  <li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+                    <a href="{{ href }}">{{ label }}</a>
+                  </li>
+                {{/if}}
+              {{else}}
+                <li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+                  <a href="{{ href }}">{{ label }}</a>
+                </li>
+              {{/if}}
+            {{/each}}
+          </ul>
+        </nav>
