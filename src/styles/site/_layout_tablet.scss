@@ -17,9 +17,10 @@
     .main-menu {
       justify-content: flex-start;
       flex-basis: 75%;
-      height: 50px;
+      height: 60px;
       padding: 0;
       padding-left: 15px;
+      border: 0;
       border-bottom: 1px solid $color-grey-light;
       border-left: 1px solid $color-grey-light;
     }
@@ -28,8 +29,20 @@
       flex-basis: 25%;
       justify-content: flex-end;
       align-items: center;
-      height: 50px;
+      height: 60px;
       padding: 0 15px 0 0;
+      border: 0;
+      border-bottom: 1px solid $color-grey-light;
+      border-right: 1px solid $color-grey-light;
+
+      .search-box {
+        text-align: center;
+
+        input[type=text] {
+          width: auto;
+          min-width: 350px;
+        }
+      }
     }
     .user-box {
       flex-basis: 50%;
@@ -79,5 +92,25 @@
         }
       } // main-features
     } // end home page
+
+    article {
+
+      /* User Profile */
+      .profile-box {
+        display: flex;
+
+        .image {
+          width: auto;
+          max-width: 200px;
+          flex-basis: 200px;
+          margin: 0 30px 1rem 0;
+        }
+        .info {
+          width: auto;
+          flex-basis: 100%;
+          text-align: left;
+        }
+      }
+    }
   } // end wrapper
 }

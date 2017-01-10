@@ -6,7 +6,10 @@ exports = module.exports = function (req, res) {
   var locals = res.locals;
 
   // Set locals
-  locals.section = 'about';
+  locals.section = 'account';
 
-  view.render('about');
+  // Turn off ads on this page
+  locals.hideAds = true;
+
+  view.render('account/registrationSuccess');
 };

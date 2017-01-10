@@ -1,0 +1,34 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article class="single-column">
+
+        {{#if confirmSucceeded}}
+          <!-- TITLE BOX -->
+          <section class="title-box">
+            <h1>Account Confirmed</h1>
+          </section>
+          <!-- /TITLE BOX -->
+          <div class="content">
+            <p>
+              Congratulations, you are now a confirmed CloseBrace User, with all of the rights and privileges that status confers. Which is to say, you can post comments on our various tutorials and articles, you can sign up for <a href="/go-pro">CloseBrace Pro</a>, and you can upload a custom user avatar over on your <a href="/account/profile">your account page</a>.
+            </p>
+            <p>
+              That's all there is to the signup process, so you're good to go. Head on over to the <a href="/tutorials">tutorials</a> and start learning!
+            </p>
+          </div>
+        {{else}}
+          <!-- TITLE BOX -->
+          <section class="title-box">
+            <h1>Confirmation Problem</h1>
+          </section>
+          <!-- /TITLE BOX -->
+          <div class="content">
+            <p>
+              Hmmm ... something went wrong. Is it possible you pasted an incomplete link from your email? Please check and make sure. If you're positive that the URL is correct and contains your entire confirmation string, please <a href="/contact">contact us</a> directly and we'll get you sorted out!
+            </p>
+          </div>
+        {{/if}}
+
+      </article>
+      <!-- /CONTENT -->

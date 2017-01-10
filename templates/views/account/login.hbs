@@ -1,0 +1,55 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article class="single-column">
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Log In</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <div class="form form-signup">
+          <div id="errorBox"></div>
+          <form name="formLogin" method="post" action="/account/log-in">
+            <input type="hidden" name="action" value="login" />
+            <fieldset>
+              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com" /></label>
+              <label>Password <input type="password" name="userPassword" /></label>
+              <label>
+            </fieldset>
+            <button type="submit" id="btnLogInSubmit" class="btn btn-primary">Log In</button>
+          </form>
+          <p>
+            Forgot your password? <a href="/account/forgot-password">Click here to reset it</a>.
+          </p>
+        </div>
+
+      </article>
+      <!-- /CONTENT -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var validator = new FormValidator('formLogin', [
+    {
+        name: 'userEmail',
+        display: 'Email',
+        rules: 'required|valid_email',
+    },
+    {
+        name: 'userPassword',
+        display: 'Password',
+        rules: 'required'
+    }
+  ],
+  function(errors) {
+    if (errors.length > 0) {
+      var errorString = '';
+      for (var i = 0; i < errors.length; i++) {
+        errorString += errors[i].message + '<br />';
+      }
+      document.getElementById('errorBox').innerHTML = errorString;
+    }
+  });
+});
+</script>

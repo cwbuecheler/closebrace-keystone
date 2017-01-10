@@ -14,6 +14,7 @@ header {
   font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
   margin: 0 0 30px 0;
   z-index: 10;
+  position: relative;
 
   .inner {
     padding:0;
@@ -49,6 +50,9 @@ header {
     order: 3;
     flex-basis: 100%;
     padding: 15px 0;
+    border: 1px solid $color-grey-light;
+    border-top: 0;
+    height: 60px;
 
     ul {
       padding: 0;
@@ -74,9 +78,13 @@ header {
   .search {
     order: 4;
     flex-basis: 100%;
-    padding: 0 0 15px 0;
-    border-bottom: 1px solid $color-grey-light;
-    position: relative;
+    padding: 0;
+    border: 1px solid $color-grey-light;
+    border-top: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .btn.btn-search {
       padding-left: 28px;
@@ -86,30 +94,33 @@ header {
       background-position: 5px 5px;
     }
     .search-box {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      width: 320px;
-      background: $color-grey-ultradark;
+      background: rgba(240,240,240,0.96);
+      border: 1px solid $color-grey-light;
+      border-top: 0;
+      bottom: 0;
       color: #FFF;
-      border-radius: 15px;
-      padding: 15px;
-      font-size: 0;
-      white-space: nowrap;
       display: none;
+      font-size: 0;
+      height: 60px;
+      left: 0;
+      padding: 12px 10px;
+      position: absolute;
+      right: 0;
+      text-align: left;
+      white-space: nowrap;
+      width: 100%;
+      z-index: 12;
 
       input[type=text] {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
-        border: none;
+        border: 1px solid $color-grey-light;
         height: 34px;
         padding: 8px 15px;
         line-height: 1;
         margin: 0;
         font-size: 1rem;
+        width: 70%;
       }
       button.search-button {
         font-size: 1rem;
@@ -122,6 +133,20 @@ header {
         text-transform: uppercase;
         color: $color-grey-dark;
       }
+    }
+    a.close-link {
+      display: inline-block;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: $color-grey-light;
+      color: #FFF;
+      border-radius: 12px;
+      padding: 5px 8px;
+      line-height: 1;
+      margin: 0;
+      font-size: .875rem;
+      text-decoration: none;
     }
   } // end search
   .user-box {
@@ -141,10 +166,25 @@ header {
       margin: 0 10px 0 0;
       padding: 0;
     }
+    .user-avatar {
+      position: relative;
 
-    img.user-icon {
-      width: 50px;
-      height: 50px;
+      img.user-icon {
+        width: 50px;
+        height: 50px;
+      }
+      span {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.5rem;
+        background: #ffde5b;
+        color: #FFF;
+        padding: 1px 3px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        line-height: 1;
+      }
     }
   } // end user box
 } // end header
@@ -257,10 +297,16 @@ header {
     }
   } // home page
 
-  /* Article */
+  /* Post */
   article {
     width: 100%;
     text-align: left;
+
+    &.single-column {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     /* Title Box */
     .title-box {
@@ -312,11 +358,74 @@ header {
       }
     } // end intro image
 
+    /* Tutorial Info */
+    .tutorial-info {
+      border: 1px solid $color-brand-secondary;
+      padding: 20px;
+      background: lighten($color-brand-secondary, 40);
+
+      p {
+        margin: 0 0 1rem 0;
+      }
+      & p:last-child {
+        margin-bottom: 0;
+      }
+      & ul:last-child {
+        margin-bottom: 0;
+      }
+
+    }
+
     /* Article Text */
     .article-text {
       line-height: 1.5;
       font-size: 1.125rem;
       font-family: Georgia, Times, "Times New Roman", serif;
+
+      h1, h2, h3, h4, h5 {
+        font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+      }
+    }
+
+    /* User Profile */
+    .profile-box {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 30px;
+
+      .image {
+        width: 100%;
+        margin: 0 0 1rem 0;
+
+        img {
+          display: block;
+          width: 200px;
+          margin: 0 auto .25rem auto;
+          padding: 0;
+        }
+        a.image-upload {
+          text-transform: uppercase;
+        }
+      }
+      .info {
+        width: 100%;
+        text-align: center;
+
+        h4 {
+          margin-bottom: .25rem;
+          color: $color-grey-medium;
+          text-transform: uppercase;
+        }
+        p {
+          width: 100%;
+          margin: 0 0 1rem 0;
+          padding: 0;
+
+          .edit {
+            display: none;
+          }
+        }
+      }
     }
   } // end article
 
@@ -394,5 +503,8 @@ footer {
         }
       }
     }
+  }
+  .credits {
+    line-height: 1.4rem;
   }
 }

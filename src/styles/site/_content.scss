@@ -1,0 +1,62 @@
+/* Code Box */
+* div.code-box {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  h5 {
+    display: block;
+    margin: 0;
+    padding: 5px 10px;
+    background: $color-grey-light;
+    font-size: .8125rem;
+    font-weight: bold;
+    color: $color-text;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    border: 1px solid $color-grey-dark;
+    border-bottom: 0;
+  }
+  pre {
+    font-size: .75rem;
+    padding: 10px;
+    margin: 0;
+  }
+}
+
+/* Tip Box */
+* div.tip-box {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #844;
+  background: #FFD6D6;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+
+  h4 {
+    display: block;
+    margin: 0 0 1rem 0;
+    padding: 5px 10px;
+    background: #844;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #FFF;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    border-bottom: 0;
+  }
+  p {
+    margin: 0 0 1rem 0;
+    padding: 0 15px;
+    font-size: .875rem;
+  }
+  ul, ol {
+    font-size: .875rem;
+  }
+  a:link, a:visited {
+    color: #A00;
+  }
+  a:hover {
+    color: #F00;
+  }
+  .more {
+    display: none;
+  }
+
+}

@@ -1,0 +1,64 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article class="single-column">
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Sign Up</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <div class="form form-signup">
+          <div id="errorBox"></div>
+          <form name="formRegistration" method="post" action="/account/register">
+            <input type="hidden" name="action" value="register" />
+            <fieldset>
+              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com" /></label>
+              <label>First Name <input type="text" name="userFirstName" placeholder="Given Name" /></label>
+              <label>Last Name <input type="text" name="userLastName" placeholder="Family Name" /></label>
+              <label>Password <input type="password" name="userPassword" placeholder="minimum 10 chars" /></label>
+              <label>
+            </fieldset>
+            <button type="submit" id="btnRegisterSubmit" class="btn btn-primary">Register</button>
+          </form>
+        </div>
+
+      </article>
+      <!-- /CONTENT -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var validator = new FormValidator('formRegistration', [
+    {
+        name: 'userEmail',
+        display: 'Email',
+        rules: 'required|valid_email',
+    },
+    {
+        name: 'userFirstName',
+        display: 'First Name',
+        rules: 'required'
+    },
+    {
+        name: 'userLastName',
+        display: 'Last Name',
+        rules: 'required'
+    },
+    {
+        name: 'userPassword',
+        display: 'Password',
+        rules: 'required|min_length[10]'
+    }
+  ],
+  function(errors) {
+    if (errors.length > 0) {
+      var errorString = '';
+      for (var i = 0; i < errors.length; i++) {
+        errorString += errors[i].message + '<br />';
+      }
+      document.getElementById('errorBox').innerHTML = errorString;
+    }
+  });
+});
+</script>

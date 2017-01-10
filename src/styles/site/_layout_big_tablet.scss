@@ -102,6 +102,25 @@
       display: block;
       flex-basis: auto;
       flex-grow: 5;
+
+
+      /* User Profile */
+      .profile-box {
+        display: flex;
+
+        .image {
+          width: auto;
+          max-width: 200px;
+          flex-basis: 200px;
+          margin: 0 30px 1rem 0;
+        }
+        .info {
+          width: auto;
+          flex-basis: 100%;
+          text-align: left;
+        }
+      }
+
     } // end article
 
     /* Sidebar */

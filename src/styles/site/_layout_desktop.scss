@@ -2,7 +2,7 @@
 
 @media only screen and (min-width: 1001px) {
   body {
-    padding-top: 90px;
+    padding-top: 100px;
   }
 
   header {
@@ -13,6 +13,8 @@
 
     .inner {
       height: 60px;
+      text-align: center;
+      position: relative;
     }
     .logo {
       border-bottom: none;
@@ -36,6 +38,15 @@
       flex-basis: auto;
       order: 3;
       border: none;
+
+      .search-box {
+        max-width: 1200px;
+
+        input[type=text] {
+          width: auto;
+          min-width: 350px;
+        }
+      }
     }
     .user-box {
       flex-basis: auto;

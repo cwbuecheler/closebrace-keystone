@@ -32,29 +32,6 @@ h1, h2, h3, h4, h5 {
 
 *.center { text-align: center; }
 
-.browserupgrade {
-  border: 1px dashed #F00;
-  padding: 30px;
-  margin: 30px;
-  background: #FFF6F6;
-}
-
-*.hide-phone {
-  @media only screen and (max-width: 450px) {
-    display: none !important;
-  }
-}
-*.hide-mobile {
-  @media only screen and (max-width: 750px) {
-    display: none !important;
-  }
-}
-*.hide-above-mobile {
-  @media only screen and (min-width: 751px) {
-    display: none !important;
-  }
-}
-
 /* Shared Layout */
 .top-border {
   width: 100%;

@@ -1,0 +1,69 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>{{user.name.first}}'s Profile</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <div class="profile-box">
+          <div class="image">
+            {{#if user.userImage.version}}
+              <img src="http://res.cloudinary.com/closebrace/image/upload/w_400/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+            {{else}}
+              <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
+            {{/if}}
+            <a href="#" class="image-upload">change</a>
+          </div>
+          <div class="info">
+
+            <h4>Name</h4>
+            <p>
+              <span class="display">{{user.name.first}} {{user.name.last}}</a>
+              <span class="edit"><input type="text" /></a>
+            </p>
+
+            <h4>Account Type</h4>
+            <p>
+              {{#unless user.isPro}}
+                Basic User (<a href="/go-pro">Go Pro</a>)
+              {{else}}
+                <strong>CloseBrace Pro</strong> (thanks!)
+              {{/unless}}
+            </p>
+
+            <h4>Password</h4>
+            <p>
+              <a href="/account/reset-password" class="change-password">change</a>
+            </p>
+
+            <h4>Location</h4>
+            <p>
+              {{user.location}}
+            </p>
+
+            <h4>Website</h4>
+            <p>
+              <a href="{{user.website}}" target="_blank">{{user.website}}</a>
+            </p>
+
+            <h4>Twitter</h4>
+            <p>
+              <a href="https://twitter.com/{{user.twitterUsername}}" target="_blank">@{{user.twitterUsername}}</a>
+            </p>
+
+         </div>
+        </div>
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+      </aside>
+      <!-- /SIDEBAR -->

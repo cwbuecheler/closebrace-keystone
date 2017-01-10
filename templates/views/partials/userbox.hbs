@@ -2,10 +2,22 @@
           <p>
             {{#if user}}
               Welcome, {{user.name.first }}<br />
-              <a href="">My Account</a> | <a href="/keystone/signout">Log Out</a>
+              <a href="/account/profile">My Account</a> | <a href="/account/log-out">Log Out</a>
             {{else}}
-              <a href="/keystone/signin">Log In</a>
+              <a href="/account/log-in">Log In</a> |
+              <a href="/account/register">Register</a>
             {{/if}}
           </p>
-          <img src="/images/tempuser.jpg" alt="User Icon" class="user-icon hide-phone" />
+          <div class="user-avatar">
+            {{#if user}}
+              {{#if user.userImage.version}}
+                <img src="http://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon hide-phone" />
+              {{else}}
+                <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon hide-phone" />
+              {{/if}}
+            {{/if}}
+            {{#if user.isPro}}
+              <span class="hide-phone">pro</span>
+            {{/if}}
+          </div>
         </div>

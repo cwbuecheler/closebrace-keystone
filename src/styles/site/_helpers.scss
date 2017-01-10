@@ -9,3 +9,81 @@
   clip: rect(0,0,0,0);
   border: 0;
 }
+
+.browserupgrade {
+  border: 1px dashed #F00;
+  padding: 30px;
+  margin: 30px;
+  background: #FFF6F6;
+}
+
+*.hide-phone {
+  @media only screen and (max-width: 450px) {
+    display: none !important;
+  }
+}
+*.hide-mobile {
+  @media only screen and (max-width: 750px) {
+    display: none !important;
+  }
+}
+*.hide-above-mobile {
+  @media only screen and (min-width: 751px) {
+    display: none !important;
+  }
+}
+
+/* Flash Messages */
+.alert {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid $color-grey-light;
+  background: #FFF;
+  margin: 0 auto 25px auto;
+
+  h4 {
+    margin: 0 0 .25rem 0;
+    color: $color-text;
+    font-weight: 600;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  &.alert-info {
+    background: #d5efff;
+    border-color: #48a6e1;
+
+    h4, p {
+      color: #1075b6;
+    }
+
+  }
+  &.alert-success {
+    background: #d3ffd2;
+    border-color: #61df5e;
+
+    h4, p {
+      color: #14a011;
+    }
+  }
+  &.alert-warning {
+    background: #fdffcc;
+    border-color: #f5ef87;
+
+    h4, p {
+      color: #bc9f17;
+    }
+  }
+  &.alert-danger {
+    background: #ffdbdb;
+    border-color: #d85c5c;
+
+    h4, p {
+      color: #AA0000;
+    }
+  }
+}

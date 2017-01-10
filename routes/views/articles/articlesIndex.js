@@ -3,18 +3,18 @@ var Post = keystone.list('Post');
 
 exports = module.exports = function (req, res) {
 
-	var view = new keystone.View(req, res);
-	var locals = res.locals;
+  var view = new keystone.View(req, res);
+  var locals = res.locals;
 
-	// locals.section is used to set the currently selected
-	// item in the header navigation.
-	locals.section = 'tutorials';
+  // locals.section is used to set the currently selected
+  // item in the header navigation.
+  locals.section = 'articles';
 
   // Load requested posts
   view.on('init', function(next) {
     var q = Post.model.find({
       state: 'published',
-      postType: 'Tutorial',
+      postType: 'Article',
     })
     .sort('-createdAt')
     .populate('author categories');
@@ -31,6 +31,6 @@ exports = module.exports = function (req, res) {
 
   });
 
-	// Render the view
-	view.render('tutorials/tutorialsIndex');
+  // Render the view
+  view.render('articles/articlesIndex');
 };
