@@ -2,6 +2,11 @@ var keystone = require('keystone');
 
 exports = module.exports = function (req, res) {
 
+  // If no one's logged in, disallow all of this
+  if (!req.user) {
+    return res.redirect('/account/log-in');
+  }
+
   var view = new keystone.View(req, res);
   var locals = res.locals;
 

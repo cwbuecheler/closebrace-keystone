@@ -9,32 +9,41 @@
     text-align: left;
     line-height: 1.4;
   }
+}
 
-  fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0 0 1rem 0;
+fieldset {
+border: 0;
+padding: 0;
+margin: 0 0 1rem 0;
 
-    label {
-      display: block;
-      color: $color-grey-ultradark;
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      line-height: 1.5;
-    }
+  label {
+    display: block;
+    color: $color-grey-ultradark;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 5px 10px;
+    font-size: 1.25rem;
+    border: 1px solid $color-brand-secondary;
+    color: $color-text;
+  }
+
+  &.no-center {
     input[type=text],
     input[type=email],
     input[type=password] {
-      display: block;
-      width: 70%;
-      max-width: 300px;
-      margin: 0 auto;
-      padding: 5px 10px;
-      font-size: 1.25rem;
-      border: 1px solid $color-brand-secondary;
-      color: $color-text;
+      margin: 0;
     }
   }
 }
-

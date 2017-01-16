@@ -14,9 +14,10 @@
           <form name="formRegistration" method="post" action="/account/register">
             <input type="hidden" name="action" value="register" />
             <fieldset>
-              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com" /></label>
-              <label>First Name <input type="text" name="userFirstName" placeholder="Given Name" /></label>
-              <label>Last Name <input type="text" name="userLastName" placeholder="Family Name" /></label>
+              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com"  value="{{formData.userEmail}}" /></label>
+              <label>First Name <input type="text" name="userFirstName" placeholder="Given Name" value="{{formData.userFirstName}}" /></label>
+              <label>Last Name <input type="text" name="userLastName" placeholder="Family Name" value="{{formData.userLastName}}" /></label>
+              <label>Username <input type="text" name="userUsername" placeholder="CaptainCodeGuy" value="{{formData.userUsername}}" /></label>
               <label>Password <input type="password" name="userPassword" placeholder="minimum 10 chars" /></label>
               <label>
             </fieldset>
@@ -34,6 +35,11 @@ document.addEventListener("DOMContentLoaded", function() {
         name: 'userEmail',
         display: 'Email',
         rules: 'required|valid_email',
+    },
+    {
+        name: 'userUsername',
+        display: 'Username',
+        rules: 'required|min_length[4]',
     },
     {
         name: 'userFirstName',

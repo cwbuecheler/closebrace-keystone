@@ -101,9 +101,11 @@
 
         .image {
           width: auto;
-          max-width: 200px;
-          flex-basis: 200px;
+          max-width: 150px;
+          flex-basis: 150px;
           margin: 0 30px 1rem 0;
+
+          img { width: 150px; }
         }
         .info {
           width: auto;

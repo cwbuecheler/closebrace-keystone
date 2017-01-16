@@ -1,44 +1,53 @@
-<div class="container">
-	<h1>Contact Us</h1>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-6">
-			{{#if enquirySubmitted}}
-			<h3>Thanks for getting in touch.</h3>
-			{{else}}
-			<form method="post">
-				<input type="hidden" name="action" value="contact">
-				<div class="form-group {{#if validationErrors.name}}has-error{{/if}}">
-					<label>Name</label>
-					<input type="text" name="name.full"  class="form-control" value="{{formData.[name.full]}}">
-				</div>
-				<div class="form-group {{#if validationErrors.email}}has-error{{/if}}">
-					<label>Email</label>
-					<input type="email" name="email" class="form-control" value="{{formData.email}}">
-				</div>
-				<div class="form-group">
-					<label>Phone</label>
-					<input type="text" name="phone" placeholder="(optional)" class="form-control" value="{{formData.phone}}">
-				</div>
-				<div class="form-group {{#if validationErrors.enquiryType}}has-error{{/if}}">
-					<label>What are you contacting us about?</label>
-					<select name="enquiryType" class="form-control">
-						<option value="">(select one)</option>
-						{{#each enquiryTypes}}
-						<option value="{{value}}">{{label}}</option>
-						{{/each}}
-					</select>
-				</div>
-				<div class="form-group {{#if validationErrors.message}}has-error{{/if}} ">
-					<label>Message</label>
-					<textarea name="message" placeholder="Leave us a message..." rows="4" class="form-control">{{formData.message}}</textarea>
-				</div>
-				<div class="form-actions">
-					<button type="submit" class="btn btn-primary">Send</button>
-				</div>
-			</form>
-			{{/if}}
-		</div>
-	</div>
-</div>
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article class="single-column">
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Contact Us</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <div class="form form-contact">
+          <div id="errorBox"></div>
+					{{#if enquirySubmitted}}
+						<h3>Thanks for getting in touch.</h3>
+						<p>
+							We've received your message. We read every piece of feedback we receive, and we try to respond to those that require response as quickly as possible. However, since "we" are only one person, please bear with us if it takes some time! <a href="/go-pro">CloseBrace Pro</a> members receive priority support responses, among other benefits.
+						</p>
+					{{else}}
+						<form method="post">
+						  <fieldset>
+								<input type="hidden" name="action" value="contact">
+								<label>
+									Name
+									<input type="text" name="name.full"  class="form-control" value="{{formData.[name.full]}}">
+								</label>
+								<label>
+									Email
+									<input type="email" name="email" class="form-control" value="{{formData.email}}">
+								</label>
+								<label>
+									Feedback Type
+									<select name="enquiryType" class="form-control">
+										<option value="">(select one)</option>
+										{{#each enquiryTypes}}
+										<option value="{{value}}">{{label}}</option>
+										{{/each}}
+									</select>
+								</label>
+								<label>
+									Message
+									<textarea name="message" placeholder="Leave us a message..." rows="4" class="form-control" style="height: 300px;">{{formData.message}}</textarea>
+								</label>
+							</fieldset>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">Send</button>
+							</div>
+						</form>
+					{{/if}}
+        </div>
+
+      </article>
+      <!-- /CONTENT -->

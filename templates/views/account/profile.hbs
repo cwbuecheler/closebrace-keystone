@@ -5,10 +5,11 @@
 
         <!-- TITLE BOX -->
         <section class="title-box">
-          <h1>{{user.name.first}}'s Profile</h1>
+          <h1>{{user.name.first}}'s Account</h1>
         </section>
         <!-- /TITLE BOX -->
 
+        <div id="errorBox"></div>
         <div class="profile-box">
           <div class="image">
             {{#if user.userImage.version}}
@@ -16,46 +17,135 @@
             {{else}}
               <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
             {{/if}}
-            <a href="#" class="image-upload">change</a>
+            <a href="#" class="image-upload" id="linkChangeImage">change</a>
+            <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
+              <input type="hidden" name="action" value="avatar-upload" />
+              <input type="hidden" name="userID" value="{{user.id}}" />
+              <div class="fallback">
+                <label>Image File:<br/ ><input name="file" type="file" /></label>
+              </div>
+            </form>
           </div>
           <div class="info">
+            <form method="post" action="/account/edit-profile" id="formEditProfile">
+              <input type="hidden" name="action" value="edit-profile" />
+              <input type="hidden" name="userID" value="{{user.id}}" />
+              <fieldset class="no-center">
 
-            <h4>Name</h4>
-            <p>
-              <span class="display">{{user.name.first}} {{user.name.last}}</a>
-              <span class="edit"><input type="text" /></a>
-            </p>
+                <h4>Name</h4>
+                <p>
+                  <span class="display">{{user.name.first}} {{user.name.last}}</a></span>
+                  <span class="edit">
+                    <input type="text" name="userFirstName" placeholder="First Name" value="{{user.name.first}}" /><br />
+                    <input type="text" name="userLastName" placeholder="Last Name" value="{{user.name.last}}" />
+                  </span>
+                </p>
 
-            <h4>Account Type</h4>
-            <p>
-              {{#unless user.isPro}}
-                Basic User (<a href="/go-pro">Go Pro</a>)
-              {{else}}
-                <strong>CloseBrace Pro</strong> (thanks!)
-              {{/unless}}
-            </p>
+                <h4>Username</h4>
+                <p>
+                  <span class="display">{{user.userName}}</a></span>
+                  <span class="edit">
+                    <input type="text" name="userUsername" placeholder="CaptainCodeGuy" value="{{user.userName}}" />
+                  </span>
+                </p>
 
-            <h4>Password</h4>
-            <p>
-              <a href="/account/reset-password" class="change-password">change</a>
-            </p>
+                <h4>Account Type</h4>
+                <p>
+                  {{#unless user.isPro}}
+                    Basic User (<a href="/go-pro">Go Pro</a>)
+                  {{else}}
+                    <strong>CloseBrace Pro</strong> (thanks!)
+                  {{/unless}}
+                </p>
 
-            <h4>Location</h4>
-            <p>
-              {{user.location}}
-            </p>
+                <h4>Password</h4>
+                <p>
+                  <a href="/account/forgot-password" class="change-password">change</a>
+                </p>
 
-            <h4>Website</h4>
-            <p>
-              <a href="{{user.website}}" target="_blank">{{user.website}}</a>
-            </p>
+                <h4>Location</h4>
+                <p>
+                  <span class="display">{{user.location}}</span>
+                  <span class="edit">
+                    <input type="text" name="userLocation" placeholder="Providence, RI, USA"
+                    {{#if user.location}}
+                      value="{{user.location}}" />
+                    {{else}}
+                      />
+                    {{/if}}
+                  </span>
+                </p>
 
-            <h4>Twitter</h4>
-            <p>
-              <a href="https://twitter.com/{{user.twitterUsername}}" target="_blank">@{{user.twitterUsername}}</a>
-            </p>
+                <h4>Website</h4>
+                <p>
+                  <span class="display">
+                    {{#if user.website}}
+                      <a href="{{user.website}}" target="_blank">{{user.website}}</a>
+                    {{/if}}
+                  </span>
+                  <span class="edit">
+                    <input type="text" name="userWebsite" placeholder="http://closebrace.com"
+                    {{#if user.website}}
+                      value="{{user.website}}" />
+                    {{else}}
+                      />
+                    {{/if}}
+                  </span>
+                </p>
 
-         </div>
+                <h4>Twitter</h4>
+                <p>
+                  <span class="display">
+                  {{#if user.twitterUsername}}
+                    <a href="https://twitter.com/{{user.twitterUsername}}" target="_blank">@{{user.twitterUsername}}</a>
+                  {{/if}}
+                  </span>
+                  <span class="edit">
+                    <input type="text" name="userTwitter" placeholder="closebracejs"
+                    {{#if user.twitterUsername}}
+                      value="{{user.twitterUsername}}" />
+                    {{else}}
+                      />
+                    {{/if}}
+                  </span>
+                </p>
+              </fieldset>
+
+              <div class="profile-buttons">
+                <button type="button" id="btnEditProfile" class="btn btn-primary btn-edit-profile">Edit Profile</button>
+                <button type="submit" id="btnSubmitProfileEdits" class="btn btn-primary btn-save-profile">Save Changes</button>
+                <button type="button" id="btnCancelProfileEdits" class="btn btn-grey btn-outline btn-cancel-profile-edit">Cancel Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div id="deleteAccountText">
+          <p>
+            Need to delete your account? We're not one of those annoying sites that doesn't give you that ability, but we want to be very, very sure it doesn't happen by accident, so please click the button below and follow the instructions.
+          </p>
+
+          <button type="button" id="btnDeleteAccountStep1" class="btn btn-primary btn-delete-account-step-1">Yes, I Want to Delete My Account</button>
+        </div>
+
+        <div id="deleteAccountBox" class="delete-account-box">
+          <p>
+            OK, we're sorry to see you go, but we respect your decision. Please note that <strong>this action cannot be reversed</strong>. All of your data will be deleted from our servers, along with all of your comments, and anything else you've contributed. This is not a joke. We're not doing that thing where we say "deleted" but really mean "made the account inactive". Following the instructions below will <strong>permanantly delete your account from this site with no hope of recovery</strong>. You can always create a new account, if you'd like.
+          </p>
+          <p>
+            Still in? Just type "DELETE MY ACCOUNT" (in all caps, but without the quotes) into the box below, and click the Delete Account button.
+          </p>
+          <form id="formDeleteAccount" method="post" action="/account/delete-account">
+            <fieldset>
+              <input type="hidden" name="action" value="delete-account" />
+              <input type="hidden" name="userID" value="{{user.id}}" />
+              <input type="text" name="accountDeleteConfirmText" />
+            </fieldset>
+            <div class="buttons">
+              <button type="submit" class="btn btn-primary">Delete Account</button>
+              <button type="button" class="btn btn-grey btn-outline" id="btnCancelDeleteAccount">Cancel</button>
+            </div>
+          </form>
         </div>
 
       </article>
@@ -67,3 +157,24 @@
         {{> sidebar_ad_vertical }}
       </aside>
       <!-- /SIDEBAR -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var validator = new FormValidator('formEditProfile', [
+    {
+        name: 'userUsername',
+        display: 'Username',
+        rules: 'required|min_length[4]',
+    },
+  ],
+  function(errors) {
+    if (errors.length > 0) {
+      var errorString = '';
+      for (var i = 0; i < errors.length; i++) {
+        errorString += errors[i].message + '<br />';
+      }
+      document.getElementById('errorBox').innerHTML = errorString;
+    }
+  });
+});
+</script>

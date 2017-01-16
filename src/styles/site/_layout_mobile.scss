@@ -406,6 +406,9 @@ header {
         a.image-upload {
           text-transform: uppercase;
         }
+        .dropzone {
+          display: none;
+        }
       }
       .info {
         width: 100%;
@@ -418,8 +421,9 @@ header {
         }
         p {
           width: 100%;
-          margin: 0 0 1rem 0;
-          padding: 0;
+          margin: 0 0 .5rem 0;
+          padding: 0 0 .5rem 0;
+          border-bottom: 1px solid $color-grey-light;
 
           .edit {
             display: none;
@@ -427,6 +431,30 @@ header {
         }
       }
     }
+    .profile-buttons {
+      text-align: right;
+
+      .btn-save-profile {
+        display: none;
+      }
+      .btn-cancel-profile-edit {
+        display: none;
+      }
+    }
+    .delete-account-box {
+      display: none;
+      background: #FFF;
+      border: 1px solid $color-grey-medium;
+      padding: 30px;
+
+      p {
+        margin: 0 0 1rem 0;
+      }
+      .buttons {
+        text-align: center;
+      }
+    }
+
   } // end article
 
   /* Sidebar */

@@ -3,15 +3,10 @@ var User = keystone.list('User');
 
 exports = module.exports = function (req, res) {
 
-  // If someone's already logged in, redirect them to their profile page
-  if (req.user) {
-    return res.redirect(req.cookies.target || '/account/profile');
-  }
-
   var view = new keystone.View(req, res);
   var locals = res.locals;
   locals.section = 'account';
-  locals.form = req.body;
+  locals.formData = req.body || {};
 
   // Turn off ads on this page
   locals.hideAds = true;

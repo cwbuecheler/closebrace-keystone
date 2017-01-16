@@ -12,12 +12,43 @@ exports = module.exports = function (req, res) {
   var view = new keystone.View(req, res);
   var locals = res.locals;
   locals.section = 'account';
-  locals.form = req.body;
+  locals.formData = req.body || {};
 
   // Turn off ads on this page
   locals.hideAds = true;
 
+  view.on('init', function(next) {
+    // Check for duplicate email
+    keystone.list('User').model.findOne({ email: req.body.userEmail })
+    .exec()
+    .then( function(err, user) {
+      if (err || user) {
+        locals.dupeUserEmail = true;
+      }
+    })
+    .then( function(err) {
+      // Check for duplicate username
+      keystone.list('User').model.findOne({ userName: req.body.userUsername }, function(err, user) {
+        console.log(user);
+        if (err || user) {
+          locals.dupeUsername = true;
+        }
+        return next();
+      });
+    });
+  });
+
   view.on('post', { action: 'register' }, function(next) {
+
+    // Redirect dupes
+    if (locals.dupeUserEmail) {
+      req.flash('error', { detail: 'Sorry, a user already exists with that email address. Did you <a href="/forgot-password">forget your password</a>?' });
+      return next();
+    }
+    if (locals.dupeUsername) {
+      req.flash('error', { detail: 'Sorry, that username already exists. Please try another one.' });
+      return next();
+    }
 
     // Validation
     if (!req.body.userFirstName || !req.body.userLastName || !req.body.userEmail || !req.body.userPassword) {
@@ -29,20 +60,13 @@ exports = module.exports = function (req, res) {
       return next();
     }
 
-    // Check for dupes
-    keystone.list('User').model.findOne({ email: req.body.userEmail }, function(err, user) {
-      if (err || user) {
-        req.flash('error', { detail: 'User already exists with that email address.' });
-        return next();
-      }
-    });
-
     var userConfirm = md5(req.body.userFirstName + req.body.userLastName + req.body.userEmail);
     var userData = {
       name: {
         first: req.body.userFirstName,
         last: req.body.userLastName,
       },
+      userName: req.body.userUsername,
       email: req.body.userEmail,
       password: req.body.userPassword,
       confirmHash: userConfirm,

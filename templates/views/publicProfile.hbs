@@ -1,0 +1,74 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>{{foundUser.userName}}'s Profile</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <div class="profile-box">
+          <div class="image">
+            {{#if foundUser.userImage.version}}
+              <img src="http://res.cloudinary.com/closebrace/image/upload/w_400/v{{foundUser.userImage.version}}/{{foundUser.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+            {{else}}
+              <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
+            {{/if}}
+          </div>
+          <div class="info">
+
+            <h4>Name</h4>
+            <p>
+              <span class="display">{{foundUser.name.first}} {{foundUser.name.last}}</a></span>
+              <span class="edit">
+                <input type="text" name="userFirstName" placeholder="First Name" value="{{foundUser.name.first}}" /><br />
+                <input type="text" name="userLastName" placeholder="Last Name" value="{{foundUser.name.last}}" />
+              </span>
+            </p>
+
+            <h4>Account Type</h4>
+            <p>
+              {{#unless foundUser.isPro}}
+                Basic User
+              {{else}}
+                <strong>CloseBrace Pro</strong>
+              {{/unless}}
+            </p>
+
+            <h4>Location</h4>
+            <p>
+              <span class="display">{{foundUser.location}}</span>
+            </p>
+
+            <h4>Website</h4>
+            <p>
+              <span class="display">
+                {{#if foundUser.website}}
+                  <a href="{{foundUser.website}}" target="_blank">{{foundUser.website}}</a>
+                {{/if}}
+              </span>
+            </p>
+
+            <h4>Twitter</h4>
+            <p>
+              <span class="display">
+              {{#if foundUser.twitterUsername}}
+                <a href="https://twitter.com/{{foundUser.twitterUsername}}" target="_blank">@{{foundUser.twitterUsername}}</a>
+              {{/if}}
+              </span>
+            </p>
+
+          </div>
+        </div>
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+      </aside>
+      <!-- /SIDEBAR -->

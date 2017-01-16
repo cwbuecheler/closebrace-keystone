@@ -32,6 +32,13 @@ h1, h2, h3, h4, h5 {
 
 *.center { text-align: center; }
 
+/* Let's give lists a little breathing room for crap's sake */
+ul, ol {
+  li {
+    margin-bottom: .5rem;
+  }
+}
+
 /* Shared Layout */
 .top-border {
   width: 100%;

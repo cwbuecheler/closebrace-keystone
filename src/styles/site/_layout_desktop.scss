@@ -64,6 +64,28 @@
   #wrapper {
     max-width: 1200px;
 
+    article {
+
+      /* User Profile */
+      .profile-box {
+        display: flex;
+
+        .image {
+          width: auto;
+          max-width: 200px;
+          flex-basis: 200px;
+          margin: 0 30px 1rem 0;
+
+          img { width: 200px; }
+        }
+        .info {
+          width: auto;
+          flex-basis: 100%;
+          text-align: left;
+        }
+      }
+    }
+
     /* Sidebar */
     aside {
       flex-basis: 390px;
