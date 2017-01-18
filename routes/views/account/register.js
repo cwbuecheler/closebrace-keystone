@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var md5 = require('js-md5');
 var nodemailer = require('nodemailer');
+var cbOptions = require('../../../options.js');
 
 exports = module.exports = function (req, res) {
 
@@ -29,7 +30,6 @@ exports = module.exports = function (req, res) {
     .then( function(err) {
       // Check for duplicate username
       keystone.list('User').model.findOne({ userName: req.body.userUsername }, function(err, user) {
-        console.log(user);
         if (err || user) {
           locals.dupeUsername = true;
         }
@@ -83,7 +83,8 @@ exports = module.exports = function (req, res) {
       else {
 
         // create reusable transporter object using the default SMTP transport
-        var transporter = nodemailer.createTransport('smtps://chris%40closebrace.com:livffcctljakarvf@smtp.gmail.com');
+        var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+        var transporter = nodemailer.createTransport(mailString);
 
         // setup e-mail data with unicode symbols
         var mailOptions = {

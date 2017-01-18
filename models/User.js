@@ -2,6 +2,7 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var md5 = require('js-md5');
 var nodemailer = require('nodemailer');
+var cbOptions = require('../options.js');
 
 /**
  * User Model
@@ -44,7 +45,8 @@ User.schema.methods.resetPassword = function(callback) {
     if (err) return callback(err);
 
     // create reusable transporter object using the default SMTP transport
-    var transporter = nodemailer.createTransport('smtps://chris%40closebrace.com:livffcctljakarvf@smtp.gmail.com');
+    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    var transporter = nodemailer.createTransport(mailString);
 
     // setup e-mail data with unicode symbols
     var mailOptions = {

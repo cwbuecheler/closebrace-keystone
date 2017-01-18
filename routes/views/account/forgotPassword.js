@@ -19,6 +19,12 @@ exports = module.exports = function (req, res) {
       return next();
     }
 
+    // If the email in the form doesn't match the email of the logged in user, no dice
+    if(req.user.email != req.body.userEmail) {
+      req.flash('error', { detail: 'Sorry, that email address doesn\'t match the one we have on file.' });
+      return res.redirect('/account/forgot-password')
+    }
+
     // Get user
     keystone.list('User').model.findOne({ email: req.body.userEmail }, function(err, user) {
       if (err) return next(err);

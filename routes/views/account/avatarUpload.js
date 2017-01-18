@@ -27,7 +27,6 @@ exports = module.exports = function (req, res) {
   locals.formData = req.body || {};
 
   view.on('init', function(next) {
-
     // Look up existing user
     User.model.findOne().where('id', req.userID).exec(function(err, user) {
       if (err) {
@@ -44,7 +43,6 @@ exports = module.exports = function (req, res) {
   });
 
   view.on('init', function(next) {
-    //cloudinary.uploader.upload(req.files.myImage.path,
     // upload the image to Cloudinary and assign the new URL
     cloudinary.uploader.upload(req.files.file.path, function(result, err) {
       if (err) {
@@ -52,20 +50,14 @@ exports = module.exports = function (req, res) {
         return res.redirect('/account/profile');
       }
       else {
-        locals.cloudinaryImage = result;
+        locals.foundUser.userImage = result;
         return next();
       }
     });
   });
 
   view.on('post', { action: 'avatar-upload' }, function(next) {
-    // Update the found user with the new image - you can probably do this with save
-    console.log(locals.foundUser.userImage);
-    console.log(locals.cloudinaryImage);
-
-    // Build our user (ignoring blank required inputs by using saved values)
-    locals.foundUser.userImage = locals.cloudinaryImage;
-
+    // Save the user object now that it contains the new image data
     locals.foundUser.save(function(err) {
       if (err) {
         req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #5' });
@@ -74,22 +66,6 @@ exports = module.exports = function (req, res) {
       req.flash('success', { detail: 'Changes Made!' });
       res.redirect('/account/profile');
     });
-
-    /*
-    locals.foundUser.getUpdateHandler(req, res).process(locals.foundUser, {
-      fields: 'userImage'
-    }, function(err) {
-      if (err) {
-          console.log(err);
-      }
-      else {
-          req.flash('success', { detail: 'Your image was added.' });
-          return res.redirect('/account/profile');
-      }
-      next();
-    });
-    */
-
   });
 
   view.render('account/profile');

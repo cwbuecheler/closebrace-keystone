@@ -5,6 +5,7 @@ require('dotenv').config();
 // Require keystone
 var keystone = require('keystone');
 var handlebars = require('express-handlebars');
+var cbOptions = require('./options.js');
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -36,7 +37,8 @@ keystone.init({
 });
 
 // Cloudinary Config
-keystone.set('cloudinary config', 'cloudinary://767492972112919:LxjCrzyUGTtuk5H8Yfdl6h-fFgM@closebrace' );
+var cloudinaryKeys = 'cloudinary://' + cbOptions.cloudinary.publicKey + ':' + cbOptions.cloudinary.privateKey + '@closebrace';
+keystone.set('cloudinary config', cloudinaryKeys );
 
 // Load your project's Models
 keystone.import('models');
