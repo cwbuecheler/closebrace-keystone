@@ -176,5 +176,16 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('errorBox').innerHTML = errorString;
     }
   });
+
+  Dropzone.options.avatarUpload = {
+      maxFilesize: 10, // Mb
+      init: function () {
+          // Set up any event handlers
+          this.on('complete', function () {
+              location.reload();
+          });
+      }
+  };
+
 });
 </script>

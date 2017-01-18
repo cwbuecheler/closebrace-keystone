@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var User = keystone.list('User');
+var cloudinary = require('cloudinary');
 
 exports = module.exports = function (req, res) {
 
@@ -42,17 +43,53 @@ exports = module.exports = function (req, res) {
     });
   });
 
-  view.on('post', { action: 'avatar-upload' }, function(next) {
-
-    // Update the found user with the new image
-    locals.foundUser.getUpdateHandler(req).process(req.files.file, function(err) {
+  view.on('init', function(next) {
+    //cloudinary.uploader.upload(req.files.myImage.path,
+    // upload the image to Cloudinary and assign the new URL
+    cloudinary.uploader.upload(req.files.file.path, function(result, err) {
       if (err) {
         req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #4' });
+        return res.redirect('/account/profile');
+      }
+      else {
+        locals.cloudinaryImage = result;
+        return next();
+      }
+    });
+  });
+
+  view.on('post', { action: 'avatar-upload' }, function(next) {
+    // Update the found user with the new image - you can probably do this with save
+    console.log(locals.foundUser.userImage);
+    console.log(locals.cloudinaryImage);
+
+    // Build our user (ignoring blank required inputs by using saved values)
+    locals.foundUser.userImage = locals.cloudinaryImage;
+
+    locals.foundUser.save(function(err) {
+      if (err) {
+        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #5' });
         res.redirect('/account/profile');
       }
       req.flash('success', { detail: 'Changes Made!' });
       res.redirect('/account/profile');
     });
+
+    /*
+    locals.foundUser.getUpdateHandler(req, res).process(locals.foundUser, {
+      fields: 'userImage'
+    }, function(err) {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          req.flash('success', { detail: 'Your image was added.' });
+          return res.redirect('/account/profile');
+      }
+      next();
+    });
+    */
+
   });
 
   view.render('account/profile');

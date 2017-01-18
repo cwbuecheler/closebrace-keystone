@@ -26,7 +26,6 @@ exports = module.exports = function (req, res) {
   locals.formData = req.body || {};
 
   view.on('init', function(next) {
-    console.log('here1');
     // Look up existing user
     User.model.findOne().where('_id', req.body.userID).exec(function(err, user) {
       if (err) {
@@ -38,7 +37,6 @@ exports = module.exports = function (req, res) {
         return res.redirect('/account/profile');
       }
       locals.found = user;
-      console.log('here2');
       next();
     });
 
@@ -46,14 +44,15 @@ exports = module.exports = function (req, res) {
 
 
   view.on('post', { action: 'delete-account' }, function(next) {
-    console.log('here3');
     // Delete the user's comments
     // Delete the user's *
     // Delete the user
     locals.found.remove(function(err) {
       if (!err) {
-        req.flash('success', { detail: 'Account deleted. Goodbye!' });
-        return res.redirect('/account/log-out');
+        keystone.session.signout(req, res, function() {
+          req.flash('success', { detail: 'Account deleted. Goodbye!' });
+          return res.redirect('/');
+        });
       }
       else {
         req.flash('error', { title: err, detail: 'Sorry, something went wrong while deleting your account. Please <a href="/contact">contact us</a>.' });
