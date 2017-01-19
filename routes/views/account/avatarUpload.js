@@ -28,12 +28,12 @@ exports = module.exports = function (req, res) {
 
   view.on('init', function(next) {
     // Look up existing user
-    User.model.findOne().where('id', req.userID).exec(function(err, user) {
+    User.model.findOne().where('_id', req.body.userID).exec(function(err, user) {
       if (err) {
         console.log(err);
         return next(err);
       }
-      if (!user) {
+      if (!user || user === null) {
         req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #3' });
         return res.redirect('/account/profile');
       }
@@ -50,7 +50,7 @@ exports = module.exports = function (req, res) {
         return res.redirect('/account/profile');
       }
       else {
-        locals.foundUser.userImage = result;
+        locals.newUserImage = result;
         return next();
       }
     });
@@ -58,6 +58,7 @@ exports = module.exports = function (req, res) {
 
   view.on('post', { action: 'avatar-upload' }, function(next) {
     // Save the user object now that it contains the new image data
+    locals.foundUser.userImage = locals.newUserImage;
     locals.foundUser.save(function(err) {
       if (err) {
         req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #5' });
