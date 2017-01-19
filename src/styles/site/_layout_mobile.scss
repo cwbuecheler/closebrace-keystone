@@ -509,7 +509,7 @@ footer {
     justify-content: center;
     order: 3;
     flex-basis: 100%;
-    padding: 15px 0;
+    padding: 15px 0 0 0;
 
     ul {
       padding: 0;
@@ -529,6 +529,19 @@ footer {
           font-size: 1rem;
           text-transform: uppercase;
         }
+      }
+    }
+  }
+  .footer-menu {
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        display: inline-block;
+        white-space: nowrap;
+        padding: 0 10px;
       }
     }
   }
