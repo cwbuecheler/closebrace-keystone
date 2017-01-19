@@ -219,6 +219,9 @@ header {
   .home {
 
     /* Home Page - Main Features */
+    .main-features .feature .image-box img {
+      height: 347px;
+    }
     .main-features, .extra-features {
       width: 100%;
       display: flex;
@@ -264,7 +267,6 @@ header {
             width: 100%;
             min-width: 260px;
             max-width: 555px;
-            height: 347px;
           }
         }
       }
