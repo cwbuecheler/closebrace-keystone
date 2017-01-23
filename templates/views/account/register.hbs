@@ -18,7 +18,7 @@
               <label>First Name <input type="text" name="userFirstName" placeholder="Given Name" value="{{formData.userFirstName}}" /></label>
               <label>Last Name <input type="text" name="userLastName" placeholder="Family Name" value="{{formData.userLastName}}" /></label>
               <label>Username <input type="text" name="userUsername" placeholder="CaptainCodeGuy" value="{{formData.userUsername}}" /></label>
-              <label>Password <input type="password" name="userPassword" placeholder="minimum 10 chars" /></label>
+              <label>Password <input type="password" name="userPassword" placeholder="minimum 8 chars" /></label>
               <label>
             </fieldset>
             <button type="submit" id="btnRegisterSubmit" class="btn btn-primary">Register</button>
@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
     {
         name: 'userEmail',
         display: 'Email',
-        rules: 'required|valid_email',
+        rules: 'required|valid_email|min_length[6]',
     },
     {
         name: 'userUsername',
         display: 'Username',
-        rules: 'required|min_length[4]',
+        rules: 'required|min_length[4]|alpha_numeric',
     },
     {
         name: 'userFirstName',
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {
         name: 'userPassword',
         display: 'Password',
-        rules: 'required|min_length[10]'
+        rules: 'required|min_length[8]'
     }
   ],
   function(errors) {

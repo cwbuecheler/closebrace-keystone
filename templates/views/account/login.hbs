@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {
         name: 'userEmail',
         display: 'Email',
-        rules: 'required|valid_email',
+        rules: 'required|valid_email|min_length[6]',
     },
     {
         name: 'userPassword',
