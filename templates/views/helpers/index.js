@@ -136,6 +136,9 @@ module.exports = function () {
 		var output = '';
 		if (typeof (user) !== 'undefined' && user.isAdmin) {
 			output = scriptTemplate({
+				src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+			});
+			output += scriptTemplate({
 				src: '/keystone/js/content/editor.js',
 			});
 		}
