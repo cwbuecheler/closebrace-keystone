@@ -55,7 +55,7 @@ exports = module.exports = function (req, res) {
       req.flash('error', { detail: 'Please fill in all fields.' });
       return next();
     }
-    if (req.body.userPassword.length < 10) {
+    if (req.body.userPassword.length < 8) {
       req.flash('error', { detail: 'Password too short.' });
       return next();
     }
@@ -91,8 +91,8 @@ exports = module.exports = function (req, res) {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
           to: req.body.userEmail, // list of receivers
           subject: 'Please Confirm Your CloseBrace Account', // Subject line
-          text: 'Thanks for registering with CloseBrace. You can confirm your account by visiting the following URL: https://closebrace.com/account/confirm?id=' + userConfirm + '. If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.', // plaintext body
-          html: '<h3>Welcome to CloseBrace</h3><p>Thanks for registering with CloseBrace, the tutorial and resource site for JavaScript developers, by JavaScript developers.</p><p>You can confirm your account by visiting the following URL: <a href="https://closebrace.com/account/confirm?id=' + userConfirm + '" target="_blank">https://closebrace.com/account/confirm?v=' + userConfirm + '</a>.</p><p>If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.</p>' // html body
+          text: 'Thanks for registering with CloseBrace. You can confirm your account by visiting the following URL: https://dev.closebrace.com/account/confirm?id=' + userConfirm + ' ... If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.', // plaintext body
+          html: '<h3>Welcome to CloseBrace</h3><p>Thanks for registering with CloseBrace, the tutorial and resource site for JavaScript developers, by JavaScript developers.</p><p>You can confirm your account by visiting the following URL: <a href="https://dev.closebrace.com/account/confirm?id=' + userConfirm + '" target="_blank">https://dev.closebrace.com/account/confirm?v=' + userConfirm + '</a>.</p><p>If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.</p>' // html body
         };
 
         // send mail with defined transport object
