@@ -15,6 +15,7 @@ $(document).ready(function(){
   $('#btnSearch').on('click', function(e) {
     e.preventDefault();
     $('#searchBox').css('display') === 'block' ? $('#searchBox').hide() : $('#searchBox').show();
+    document.getElementById("formMainSearch").focus();
   });
 
   $('#lnkSearchClose').on('click', function(e) {
