@@ -17,7 +17,7 @@
 							We've received your message. We read every piece of feedback we receive, and we try to respond to those that require response as quickly as possible. However, since "we" are only one person, please bear with us if it takes some time! <a href="/go-pro">CloseBrace Pro</a> members receive priority support responses, among other benefits.
 						</p>
 					{{else}}
-						<form method="post">
+						<form method="post" id="formContact">
 						  <fieldset>
 								<input type="hidden" name="action" value="contact">
 								<label>
@@ -51,3 +51,34 @@
 
       </article>
       <!-- /CONTENT -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var validator = new FormValidator('formContact', [
+    {
+        name: 'name.full',
+        display: 'Name',
+        rules: 'required|min_length[4]',
+    },
+    {
+        name: 'email',
+        display: 'Email',
+        rules: 'required|valid_email|min_length[6]',
+    },
+    {
+        name: 'message',
+        display: 'Message',
+        rules: 'required|min_length[10]'
+    },
+  ],
+  function(errors) {
+    if (errors.length > 0) {
+      var errorString = '';
+      for (var i = 0; i < errors.length; i++) {
+        errorString += errors[i].message + '<br />';
+      }
+      document.getElementById('errorBox').innerHTML = errorString;
+    }
+  });
+});
+</script>
