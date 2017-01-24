@@ -12,7 +12,7 @@
 							<div class="top-border"></div>
 							<div class="image-box">
 								<a href="/tutorials/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
-								<span class="feature-type">Tutorial</span>
+								<span class="feature-type">{{this.postType}}</span>
 								<div class="text-box">
 									<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
 									<p>
@@ -42,7 +42,7 @@
 									<div class="top-border"></div>
 									<div class="image-box">
 										<a href="/tutorials/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
-										<span class="feature-type">Tutorial</span>
+										<span class="feature-type">{{this.postType}}</span>
 										<div class="text-box">
 											<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
 											<p>
@@ -73,7 +73,7 @@
 			                  <em>{{this.subHead}}</em>
 			                </p>
 			              </td>
-			              <td>
+			              <td class="hide-above-mobile">
 			                <a href="/tutorials/{{this.slug}}" class="btn btn-primary">Read</a>
 			              </td>
 			            </tr>
@@ -100,6 +100,7 @@
 						<div class="ad-vertical">
 							<img src="/images/temp_ad_vertical.png" alt="Temp Ad" />
 						</div>
+						{{> sidebar_twitter }}
 					</aside>
 					<!-- /SIDEBAR -->
 
