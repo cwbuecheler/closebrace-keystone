@@ -11,10 +11,10 @@
 						<div class="feature">
 							<div class="top-border"></div>
 							<div class="image-box">
-								<a href="/tutorials/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+								<a href="/{{toLowerCase this.postType}}s/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
 								<span class="feature-type">{{this.postType}}</span>
 								<div class="text-box">
-									<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
+									<h1><a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a></h1>
 									<p>
 										{{this.subHead}}
 									</p>
@@ -41,10 +41,10 @@
 								<div class="feature">
 									<div class="top-border"></div>
 									<div class="image-box">
-										<a href="/tutorials/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+										<a href="/{{toLowerCase this.postType}}s/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
 										<span class="feature-type">{{this.postType}}</span>
 										<div class="text-box">
-											<h1><a href="/tutorials/{{this.slug}}">{{this.title}}</a></h1>
+											<h1><a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a></h1>
 											<p>
 												{{this.subHead}}
 											</p>
@@ -66,15 +66,15 @@
 			          <tbody>
 			          {{#each posts}}
 			            <tr>
-			              <td class="shot hide-mobile"><a href="/tutorials/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
+			              <td class="shot hide-mobile"><a href="/{{toLowerCase this.postType}}s/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
 			              <td class="info">
 			                <p>
-			                  <a href="/tutorials/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
+			                  <a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
 			                  <em>{{this.subHead}}</em>
 			                </p>
 			              </td>
 			              <td class="hide-above-mobile">
-			                <a href="/tutorials/{{this.slug}}" class="btn btn-primary">Read</a>
+			                <a href="/{{toLowerCase this.postType}}s/{{this.slug}}" class="btn btn-primary">Read</a>
 			              </td>
 			            </tr>
 			          {{/each}}

@@ -28,6 +28,10 @@ module.exports = function () {
 		}
 	};
 
+	_helpers.toLowerCase = function(str) {
+		return str.toLowerCase();
+	}
+
 	/**
 	 * Port of Ghost helpers to support cross-theming
 	 * ==============================================
