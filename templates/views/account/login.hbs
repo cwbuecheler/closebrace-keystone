@@ -10,7 +10,7 @@
         <!-- /TITLE BOX -->
 
         <div class="form form-signup">
-          <div id="errorBox"></div>
+          <div id="errorBox" class="error-box"></div>
           <form name="formLogin" method="post" action="/account/log-in">
             <input type="hidden" name="action" value="login" />
             <fieldset>
@@ -46,7 +46,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errors.length > 0) {
       var errorString = '';
       for (var i = 0; i < errors.length; i++) {
-        errorString += errors[i].message + '<br />';
+        var messages = errors[i].messages;
+        for (var t = 0; t < messages.length; t++) {
+          errorString += messages[t] + '<br />';
+        }
       }
       document.getElementById('errorBox').innerHTML = errorString;
     }

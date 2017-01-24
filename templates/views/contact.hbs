@@ -10,7 +10,7 @@
         <!-- /TITLE BOX -->
 
         <div class="form form-contact">
-          <div id="errorBox"></div>
+          <div id="errorBox" class="error-box"></div>
 					{{#if enquirySubmitted}}
 						<h3>Thanks for getting in touch.</h3>
 						<p>
@@ -75,7 +75,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errors.length > 0) {
       var errorString = '';
       for (var i = 0; i < errors.length; i++) {
-        errorString += errors[i].message + '<br />';
+        var messages = errors[i].messages;
+        for (var t = 0; t < messages.length; t++) {
+          errorString += messages[t] + '<br />';
+        }
       }
       document.getElementById('errorBox').innerHTML = errorString;
     }
