@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var sanitizer = require('sanitizer');
 
 exports = module.exports = function (req, res) {
 
@@ -12,12 +13,21 @@ exports = module.exports = function (req, res) {
   locals.section = 'account';
   locals.formData = req.body || {};
 
+  // sanitize form data for obvious reasons
+  for (var key in locals.formData) {
+    // skip loop if the property is from prototype
+    if (!locals.formData.hasOwnProperty(key)) continue;
+    if (typeof locals.formData[key] === 'string') {
+      locals.formData[key] = sanitizer.sanitize(locals.formData[key]);
+    }
+  }
+
   // Turn off ads on this page
   locals.hideAds = true;
 
   view.on('post', { action: 'login' }, function(next) {
 
-    if (!req.body.userEmail || !req.body.userPassword) {
+    if (!locals.formData.userEmail || !locals.formData.userPassword) {
       req.flash('error', { detail: 'Please enter your email and password.' });
       return next();
     }
@@ -31,7 +41,7 @@ exports = module.exports = function (req, res) {
       return next();
     }
 
-    keystone.session.signin({ email: req.body.userEmail, password: req.body.userPassword }, req, res, onSuccess, onFail);
+    keystone.session.signin({ email: locals.formData.userEmail, password: locals.formData.userPassword }, req, res, onSuccess, onFail);
 
 
   });

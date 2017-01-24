@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var User = keystone.list('User');
+var sanitizer = require('sanitizer');
 
 exports = module.exports = function(req, res) {
 
@@ -35,7 +36,7 @@ exports = module.exports = function(req, res) {
       res.redirect('/account/reset-password/' + req.params.key);
     }
 
-    locals.found.password = req.body.userPassword;
+    locals.found.password = sanitizer.sanitize(req.body.userPassword);
     locals.found.resetPasswordKey = '';
     locals.found.save(function(err) {
       if (err) {

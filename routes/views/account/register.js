@@ -2,6 +2,7 @@ var keystone = require('keystone');
 var md5 = require('js-md5');
 var nodemailer = require('nodemailer');
 var cbOptions = require('../../../options.js');
+var sanitizer = require('sanitizer');
 
 exports = module.exports = function (req, res) {
 
@@ -15,12 +16,21 @@ exports = module.exports = function (req, res) {
   locals.section = 'account';
   locals.formData = req.body || {};
 
+  // sanitize form data for obvious reasons
+  for (var key in locals.formData) {
+    // skip loop if the property is from prototype
+    if (!locals.formData.hasOwnProperty(key)) continue;
+    if (typeof locals.formData[key] === 'string') {
+      locals.formData[key] = sanitizer.sanitize(locals.formData[key]);
+    }
+  }
+
   // Turn off ads on this page
   locals.hideAds = true;
 
   view.on('init', function(next) {
     // Check for duplicate email
-    keystone.list('User').model.findOne({ email: req.body.userEmail })
+    keystone.list('User').model.findOne({ email: locals.formData.userEmail })
     .exec()
     .then( function(err, user) {
       if (err || user) {
@@ -29,7 +39,7 @@ exports = module.exports = function (req, res) {
     })
     .then( function(err) {
       // Check for duplicate username
-      keystone.list('User').model.findOne({ userName: req.body.userUsername }, function(err, user) {
+      keystone.list('User').model.findOne({ userName: locals.formData.userUsername }, function(err, user) {
         if (err || user) {
           locals.dupeUsername = true;
         }
@@ -51,24 +61,24 @@ exports = module.exports = function (req, res) {
     }
 
     // Validation
-    if (!req.body.userFirstName || !req.body.userLastName || !req.body.userEmail || !req.body.userPassword) {
+    if (!locals.formData.userFirstName || !locals.formData.userLastName || !locals.formData.userEmail || !locals.formData.userPassword) {
       req.flash('error', { detail: 'Please fill in all fields.' });
       return next();
     }
-    if (req.body.userPassword.length < 8) {
+    if (locals.formData.userPassword.length < 8) {
       req.flash('error', { detail: 'Password too short.' });
       return next();
     }
 
-    var userConfirm = md5(req.body.userFirstName + req.body.userLastName + req.body.userEmail);
+    var userConfirm = md5(locals.formData.userFirstName + locals.formData.userLastName + locals.formData.userEmail);
     var userData = {
       name: {
-        first: req.body.userFirstName,
-        last: req.body.userLastName,
+        first: locals.formData.userFirstName,
+        last: locals.formData.userLastName,
       },
-      userName: req.body.userUsername,
-      email: req.body.userEmail,
-      password: req.body.userPassword,
+      userName: locals.formData.userUsername,
+      email: locals.formData.userEmail,
+      password: locals.formData.userPassword,
       confirmHash: userConfirm,
     };
 
@@ -89,7 +99,7 @@ exports = module.exports = function (req, res) {
         // setup e-mail data with unicode symbols
         var mailOptions = {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
-          to: req.body.userEmail, // list of receivers
+          to: locals.formData.userEmail, // list of receivers
           subject: 'Please Confirm Your CloseBrace Account', // Subject line
           text: 'Thanks for registering with CloseBrace. You can confirm your account by visiting the following URL: https://dev.closebrace.com/account/confirm?id=' + userConfirm + ' ... If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.', // plaintext body
           html: '<h3>Welcome to CloseBrace</h3><p>Thanks for registering with CloseBrace, the tutorial and resource site for JavaScript developers, by JavaScript developers.</p><p>You can confirm your account by visiting the following URL: <a href="https://dev.closebrace.com/account/confirm?id=' + userConfirm + '" target="_blank">https://dev.closebrace.com/account/confirm?v=' + userConfirm + '</a>.</p><p>If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.</p>' // html body
@@ -112,7 +122,7 @@ exports = module.exports = function (req, res) {
           res.redirect('/');
         }
 
-        keystone.session.signin({ email: req.body.userEmail, password: req.body.userPassword }, req, res, onSuccess, onFail);
+        keystone.session.signin({ email: locals.formData.userEmail, password: locals.formData.userPassword }, req, res, onSuccess, onFail);
       }
     });
 

@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var User = keystone.list('User');
 var cloudinary = require('cloudinary');
+var sanitizer = require('sanitizer');
 
 exports = module.exports = function (req, res) {
 
@@ -26,9 +27,18 @@ exports = module.exports = function (req, res) {
   locals.section = 'account';
   locals.formData = req.body || {};
 
+  // sanitize form data for obvious reasons
+  for (var key in locals.formData) {
+    // skip loop if the property is from prototype
+    if (!locals.formData.hasOwnProperty(key)) continue;
+    if (typeof locals.formData[key] === 'string') {
+      locals.formData[key] = sanitizer.sanitize(locals.formData[key]);
+    }
+  }
+
   view.on('init', function(next) {
     // Look up existing user
-    User.model.findOne().where('_id', req.body.userID).exec(function(err, user) {
+    User.model.findOne().where('_id', locals.formData.userID).exec(function(err, user) {
       if (err) {
         console.log(err);
         return next(err);

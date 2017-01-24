@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var User = keystone.list('User');
+var sanitizer = require('sanitizer');
 
 exports = module.exports = function (req, res) {
 
@@ -19,12 +20,21 @@ exports = module.exports = function (req, res) {
   locals.section = 'account';
   locals.formData = req.body || {};
 
+  // sanitize form data for obvious reasons
+  for (var key in locals.formData) {
+    // skip loop if the property is from prototype
+    if (!locals.formData.hasOwnProperty(key)) continue;
+    if (typeof locals.formData[key] === 'string') {
+      locals.formData[key] = sanitizer.sanitize(locals.formData[key]);
+    }
+  }
+
   // Turn off ads on this page
   locals.hideAds = true;
 
   view.on('init', function(next) {
     // Look up existing user
-    User.model.findOne().where('_id', req.body.userID).exec(function(err, user) {
+    User.model.findOne().where('_id', locals.formData.userID).exec(function(err, user) {
       if (err) {
         console.log(err);
         return next(err);
@@ -41,7 +51,7 @@ exports = module.exports = function (req, res) {
 
   view.on('init', function(next) {
     // catch username conflicts
-    User.model.findOne().where('userName', req.body.userUsername).exec(function(err, foundUser) {
+    User.model.findOne().where('userName', locals.formData.userUsername).exec(function(err, foundUser) {
       locals.dupeUsername = false;
       if (err) {
         console.log(err);
@@ -50,7 +60,7 @@ exports = module.exports = function (req, res) {
       if (!foundUser) {
         return next();
       }
-      if (foundUser.id != req.body.userID) {
+      if (foundUser.id != locals.formData.userID) {
         locals.dupeUsername = true;
       }
       next();
@@ -65,12 +75,12 @@ exports = module.exports = function (req, res) {
     }
 
     // Build our user (ignoring blank required inputs by using saved values)
-    locals.found.name.first = req.body.userFirstName || locals.found.name.first;
-    locals.found.name.last = req.body.userLastName || locals.found.name.last;
-    locals.found.userName = req.body.userUsername || locals.found.userName;
-    locals.found.location = req.body.userLocation;
-    locals.found.website = addhttp(req.body.userWebsite);
-    locals.found.twitterUsername = removeAtSign(req.body.userTwitter);
+    locals.found.name.first =locals.formData.userFirstName || locals.found.name.first;
+    locals.found.name.last = locals.formData.userLastName || locals.found.name.last;
+    locals.found.userName = locals.formData.userUsername || locals.found.userName;
+    locals.found.location = locals.formData.userLocation;
+    locals.found.website = addhttp(locals.formData.userWebsite);
+    locals.found.twitterUsername = removeAtSign(locals.formData.userTwitter);
 
     locals.found.save(function(err) {
       if (err) {
