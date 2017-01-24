@@ -52,6 +52,7 @@ exports = module.exports = function (app) {
   app.all('/contact', routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
+  app.get('/tags/:tag', routes.views.tags.tagsIndex);
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:post', routes.views.tutorials.post);
