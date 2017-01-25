@@ -27,6 +27,9 @@ exports = module.exports = function (req, res) {
         for(var t = 0; t < resultTags.length; t++) {
           if (resultTags[t].key === locals.tag) {
             finalPosts.push(result);
+            // this is just so we have a prettier version of the tag to reference in the title
+            // doesn't really matter if it gets overwritten multiple times.
+            locals.tagName = resultTags[t].name;
           }
         }
       }
