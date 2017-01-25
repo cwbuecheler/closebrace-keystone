@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
   ],
   function(errors) {
     if (errors.length > 0) {
+      document.getElementById('errorBox').style.display = 'block';
       var errorString = '';
       for (var i = 0; i < errors.length; i++) {
         var messages = errors[i].messages;
