@@ -21,6 +21,7 @@
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
+var RateLimit = require('express-rate-limit');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
@@ -33,23 +34,33 @@ var routes = {
 
 // Setup Route Bindings
 exports = module.exports = function (app) {
+
+  // needed for rate limiter
+  app.enable('trust proxy');
+
+  var apiLimiter = new RateLimit({
+    windowMs: 15*60*1000, // 15 minutes 
+    max: 100,
+    delayMs: 0 // disabled 
+  });
+
 	// Views
 	app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
-  app.all('/account/avatar-upload', routes.views.account.avatarUpload);
+  app.all('/account/avatar-upload', apiLimiter, routes.views.account.avatarUpload);
   app.get('/account/confirm', routes.views.account.confirm);
-  app.all('/account/delete-account', routes.views.account.deleteAccount);
-  app.all('/account/edit-profile', routes.views.account.editProfile);
-  app.all('/account/forgot-password', routes.views.account.forgotPassword);
-  app.all('/account/log-in', routes.views.account.login);
+  app.all('/account/delete-account', apiLimiter, routes.views.account.deleteAccount);
+  app.all('/account/edit-profile', apiLimiter, routes.views.account.editProfile);
+  app.all('/account/forgot-password', apiLimiter, routes.views.account.forgotPassword);
+  app.all('/account/log-in', apiLimiter, routes.views.account.login);
   app.get('/account/log-out', routes.views.account.logout);
-  app.all('/account/profile', routes.views.account.profile);
-  app.all('/account/register', routes.views.account.register);
+  app.all('/account/profile', apiLimiter, routes.views.account.profile);
+  app.all('/account/register', apiLimiter, routes.views.account.register);
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
-  app.all('/account/reset-password/:key', routes.views.account.resetPassword);
+  app.all('/account/reset-password/:key', apiLimiter, routes.views.account.resetPassword);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
-  app.all('/contact', routes.views.contact);
+  app.all('/contact', apiLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
