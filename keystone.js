@@ -1,3 +1,7 @@
+var express = require('express');
+var app = express();
+var helmet = require('helmet');
+
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
 require('dotenv').config();
@@ -10,6 +14,9 @@ var cbOptions = require('./options.js');
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
+
+//Add your middleware
+app.use(helmet());
 
 keystone.init({
 	'name': 'CloseBrace',
