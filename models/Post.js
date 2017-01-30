@@ -16,6 +16,7 @@ Post.add({
   subHead: { type: String, required: true, initial: true },
   author: { type: Types.Relationship, ref: 'User', filters: { isAuthor: 'true' }, index: true },
   postType: { type: Types.Select, options: 'Tutorial, Article, Blog, Other'},
+  category: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true },
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
   tags: { type: Types.Relationship, ref: 'Tag', many: true },
   mainImage: { type: Types.CloudinaryImage },

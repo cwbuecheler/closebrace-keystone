@@ -20,6 +20,9 @@
             <a href="https://twitter.com/{{twitterUsername}}" target="_blank">@{{twitterUsername}}</a> &nbsp; | &nbsp;
           {{/with}}
             Last Updated: {{post.updatedAtFormatted}}
+            {{#if post.category}}
+            <br />Posted In: <a href="/articles/categories/{{post.category.key}}">{{post.category.name}}</a>
+            {{/if}}
           </div>
         </section>
         <!-- /TITLE BOX -->

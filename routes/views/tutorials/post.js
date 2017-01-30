@@ -19,7 +19,7 @@ exports = module.exports = function (req, res) {
   		state: 'published',
   		postType: 'Tutorial',
   		slug: locals.filters.post,
-  	}).populate('author categories tags');
+  	}).populate('author tags category');
 
   	q.exec(function(err, result) {
   		locals.post = result;
