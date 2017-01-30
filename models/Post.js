@@ -26,6 +26,7 @@ Post.add({
   tutorialInfo: { type: Types.Markdown, height: 150 },
   contentImages: { type: Types.CloudinaryImages },
   content: { type: Types.Markdown, height: 500 },
+  // comments: { type: Types.Relationship, ref: 'Comment', many: true, hidden: true },
 });
 
 // Provide access to Keystone

@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Post = keystone.list('Post');
+var Comment = keystone.list('Comment');
 
 exports = module.exports = function (req, res) {
 
@@ -15,19 +16,38 @@ exports = module.exports = function (req, res) {
 
   // Load requested post
   view.on('init', function(next) {
-  	var q = Post.model.findOne({
-  		state: 'published',
-  		postType: 'Tutorial',
-  		slug: locals.filters.post,
-  	}).populate('author tags category');
+    var q = Post.model.findOne({
+      state: 'published',
+      postType: 'Tutorial',
+      slug: locals.filters.post,
+    }).populate('author tags category');
 
-  	q.exec(function(err, result) {
-  		locals.post = result;
+    q.exec(function(err, result) {
+      locals.post = result;
+      locals.filters.postID = locals.post._id;
       var updatedAtFormatted = result._.updatedAt.format('Do MMM YYYY');
       locals.post.updatedAtFormatted = updatedAtFormatted;
-  		next(err);
-  	});
+      next(err);
+    });
+  });
 
+  // Grab comments for post
+  view.on('init', function(next) {
+    var q = Comment.model.find({
+      state: 'published',
+    })
+    .where('relatedPost', locals.filters.postID)
+    .sort('-createdAt')
+    .populate('author');
+
+    q.exec(function(err, results) {
+      locals.comments = results;
+      for (var i = 0; i < results.length; i++) {
+        var createdAtFormatted = results[i]._.createdAt.format('Do MMM YYYY');
+        locals.comments[i].createdAtFormatted = createdAtFormatted;
+      }
+      next(err);
+    });
   });
 
   // Render the view

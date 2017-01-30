@@ -1,0 +1,64 @@
+.comment {
+  width: 100%;
+  border: 1px solid $color-grey-light;
+  display: flex;
+  background: #FFF;
+
+  .author {
+    flex-basis: 170px;
+    padding: 20px 10px 20px 20px;
+    text-align: center;
+    font-size: .8125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .user-avatar {
+      width: 75px;
+      position: relative;
+      padding: 0;
+      line-height: 1;
+      margin: 0 auto .5rem auto;
+      font-size: 0;
+
+      img.user-icon {
+        width: 75px;
+        height: 75px;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+      }
+      span {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.5rem;
+        background: #ffde5b;
+        color: #FFF;
+        padding: 1px 3px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+    }
+  }
+  .text {
+    padding: 20px 20px 20px 10px;
+    flex-basis: 100%;
+    position: relative;
+
+    h4 {
+      margin: 0 0 .5rem 0;
+    }
+
+    p {
+      margin: 0 0 1rem 0;
+    }
+
+    .plus-one {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+}

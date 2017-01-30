@@ -1,5 +1,4 @@
 {{!< default}}
-
       <!-- CONTENT -->
       <article>
 
@@ -44,6 +43,45 @@
           {{{post.content.html}}}
         </section>
         <!-- /ARTICLE TEXT -->
+
+        <!-- COMMENTS -->
+        <section class="comments">
+          <h3>Comments</h3>
+          {{#each comments}}
+            <div class="comment">
+              <div class="author">
+                <div class="user-avatar">
+                  {{#if this.author.userImage.version}}
+                    <img src="http://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{this.author.userImage.version}}/{{this.author.userImage.public_id}}.jpg" alt="User Icon" class="user-icon hide-phone" />
+                  {{else}}
+                    <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon hide-phone" />
+                  {{/if}}
+                  {{#if this.author.isPro}}
+                    <span class="hide-phone">pro</span>
+                  {{/if}}
+                </div>
+                <a href="/u/{{this.author.userName}}">{{this.author.userName}}</a>
+              </div>
+              <div class="text">
+                <h4>{{this.createdAtFormatted}}</h4>
+                {{{this.content.html}}}
+                <div class="plus-one">
+                  <button type="button" class="btn btn-grey btn-outling">+1</a></button>
+                </div>
+                <div class="buttons">
+                  <button type="button" class="btn btn-primary">Reply</button>
+                  <button type="button" class="btn btn-warning">Flag</button>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+          {{#if user.isVerified}}
+            Here's the comment form
+          {{else}}
+            <p>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account.</p>
+          {{/if}}
+        </section>
+        <!-- /COMMENTS -->
 
       </article>
       <!-- /CONTENT -->

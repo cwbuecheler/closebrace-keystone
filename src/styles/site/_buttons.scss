@@ -34,13 +34,24 @@
   }
   &.btn-grey {
     background: $color-grey-medium;
-    color: #222;
+    color: #FFF;
     border: none;
 
     &.btn-outline {
       border: 1px solid $color-grey-medium;
       background: #FFF;
       color: $color-grey-medium;
+    }
+  }
+  &.btn-warning {
+    background: darken($color-warning, 10);
+    color: #FFF;
+    border: none;
+
+    &.btn-outline {
+      border: 1px solid darken($color-warning, 10);
+      background: #FFF;
+      color: darken($color-warning, 10);
     }
   }
 }
