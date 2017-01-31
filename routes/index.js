@@ -30,6 +30,7 @@ keystone.pre('render', middleware.flashMessages);
 // Import Route Controllers
 var routes = {
 	views: importRoutes('./views'),
+  api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
@@ -38,7 +39,7 @@ exports = module.exports = function (app) {
   // needed for rate limiter
   app.enable('trust proxy');
 
-  var apiLimiter = new RateLimit({
+  var postLimiter = new RateLimit({
     windowMs: 15*60*1000, // 15 minutes 
     max: 100,
     delayMs: 0 // disabled 
@@ -47,20 +48,20 @@ exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
-  app.all('/account/avatar-upload', apiLimiter, routes.views.account.avatarUpload);
+  app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
   app.get('/account/confirm', routes.views.account.confirm);
-  app.all('/account/delete-account', apiLimiter, routes.views.account.deleteAccount);
-  app.all('/account/edit-profile', apiLimiter, routes.views.account.editProfile);
-  app.all('/account/forgot-password', apiLimiter, routes.views.account.forgotPassword);
-  app.all('/account/log-in', apiLimiter, routes.views.account.login);
+  app.all('/account/delete-account', postLimiter, routes.views.account.deleteAccount);
+  app.all('/account/edit-profile', postLimiter, routes.views.account.editProfile);
+  app.all('/account/forgot-password', postLimiter, routes.views.account.forgotPassword);
+  app.all('/account/log-in', postLimiter, routes.views.account.login);
   app.get('/account/log-out', routes.views.account.logout);
-  app.all('/account/profile', apiLimiter, routes.views.account.profile);
-  app.all('/account/register', apiLimiter, routes.views.account.register);
+  app.all('/account/profile', postLimiter, routes.views.account.profile);
+  app.all('/account/register', postLimiter, routes.views.account.register);
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
-  app.all('/account/reset-password/:key', apiLimiter, routes.views.account.resetPassword);
+  app.all('/account/reset-password/:key', postLimiter, routes.views.account.resetPassword);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
-  app.all('/contact', apiLimiter, routes.views.contact);
+  app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
@@ -68,6 +69,13 @@ exports = module.exports = function (app) {
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:post', routes.views.tutorials.post);
   app.get('/u/:username', routes.views.publicProfile)
+
+  // API
+  app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
+  app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
+  app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
+  app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
+  app.get('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

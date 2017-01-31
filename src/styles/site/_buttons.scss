@@ -10,6 +10,12 @@
   text-decoration: none;
   cursor: pointer;
 
+  &.btn-small {
+    font-size: .8125rem;
+    padding: 3px 8px;
+    border-radius: 8px;
+  }
+
   &.btn-primary {
     background: $color-brand-primary;
     color: #FFF;
