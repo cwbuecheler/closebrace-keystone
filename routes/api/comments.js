@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var sanitizer = require('sanitizer');
 
 var Comment = keystone.list('Comment');
 
@@ -34,6 +35,16 @@ exports.get = function(req, res) {
 exports.create = function(req, res) {
   var item = new Comment.model();
   var data = (req.method == 'POST') ? req.body : req.query;
+
+  // sanitize form data
+  for (var key in data) {
+    // skip loop if the property is from prototype
+    if (!data.hasOwnProperty(key)) continue;
+    if (typeof data[key] === 'string') {
+      data[key] = sanitizer.sanitize(data[key]);
+    }
+  }
+
   item.getUpdateHandler(req).process(data, function(err) {
     if (err) { return res.apiError('error', err) };
     res.apiResponse({

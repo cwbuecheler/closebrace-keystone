@@ -20,7 +20,7 @@ Comment.add({
   isPublished: { type: Boolean, default: false },
   content: { type: Types.Markdown, height: 250, required: true, initial: true, },
   inReplyTo: { type: String, default: null },
-  relatedPost: { type: String, index: true, noedit: true, },
+  relatedPost: { type: String, index: true },
 });
 
 // Provide access to Keystone

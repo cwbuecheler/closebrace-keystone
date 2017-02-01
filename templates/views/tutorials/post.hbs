@@ -52,8 +52,12 @@
             <div class="add-comment form-in-content">
               <!-- submission handled via ajax -->
               <fieldset>
-                <textarea name="comment"></textarea>
+                <input type="hidden" id="hidUserID" value="{{user._id}}" />
+                <input type="hidden" id="hidPostID" value="{{post._id}}" />
+                <textarea name="comment" id="textAddComment"></textarea>
+                <button type="button" id="btnAddComment" class="btn btn-primary">Add Comment</button>
               </fieldset>
+
             </div>
           {{else}}
             <p>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account.</p>
@@ -81,15 +85,23 @@
               </div>
               <div class="text">
                 <h5>by <a href="/u/{{this.author.userName}}">{{this.author.userName}}</a> at {{this.createdAtFormatted}}</h5>
-                {{{this.content.html}}}
+                <div class="md">
+                  {{{this.content.html}}}
+                </div>
                 <!--
                 <div class="plus-one">
                   <button type="button" class="btn btn-grey btn-outling">+1</a></button>
                 </div>
                 -->
-                <div class="buttons">
-                  <button type="button" class="btn btn-primary btn-outline reply">Reply</button>
-                  <a href="" class="flag">Flag</button>
+                <div class="links">
+                  {{#ifeq ../user.id this.author.id}}
+                  {{else}}
+                    <a href="#" id="linkFlagComment" class="flag">Flag</a> |
+                  {{/ifeq}}
+                  {{#if ../user.isAdmin}}
+                    <a href="#" id="linkDeleteComment" data-commentID="{{this.id}}">Delete</a> |
+                  {{/if}}
+                  <a href="">Reply</a>
                 </div>
               </div>
             </div>

@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  /* Perform on Load ================================================ */
+  /* Check for ad blockers */
+  if(document.getElementById('sauWs0UJTcvwx')) {
+    isAdsBlocked = false;
+  }
+  else {
+    isAdsBlocked = true;
+  }
+  if(isAdsBlocked === true) { displayAdNotice('adblock-notice'); }
+
   /* Site Globals =================================================== */
   var isAdsBlocked = false;
 
@@ -120,14 +130,84 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  /* Check for ad blockers */
-  if(document.getElementById('sauWs0UJTcvwx')) {
-    isAdsBlocked = false;
+  // Comments - Add Comment
+  if(idExists('btnAddComment')) {
+    document.getElementById('btnAddComment').addEventListener('click', function(e){
+
+    // put together our submission
+    var commentPacket = {
+      author: document.getElementById('hidUserID').value,
+      content: document.getElementById('textAddComment').value,
+      inReplyTo: null,
+      relatedPost: document.getElementById('hidPostID').value,
+      state: 'published',
+      isPublished: true,
+    }
+
+    // Ajax submit the comment
+    aja()
+      .method('post')
+      .url('/api/comments/create')
+      .cache(false)
+      .body(commentPacket)
+      .on('200', function(response){
+        // Reload the window to show the comment
+        window.location.reload();
+      })
+       .on('40x', function(response){
+          //something is definitely wrong
+          // 'x' means any number (404, 400, etc. will match)
+          console.log(response);
+      })
+      .on('500', function(response){
+          //oh crap
+          console.log(response);
+      })
+      .go();
+    });
   }
-  else {
-    isAdsBlocked = true;
+
+  // Comments - Delete Comment
+  if(idExists('linkDeleteComment')) {
+    document.getElementById('linkDeleteComment').addEventListener('click', function(e){
+      e.preventDefault();
+      var targetCommentID = this.dataset.commentid;
+      var deleteConf = confirm('Are you sure you want to delete this comment?');
+      // Ajax delete the comment
+      if(deleteConf) {
+        aja()
+        .method('get')
+        .url('/api/comments/' + targetCommentID + '/remove')
+        .cache(false)
+        .on('200', function(response){
+          // Reload the window to show the comment has been removed
+          window.location.reload();
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
+    });
   }
-  if(isAdsBlocked === true) { displayAdNotice('adblock-notice'); }
+
+  // Comments - Flag Comment
+  if(idExists('linkFlagComment')) {
+    document.getElementById('linkFlagComment').addEventListener('click', function(e){
+      e.preventDefault();
+      var targetCommentID = this.dataset.commentid;
+      var flagConf = confirm('Are you sure you want to flag this comment as abuse / spam / in violation of the community guidelines?');
+      if (flagConf) { alert('clickety claw'); }
+    });
+  }
+
+
 
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {

@@ -3,6 +3,7 @@
   border: 1px solid $color-grey-light;
   display: flex;
   background: #FFF;
+  margin-bottom: 1rem;
 
   .author {
     padding: 10px 10px 10px 10px;
@@ -50,23 +51,26 @@
       margin: 0 0 .5rem 0;
       color: $color-grey-medium;
     }
-    p {
-      margin: 0 0 1rem 0;
+    .md {
+      p {
+        margin: 0 0 1rem 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
     }
     .plus-one {
       position: absolute;
       top: 10px;
       right: 10px;
     }
-    .buttons {
+    .links {
       text-align: right;
+      text-transform: uppercase;
+      font-size: .875rem;
 
       .flag {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        text-transform: uppercase;
-        font-size: .875rem;
         color: #C00;
       }
     }
