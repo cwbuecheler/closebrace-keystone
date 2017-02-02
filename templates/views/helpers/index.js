@@ -14,6 +14,28 @@ module.exports = function () {
 	var _helpers = {};
 
 	/**
+	 * ClosBrace Custom HBS Helpers
+	 * ============================
+	 */
+
+	// run through an array of flaggers and report if it contains a given string
+	_helpers.ifIsFlagged = function(flaggers, str, options) {
+		var isFlagger = false;
+		for (var i = 0; i < flaggers.length; i++ ) {
+			if (flaggers[i] === str) {
+				isFlagger = true;
+			}
+		}
+		if(isFlagger) {
+			return options.fn(this);
+		}
+		else {
+			return options.inverse(this);
+		}
+	}
+
+
+	/**
 	 * Generic HBS Helpers
 	 * ===================
 	 */

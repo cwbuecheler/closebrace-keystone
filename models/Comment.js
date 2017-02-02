@@ -7,7 +7,7 @@ var Types = keystone.Field.Types;
  */
 var Comment = new keystone.List('Comment', {
     autokey: { path: 'slug', from: '_id', unique: true },
-    defaultSort: '-publishedAt'
+    defaultSort: '+isFlagged, -createdAt'
 });
 
 Comment.add({
@@ -21,6 +21,7 @@ Comment.add({
   content: { type: Types.Markdown, height: 250, required: true, initial: true, },
   inReplyTo: { type: String, default: null },
   relatedPost: { type: String, index: true },
+  flaggers: { type: Types.TextArray },
 });
 
 // Provide access to Keystone
@@ -32,4 +33,5 @@ Comment.schema.virtual('canAccessKeystone').get(function () {
 /**
  * Registration
  */
+Comment.defaultColumns = 'author, isFlagged, flags, createdAt';
 Comment.register();

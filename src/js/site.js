@@ -202,8 +202,29 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('linkFlagComment').addEventListener('click', function(e){
       e.preventDefault();
       var targetCommentID = this.dataset.commentid;
+      var flagger = this.dataset.flagger;
       var flagConf = confirm('Are you sure you want to flag this comment as abuse / spam / in violation of the community guidelines?');
-      if (flagConf) { alert('clickety claw'); }
+      if (flagConf) {
+        aja()
+        .method('post')
+        .url('/api/comments/flag')
+        .body({ flagger: flagger, id: targetCommentID })
+        .cache(false)
+        .on('200', function(response){
+          // Reload the window to show the comment has been removed
+          window.location.reload();
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
     });
   }
 

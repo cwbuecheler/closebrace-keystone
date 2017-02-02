@@ -1,4 +1,4 @@
-.comment {
+.comment, .add-comment {
   width: 100%;
   border: 1px solid $color-grey-light;
   display: flex;
@@ -12,6 +12,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-basis: 0 0 95px;
 
     .user-avatar {
       width: 45px;
@@ -44,20 +45,40 @@
   }
   .text {
     padding: 10px;
-    flex-basis: 100%;
     position: relative;
+    flex: 1;
+    overflow: auto;
+
+    &.text-flagged {
+      color: lighten($color-warning, 40);
+    }
 
     h5 {
       margin: 0 0 .5rem 0;
       color: $color-grey-medium;
     }
     .md {
+      max-width: 100%;
+      display: block;
       p {
         margin: 0 0 1rem 0;
 
         &:last-child {
           margin: 0;
         }
+      }
+      pre {
+        width: auto;
+        max-width: 100%;
+        display: block;
+        font-family: Consolas, monaco, monospace;
+        font-size: .75rem !important;
+        margin: 0 0 1em 0;
+        padding: 15px;
+        line-height: 1.2;
+        background: #FFF;
+        border: 1px solid #CCC;
+        overflow: auto;
       }
     }
     .plus-one {
@@ -74,5 +95,27 @@
         color: #C00;
       }
     }
+  }
+}
+
+.add-comment {
+  text-align: right;
+
+  fieldset {
+    margin: 0;
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      height: 60px;
+      padding: 10px;
+      margin: 0 0 .5rem 0;
+      text-align: left;
+    }
+
+  }
+
+  .text {
+    border-left: 1px solid $color-grey-light;
   }
 }

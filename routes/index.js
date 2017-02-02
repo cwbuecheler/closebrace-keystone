@@ -76,6 +76,7 @@ exports = module.exports = function (app) {
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
   app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
   app.get('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
+  app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
