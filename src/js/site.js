@@ -22,6 +22,26 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   /* Event Catchers ================================================= */
+
+  // Global ESC key catcher
+  document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+      isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+      isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+      // contains things to do if the esc key is clicked
+
+      // Close the search box is it's open
+      if(idExists('searchBox')) {
+        document.getElementById('searchBox').style.display = 'none';
+      }
+    }
+  };
+
   // Main header search button
   if(idExists('btnSearch')) {
     document.getElementById('btnSearch').addEventListener('click', function(e){
@@ -38,6 +58,19 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('lnkSearchClose').addEventListener('click', function(e){
       e.preventDefault();
       document.getElementById('searchBox').style.display = 'none';
+    });
+  }
+
+  // Main header click outside of search box
+  if(idExists('searchBox')) {
+    var searchBox = document.getElementById('searchBox');
+    var searchBtn = document.getElementById('btnSearch');
+    document.addEventListener('click', function(e){
+      var isClickInside = searchBox.contains(event.target);
+      var isClickButton = searchBtn.contains(event.target);
+      if(!isClickInside && !isClickButton && searchBox.style.display === 'block') {
+        document.getElementById('searchBox').style.display = 'none';
+      }
     });
   }
 
