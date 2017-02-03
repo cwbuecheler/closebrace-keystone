@@ -13,9 +13,9 @@
         <div class="profile-box">
           <div class="image">
             {{#if user.userImage.version}}
-              <img src="http://res.cloudinary.com/closebrace/image/upload/w_400/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+              <img src="https://res.cloudinary.com/closebrace/image/upload/w_400/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
             {{else}}
-              <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
+              <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
             {{/if}}
             <a href="#" class="image-upload" id="linkChangeImage">change</a>
             <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
