@@ -219,9 +219,6 @@ header {
   .home {
 
     /* Home Page - Main Features */
-    .main-features .feature .image-box img {
-      height: 347px;
-    }
     .main-features, .extra-features {
       width: 100%;
       display: flex;
@@ -347,6 +344,7 @@ header {
       }
       .byline {
         font-size: .875rem;
+        line-height: 1.4;
       }
     } // end title box
 

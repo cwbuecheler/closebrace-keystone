@@ -14,7 +14,7 @@
           <form name="formLogin" method="post" action="/account/log-in">
             <input type="hidden" name="action" value="login" />
             <fieldset>
-              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com" /></label>
+              <label>Email <input type="email" name="userEmail" placeholder="codeguy@closebrace.com" id="userEmail" /></label>
               <label>Password <input type="password" name="userPassword" /></label>
               <label>
             </fieldset>
@@ -29,7 +29,12 @@
       <!-- /CONTENT -->
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
+
+  // give the username box focus on page load
+  document.getElementById('userEmail').focus();
+
+  // validator
   var validator = new FormValidator('formLogin', [
     {
         name: 'userEmail',

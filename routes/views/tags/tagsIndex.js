@@ -19,6 +19,7 @@ exports = module.exports = function (req, res) {
     .sort('-createdAt')
     .populate('author categories tags');
 
+    // TODO: I think this can be done with mongoose filtering instead of the for loop
     q.exec(function(err, results) {
       var finalPosts = [];
       for(var i = 0; i < results.length; i++) {

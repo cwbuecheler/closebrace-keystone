@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  /* Perform on Load ================================================ */
+  /* Check for ad blockers */
+  if(document.getElementById('sauWs0UJTcvwx')) {
+    isAdsBlocked = false;
+  }
+  else {
+    isAdsBlocked = true;
+  }
+  if(isAdsBlocked === true) { displayAdNotice('adblock-notice'); }
+
   /* Site Globals =================================================== */
   var isAdsBlocked = false;
 
@@ -12,6 +22,26 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   /* Event Catchers ================================================= */
+
+  // Global ESC key catcher
+  document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+      isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+      isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+      // contains things to do if the esc key is clicked
+
+      // Close the search box is it's open
+      if(idExists('searchBox')) {
+        document.getElementById('searchBox').style.display = 'none';
+      }
+    }
+  };
+
   // Main header search button
   if(idExists('btnSearch')) {
     document.getElementById('btnSearch').addEventListener('click', function(e){
@@ -28,6 +58,19 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('lnkSearchClose').addEventListener('click', function(e){
       e.preventDefault();
       document.getElementById('searchBox').style.display = 'none';
+    });
+  }
+
+  // Main header click outside of search box
+  if(idExists('searchBox')) {
+    var searchBox = document.getElementById('searchBox');
+    var searchBtn = document.getElementById('btnSearch');
+    document.addEventListener('click', function(e){
+      var isClickInside = searchBox.contains(event.target);
+      var isClickButton = searchBtn.contains(event.target);
+      if(!isClickInside && !isClickButton && searchBox.style.display === 'block') {
+        document.getElementById('searchBox').style.display = 'none';
+      }
     });
   }
 
@@ -120,14 +163,105 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  /* Check for ad blockers */
-  if(document.getElementById('sauWs0UJTcvwx')) {
-    isAdsBlocked = false;
+  // Comments - Add Comment
+  if(idExists('btnAddComment')) {
+    document.getElementById('btnAddComment').addEventListener('click', function(e){
+
+    // put together our submission
+    var commentPacket = {
+      author: document.getElementById('hidUserID').value,
+      content: document.getElementById('textAddComment').value,
+      inReplyTo: null,
+      relatedPost: document.getElementById('hidPostID').value,
+      state: 'published',
+      isPublished: true,
+    }
+
+    // Ajax submit the comment
+    aja()
+      .method('post')
+      .url('/api/comments/create')
+      .cache(false)
+      .body(commentPacket)
+      .on('200', function(response){
+        // Reload the window to show the comment
+        window.location.reload();
+      })
+       .on('40x', function(response){
+          //something is definitely wrong
+          // 'x' means any number (404, 400, etc. will match)
+          console.log(response);
+      })
+      .on('500', function(response){
+          //oh crap
+          console.log(response);
+      })
+      .go();
+    });
   }
-  else {
-    isAdsBlocked = true;
+
+  // Comments - Delete Comment
+  if(idExists('linkDeleteComment')) {
+    document.getElementById('linkDeleteComment').addEventListener('click', function(e){
+      e.preventDefault();
+      var targetCommentID = this.dataset.commentid;
+      var deleteConf = confirm('Are you sure you want to delete this comment?');
+      // Ajax delete the comment
+      if(deleteConf) {
+        aja()
+        .method('get')
+        .url('/api/comments/' + targetCommentID + '/remove')
+        .cache(false)
+        .on('200', function(response){
+          // Reload the window to show the comment has been removed
+          window.location.reload();
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
+    });
   }
-  if(isAdsBlocked === true) { displayAdNotice('adblock-notice'); }
+
+  // Comments - Flag Comment
+  if(idExists('linkFlagComment')) {
+    document.getElementById('linkFlagComment').addEventListener('click', function(e){
+      e.preventDefault();
+      var targetCommentID = this.dataset.commentid;
+      var flagger = this.dataset.flagger;
+      var flagConf = confirm('Are you sure you want to flag this comment as abuse / spam / in violation of the community guidelines?');
+      if (flagConf) {
+        aja()
+        .method('post')
+        .url('/api/comments/flag')
+        .body({ flagger: flagger, id: targetCommentID })
+        .cache(false)
+        .on('200', function(response){
+          // Reload the window to show the comment has been removed
+          window.location.reload();
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
+    });
+  }
+
+
 
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {

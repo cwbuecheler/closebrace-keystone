@@ -12,13 +12,16 @@ exports = module.exports = function (req, res) {
   locals.hideAds = true;
 
   // get the confirm string from the querystring
-  var confirmString = req.query.conf; // $_GET["id"]
+  locals.confirmString = req.query.conf; // $_GET["id"]
 
 
   view.on('init', function(next) {
 
+    console.log(locals.confirmString);
+
+
     // Find a user who matches this confirm string
-    User.model.findOne().where('confirmHash', confirmString).exec(function(err, user) {
+    User.model.findOne().where('confirmHash', locals.confirmString).exec(function(err, user) {
       if (err) return next(err);
       if (!user) {
         next();

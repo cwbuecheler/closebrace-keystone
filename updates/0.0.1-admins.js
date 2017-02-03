@@ -9,7 +9,7 @@
 
 exports.create = {
 	User: [
-		{ 'name.first': 'Admin', 'name.last': 'User', 'email': 'chris@closebrace.com', 'password': 'hojillion', 'isAdmin': true, 'userName': 'cwbuecheler' },
+		{ 'name.first': 'Admin', 'name.last': 'User', 'email': 'admin@closebrace.com', 'password': 'hojillion', 'isAdmin': true, 'userName': 'cbadmin' },
 	],
 };
 

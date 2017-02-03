@@ -1,0 +1,83 @@
+        <!-- COMMENTS -->
+        <section class="comments">
+
+          <h3>Add a Comment</h3>
+          {{#if user.isVerified}}
+            <div class="add-comment form-in-content">
+              <div class="author">
+                <div class="user-avatar">
+                  {{#if user.userImage.version}}
+                    <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+                  {{else}}
+                    <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon hide-phone" />
+                  {{/if}}
+                  {{#if user.isPro}}
+                    <span>pro</span>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="text">
+                <!-- submission handled via ajax -->
+                <fieldset>
+                  <input type="hidden" id="hidUserID" value="{{user._id}}" />
+                  <input type="hidden" id="hidPostID" value="{{post._id}}" />
+                  <textarea name="comment" id="textAddComment"></textarea>
+                  <button type="button" id="btnAddComment" class="btn btn-primary">Add Comment</button>
+                </fieldset>
+              </div>
+            </div>
+          {{else}}
+            <p>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account.</p>
+          {{/if}}
+
+          <h3>Comments</h3>
+          {{#each comments}}
+            <div class="comment">
+              {{#ifIsFlagged this.flaggers ../user.id}}
+                <div class="text text-flagged">
+                  <p>You flagged this comment. It will be reviewed by admins and will either be removed or allowed to remain, but you won't see it again.</p>
+                </div>
+              {{else}}
+                <div class="author">
+                  <div class="user-avatar">
+                    {{#if this.author.userImage.version}}
+                      <img src="http://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{this.author.userImage.version}}/{{this.author.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+                    {{else}}
+                      <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
+                    {{/if}}
+                    {{#if this.author.isPro}}
+                      <span>pro</span>
+                    {{/if}}
+                  </div>
+                  <!--
+                  <span class="points">
+                    99,999<br />pts.
+                  </span>
+                  -->
+                </div>
+                <div class="text">
+                  <h5>by <a href="/u/{{this.author.userName}}">{{this.author.userName}}</a> at {{this.createdAtFormatted}}</h5>
+                  <div class="md">
+                    {{{this.content.html}}}
+                  </div>
+                  <!--
+                  <div class="plus-one">
+                    <button type="button" class="btn btn-grey btn-outling">+1</a></button>
+                  </div>
+                  -->
+                  <div class="links">
+                    {{#ifeq ../user.id this.author.id}}
+                    {{else}}
+                      <a href="#" id="linkFlagComment" class="flag" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
+                    {{/ifeq}}
+                    {{#if ../user.isAdmin}}
+                      <a href="#" id="linkDeleteComment" data-commentID="{{this.id}}">Delete</a> |
+                    {{/if}}
+                    <a href="">Reply</a>
+                  </div>
+                </div>
+              {{/ifIsFlagged}}
+            </div>
+          {{/each}}
+        </section>
+        <!-- /COMMENTS -->

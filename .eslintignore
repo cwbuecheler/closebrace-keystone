@@ -1,2 +1,4 @@
-public/js/bootstrap
-public/js/jquery
+public/js
+public/js
+src/js
+node_modules
