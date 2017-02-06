@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {
         name: 'userEmail',
         display: 'Email',
-        rules: 'required|valid_email|min_length[6]',
+        rules: 'required|min_length[6]|callback_email_regex',
     },
     {
         name: 'userUsername',
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errors.length > 0) {
       document.getElementById('errorBox').style.display = 'block';
       var errorString = '';
-      for (var i = 0; i < errors.length; i++) {
+      for (var i = 0; i < 3; i++) {
         var messages = errors[i].messages;
         for (var t = 0; t < messages.length; t++) {
           errorString += messages[t] + '<br />';
@@ -70,5 +70,16 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('errorBox').innerHTML = errorString;
     }
   });
+
+  validator.registerCallback('email_regex', function(value) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (re.test(value)) {
+          return true;
+      }
+
+      return false;
+  })
+  .setMessage('email_regex', 'Sorry, that doesn\'t appear to be a valid email address.');
+
 });
 </script>
