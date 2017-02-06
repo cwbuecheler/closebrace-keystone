@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errors.length > 0) {
       document.getElementById('errorBox').style.display = 'block';
       var errorString = '';
-      for (var i = 0; i < errors.length; i++) {
+      for (var i = 0; i < 3; i++) {
         var messages = errors[i].messages;
         for (var t = 0; t < messages.length; t++) {
           errorString += messages[t] + '<br />';
