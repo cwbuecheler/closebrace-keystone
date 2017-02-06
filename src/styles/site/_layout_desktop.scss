@@ -65,6 +65,9 @@
     max-width: 1200px;
 
     article {
+      max-width: 720px;
+      flex-grow: 1;
+      overflow: auto;
 
       /* User Profile */
       .profile-box {
