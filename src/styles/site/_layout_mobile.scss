@@ -297,10 +297,48 @@ header {
     }
   } // home page
 
-  /* Post */
+  /* Post or Index */
   article {
     width: 100%;
     text-align: left;
+
+    /* Big Post on Indices */
+    .feature {
+      width: 100%;
+      margin-bottom: 30px;
+
+      .image-box {
+        position: relative;
+
+        span {
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          color: #FFF;
+          font-size: 0.6875rem;
+          background: rgba(0,0,0,0.6);
+          padding: 5px 10px;
+          text-transform: uppercase;
+        }
+        h1 {
+          font-size: 1.125rem;
+          margin: 0 0 .25rem 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        p {
+          margin: 0;
+          color: $color-grey-medium;
+          font-family: Georgia, Times, "Times New Roman", serif;
+          font-style: italic;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+    }
 
     &.single-column {
       max-width: 600px;
