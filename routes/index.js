@@ -59,6 +59,7 @@ exports = module.exports = function (app) {
   app.all('/account/register', postLimiter, routes.views.account.register);
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
   app.all('/account/reset-password/:key', postLimiter, routes.views.account.resetPassword);
+  app.get('/account/sendconfirm', routes.views.account.sendConfirm);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
   app.all('/contact', postLimiter, routes.views.contact);
