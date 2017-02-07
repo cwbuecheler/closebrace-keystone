@@ -1,4 +1,6 @@
 var keystone = require('keystone');
+var FeedParser = require('feedparser');
+var request = require('request');
 var Post = keystone.list('Post');
 
 exports = module.exports = function (req, res) {
@@ -9,6 +11,49 @@ exports = module.exports = function (req, res) {
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'home';
+
+  // Get blog posts
+  view.on('init', function(next) {
+    locals.blogPosts = [];
+    var feed = request('http://blog.closebrace.com/rss/')
+    var feedparser = new FeedParser();
+
+    feed.on('error', function (error) {
+      // We'll generate an error on the front-end if null
+      locals.blogPosts = null;
+    });
+
+    feed.on('response', function (res) {
+      var stream = this;
+      if (res.statusCode !== 200) {
+        this.emit('error', new Error('Bad status code'));
+      }
+      else {
+        stream.pipe(feedparser);
+      }
+    });
+
+    feedparser.on('error', function (error) {
+      // same deal, if there's an error, just go null
+      locals.blogPosts = null;
+    });
+
+    feedparser.on('readable', function () {
+      var stream = this;
+      var meta = this.meta;
+      var item;
+      while (item = stream.read()) {
+        if (locals.blogPosts.length < 5) {
+          item.summary = item.summary.replace('<p>','');
+          item.summary = item.summary.replace('</p>','');
+          item.summary = item.summary.substring(0, 100);
+          locals.blogPosts.push(item);
+        }
+      }
+    });
+    // move on the next step when the parser's done
+    feedparser.on('end', next);
+  });
 
   // Load requested posts
   view.on('init', function(next) {
