@@ -20,9 +20,12 @@ exports = module.exports = function (req, res) {
     .populate('author categories');
 
     q.exec(function(err, result) {
+      locals.firstPost = result[0];
+      locals.firstPost.updatedAtFormatted = locals.firstPost._.updatedAt.format('Do MMM YYYY');
+      result.splice(0,1);
       locals.posts = result;
-      for (var post in result) {
-        var updatedAtFormatted = result[post]._.updatedAt.format('Do MMM YYYY');
+      for (var post in locals.posts) {
+        var updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
         locals.posts[post].updatedAtFormatted = updatedAtFormatted;
       }
       next(err);
