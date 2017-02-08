@@ -68,7 +68,7 @@
                   <div class="links">
                     {{#ifeq ../user.id this.author.id}}
                     {{else}}
-                      <a href="#" id="linkFlagComment" class="flag" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
+                      <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
                     {{/ifeq}}
                     {{#if ../user.isAdmin}}
                       <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Delete</a> |
