@@ -65,6 +65,7 @@ exports = module.exports = function (app) {
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
+  app.all('/search', postLimiter, routes.views.searchResults);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);

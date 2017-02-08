@@ -1,0 +1,42 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Search Results</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <h2>Tags Matching "{{searchTerms}}"</h2>
+        <ul>
+        {{#each tags}}
+          <li><a href="/tags/{{this.slug}}">{{this.name}}</a>
+        {{/each}}
+        </ul>
+
+        <h2>Categories Matching "{{searchTerms}}"</h2>
+        <ul>
+        {{#each categories}}
+          <li><a href="/categories/{{this.slug}}">{{this.name}}</a>
+        {{/each}}
+        </ul>
+
+        <h2>Posts Matching "{{searchTerms}}"</h2>
+        <ul>
+        {{#each posts}}
+          <li><a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a></li>
+        {{/each}}
+        </ul>
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+        {{> sidebar_twitter }}
+      </aside>
+      <!-- /SIDEBAR -->
