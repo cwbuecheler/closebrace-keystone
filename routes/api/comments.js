@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 var cbOptions = require('../../options.js');
 
 var Comment = keystone.list('Comment');
+var User = keystone.list('User');
 
 /**
  * List Comments
@@ -76,6 +77,15 @@ exports.update = function(req, res) {
  * Delete Comment by ID
  */
 exports.remove = function(req, res) {
+
+  // Make sure the user requesting the delete is an admin
+  User.model.findById(req.body.userID).exec(function (err, user) {
+    if (err) { return res.apiError('database error', err) };
+    if (!user) {
+      return res.apiResponse({ success: false });
+    }
+  });
+
   Comment.model.findById(req.params.id).exec(function (err, item) {
     if (err) { return res.apiError('database error', err) };
     if (!item) { return res.apiError('not found') };

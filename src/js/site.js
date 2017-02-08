@@ -201,33 +201,38 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Comments - Delete Comment
-  if(idExists('linkDeleteComment')) {
-    document.getElementById('linkDeleteComment').addEventListener('click', function(e){
-      e.preventDefault();
-      var targetCommentID = this.dataset.commentid;
-      var deleteConf = confirm('Are you sure you want to delete this comment?');
-      // Ajax delete the comment
-      if(deleteConf) {
-        aja()
-        .method('get')
-        .url('/api/comments/' + targetCommentID + '/remove')
-        .cache(false)
-        .on('200', function(response){
-          // Reload the window to show the comment has been removed
-          window.location.reload();
-        })
-         .on('40x', function(response){
-            //something is definitely wrong
-            // 'x' means any number (404, 400, etc. will match)
-            console.log(response);
-        })
-        .on('500', function(response){
-            //oh crap
-            console.log(response);
-        })
-        .go();
-      }
-    });
+  if(classExists('link-delete-comment')) {
+    var deleteLinks = document.getElementsByClassName('link-delete-comment');
+    for (var i = 0; i < deleteLinks.length; i++) {
+      deleteLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetCommentID = this.dataset.commentid;
+        var userID = this.dataset.userid;
+        var deleteConf = confirm('Are you sure you want to delete this comment?');
+        // Ajax delete the comment
+        if(deleteConf) {
+          aja()
+          .method('post')
+          .url('/api/comments/' + targetCommentID + '/remove')
+          .data({ userID: userID })
+          .cache(false)
+          .on('200', function(response){
+            // Reload the window to show the comment has been removed
+            window.location.reload();
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              // 'x' means any number (404, 400, etc. will match)
+              console.log(response);
+          })
+          .on('500', function(response){
+              //oh crap
+              console.log(response);
+          })
+          .go();
+        }
+      });
+    }
   }
 
   // Comments - Flag Comment
@@ -275,6 +280,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function idExists(el) {
     if (document.getElementById(el)) {
+      return true;
+    }
+    return false;
+  }
+
+  function classExists(className) {
+    if (document.getElementsByClassName(className).length > 0) {
       return true;
     }
     return false;

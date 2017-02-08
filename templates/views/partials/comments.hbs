@@ -71,7 +71,7 @@
                       <a href="#" id="linkFlagComment" class="flag" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
                     {{/ifeq}}
                     {{#if ../user.isAdmin}}
-                      <a href="#" id="linkDeleteComment" data-commentID="{{this.id}}">Delete</a> |
+                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Delete</a> |
                     {{/if}}
                     <a href="">Reply</a>
                   </div>
