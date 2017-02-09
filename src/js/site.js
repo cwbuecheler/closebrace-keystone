@@ -35,10 +35,21 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isEscape) {
       // contains things to do if the esc key is clicked
 
+      // Close the main menu if it's open
+      if(idExists('mainNav')) {
+        document.getElementById('mainNav').style.display = 'none';
+      }
+
       // Close the search box is it's open
       if(idExists('searchBox')) {
         document.getElementById('searchBox').style.display = 'none';
       }
+
+      // Close the user menu if it's open
+      if(idExists('userMenu')) {
+        document.getElementById('userMenu').style.display = 'none';
+      }
+
     }
   };
 
@@ -70,6 +81,69 @@ document.addEventListener("DOMContentLoaded", function() {
       var isClickButton = searchBtn.contains(event.target);
       if(!isClickInside && !isClickButton && searchBox.style.display === 'block') {
         document.getElementById('searchBox').style.display = 'none';
+      }
+    });
+  }
+
+  // Main header main menu
+  if (idExists('mainNav')) {
+    var navLinks = document.getElementsByClassName('link-main-nav');
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        if (document.getElementById('mainNav').style.display === 'block') {
+          document.getElementById('mainNav').style.display = 'none';
+        }
+        else {
+          document.getElementById('mainNav').style.display = 'block';
+        }
+      });
+    }
+  }
+
+  // Main header  click outside of main menu
+  if (idExists('mainNav')) {
+    var navLinks = document.getElementsByClassName('link-main-nav');
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var mainNav = document.getElementById('mainNav');
+        var hamburger = document.getElementById('hamburger');
+
+        document.addEventListener('click', function(e){
+          var isClickInside = mainNav.contains(event.target);
+          var isClickButton = hamburger.contains(event.target);
+          if(!isClickInside && !isClickButton && mainNav.style.display === 'block') {
+            document.getElementById('mainNav').style.display = 'none';
+          }
+        });
+
+      });
+    }
+  }
+
+  // Main header user image
+  if(idExists('linkUserImage')) {
+    document.getElementById('linkUserImage').addEventListener('click', function(e){
+      e.preventDefault();
+      if (document.getElementById('userMenu').style.display === 'block') {
+        document.getElementById('userMenu').style.display = 'none';
+      }
+      else {
+        document.getElementById('userMenu').style.display = 'block';
+      }
+    });
+  }
+
+  // Main header click outside of user menu
+  if(idExists('linkUserImage')) {
+    var userBox = document.getElementById('userMenu');
+    var userImage = document.getElementById('linkUserImage');
+    document.addEventListener('click', function(e){
+      var isClickInside = userBox.contains(event.target);
+      var isClickButton = userImage.contains(event.target);
+      if(!isClickInside && !isClickButton && userBox.style.display === 'block') {
+        document.getElementById('userMenu').style.display = 'none';
       }
     });
   }

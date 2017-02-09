@@ -1,12 +1,39 @@
     <!-- HEADER -->
     <header>
       <div class="inner">
+
+        <!-- LOGO -->
         <div class="logo">
-          <a href="/"><img src="/images/logo_closebrace.png" alt="CloseBrace Logo" class="img-logo" /></a>
+          <a href="/" class="hide-above-mobile"><img src="/images/logo.png" alt="CloseBrace Logo" class="img-logo" /></a>
+          <a href="/" class="hide-mobile"><img src="/images/logo_closebrace.png" alt="CloseBrace Logo With Text" class="img-logo" /></a>
         </div>
-        {{> main_menu headerMenu=true }}
-        {{> search }}
+        <!-- /LOGO -->
+
+        <!-- MENU & SEARCH -->
+        <div class="menu-wrap">
+
+          <!-- MENU -->
+          <div class="menu">
+            <div class="hamburger hide-above-mobile" id="hamburger">
+              <a href="#" class="link-main-nav"><img src="/images/hamburger.png" alt="menu icon" /></a>
+              <a href="#" class="text link-main-nav">Menu</a>
+            </div>
+            <div class="main-nav" id="mainNav">
+              {{> main_menu headerMenu=true }}
+            </div>
+          </div>
+          <!-- /MENU -->
+
+          <!-- SEARCH -->
+          {{> search }}
+          <!-- /SEARCH -->
+        </div>
+        <!-- /MENU & SEARCH -->
+
+        <!-- USER BOX -->
         {{> userbox }}
+        <!-- /USER BOX -->
+
       </div>
     </header>
     <!-- /HEADER -->
