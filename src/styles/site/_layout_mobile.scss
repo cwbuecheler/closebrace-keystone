@@ -187,9 +187,10 @@ header {
           }
         }
         a.close-link {
-          display: inline-block;
-          position: absolute;
-          top: 5px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: auto;
           right: 5px;
           background: $color-brand-primary;
           color: #FFF;
