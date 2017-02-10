@@ -1,10 +1,12 @@
         <div class="search">
-          <button type="button" class="btn btn-grey btn-outline btn-search" id="btnSearch">Search</button>
+          <button type="button" class="btn btn-grey btn-outline btn-search" id="btnSearch"><span class="hide-phone">Search</span></button>
           <div class="search-box" id="searchBox">
-            <form method="post" action="/search">
-              <input type="text" placeholder="search" class="searchbox" id="formMainSearch" name="searchTerms" />
-              <button type="submit" class="search-button">Go</button>
-            </form>
-            <a href="#" id="lnkSearchClose" class="close-link">X</a>
+            <div class="search-box-inner">
+              <form method="post" action="/search">
+                <input type="text" placeholder="search" class="searchbox" id="formMainSearch" name="searchTerms" />
+                <button type="submit" class="search-button">Go</button>
+              </form>
+              <a href="#" id="lnkSearchClose" class="close-link">X</a>
+            </div>
           </div>
         </div>
