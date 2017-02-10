@@ -19,7 +19,7 @@ User.add({
   location: { type: String },
   website: { type: String },
   twitterUsername: { type: String },
-  confirmHash: { type: String, noedit: true },
+  confirmHash: { type: String },
   resetPasswordKey: { type: String, hidden: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },

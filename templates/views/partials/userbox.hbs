@@ -1,5 +1,5 @@
         <div class="user-box">
-          <p>
+          <p class="user-menu" id="userMenu">
             {{#if user}}
               Welcome, {{user.name.first }}<br />
               <a href="/account/profile">My Account</a> | <a href="/account/log-out">Log Out</a>
@@ -11,13 +11,13 @@
           <div class="user-avatar">
             {{#if user}}
               {{#if user.userImage.version}}
-                <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon hide-phone" />
+                <a href="#" id="linkUserImage"><img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" /></a>
               {{else}}
-                <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon hide-phone" />
+                <a href="#" id="linkUserImage"><img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" /></a>
               {{/if}}
             {{/if}}
             {{#if user.isPro}}
-              <span class="hide-phone">pro</span>
+              <a href="/go-pro" class="pro-badge">pro</a>
             {{/if}}
           </div>
         </div>

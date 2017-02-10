@@ -1,5 +1,4 @@
 {{!< default}}
-
 			<!-- CONTENT -->
 			<div class="home">
 
@@ -91,6 +90,28 @@
 			        <!-- /MORE LINKS -->
 						</div>
 						<!-- /FEATURE TABLE -->
+
+						<!-- BLOG POSTS -->
+						<div class="feature-list">
+							<div class="top-border"></div>
+							<h2>Latest from the Blog</h2>
+							<table class="table table-posts">
+								<tbody>
+									{{#each blogPosts}}
+										<tr>
+											<td class="date">{{date this.pubDate format='MMM D, YYYY'}}</td>
+											<td class="info">
+												<p>
+													<a href="{{this.link}}" target="_blank">{{this.title}}</a><br />
+													<em>{{this.summary}}&hellip;</em>
+												</p>
+											</td>
+										</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+						<!-- /BLOG POSTS -->
 
 					</div>
 					<!-- /SUB CONTENT -->

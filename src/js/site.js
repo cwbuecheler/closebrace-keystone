@@ -23,6 +23,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   /* Event Catchers ================================================= */
 
+  // Clear values if window is resized
+  window.onresize = function() {
+    if(idExists('userMenu')) {
+      document.getElementById('userMenu').style.display = '';
+    }
+    if(idExists('mainNav')) {
+      document.getElementById('mainNav').style.display = '';
+    }
+  }
+
   // Global ESC key catcher
   document.onkeydown = function(evt) {
     evt = evt || window.event;
@@ -39,6 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
       if(idExists('searchBox')) {
         document.getElementById('searchBox').style.display = 'none';
       }
+
+      // Close the user menu if it's open
+      if(idExists('userMenu') && getComputedStyle(document.querySelector('#mainNav')).position === 'absolute') {
+        document.getElementById('userMenu').style.display = 'none';
+      }
+
     }
   };
 
@@ -70,6 +86,71 @@ document.addEventListener("DOMContentLoaded", function() {
       var isClickButton = searchBtn.contains(event.target);
       if(!isClickInside && !isClickButton && searchBox.style.display === 'block') {
         document.getElementById('searchBox').style.display = 'none';
+      }
+    });
+  }
+
+  // Main header main menu
+  if (idExists('mainNav')) {
+    var navLinks = document.getElementsByClassName('link-main-nav');
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        if (document.getElementById('mainNav').style.display === 'block') {
+          document.getElementById('mainNav').style.display = 'none';
+        }
+        else {
+          document.getElementById('mainNav').style.display = 'block';
+        }
+      });
+    }
+  }
+
+  // Main header click outside of main menu
+  if (idExists('mainNav')) {
+    var navLinks = document.getElementsByClassName('link-main-nav');
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var mainNav = document.getElementById('mainNav');
+        var hamburger = document.getElementById('hamburger');
+
+        document.addEventListener('click', function(e){
+          var isClickInside = mainNav.contains(event.target);
+          var isClickButton = hamburger.contains(event.target);
+          if(!isClickInside && !isClickButton && mainNav.style.display === 'block') {
+            document.getElementById('mainNav').style.display = 'none';
+          }
+        });
+
+      });
+    }
+  }
+
+  // Main header user image
+  if(idExists('linkUserImage')) {
+    document.getElementById('linkUserImage').addEventListener('click', function(e){
+      e.preventDefault();
+      if (getComputedStyle(document.querySelector('#userMenu')).position === 'absolute') {
+        if (document.getElementById('userMenu').style.display === 'block') {
+          document.getElementById('userMenu').style.display = 'none';
+        }
+        else {
+          document.getElementById('userMenu').style.display = 'block';
+        }
+      }
+    });
+  }
+
+  // Main header click outside of user menu
+  if(idExists('linkUserImage')) {
+    var userBox = document.getElementById('userMenu');
+    var userImage = document.getElementById('linkUserImage');
+    document.addEventListener('click', function(e){
+      var isClickInside = userBox.contains(event.target);
+      var isClickButton = userImage.contains(event.target);
+      if(!isClickInside && !isClickButton && userBox.style.display === 'block') {
+        document.getElementById('userMenu').style.display = 'none';
       }
     });
   }
@@ -201,64 +282,72 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Comments - Delete Comment
-  if(idExists('linkDeleteComment')) {
-    document.getElementById('linkDeleteComment').addEventListener('click', function(e){
-      e.preventDefault();
-      var targetCommentID = this.dataset.commentid;
-      var deleteConf = confirm('Are you sure you want to delete this comment?');
-      // Ajax delete the comment
-      if(deleteConf) {
-        aja()
-        .method('get')
-        .url('/api/comments/' + targetCommentID + '/remove')
-        .cache(false)
-        .on('200', function(response){
-          // Reload the window to show the comment has been removed
-          window.location.reload();
-        })
-         .on('40x', function(response){
-            //something is definitely wrong
-            // 'x' means any number (404, 400, etc. will match)
-            console.log(response);
-        })
-        .on('500', function(response){
-            //oh crap
-            console.log(response);
-        })
-        .go();
-      }
-    });
+  if(classExists('link-delete-comment')) {
+    var deleteLinks = document.getElementsByClassName('link-delete-comment');
+    for (var i = 0; i < deleteLinks.length; i++) {
+      deleteLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetCommentID = this.dataset.commentid;
+        var userID = this.dataset.userid;
+        var deleteConf = confirm('Are you sure you want to delete this comment?');
+        // Ajax delete the comment
+        if(deleteConf) {
+          aja()
+          .method('post')
+          .url('/api/comments/' + targetCommentID + '/remove')
+          .data({ userID: userID })
+          .cache(false)
+          .on('200', function(response){
+            // Reload the window to show the comment has been removed
+            window.location.reload();
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              // 'x' means any number (404, 400, etc. will match)
+              console.log(response);
+          })
+          .on('500', function(response){
+              //oh crap
+              console.log(response);
+          })
+          .go();
+        }
+      });
+    }
   }
 
   // Comments - Flag Comment
-  if(idExists('linkFlagComment')) {
-    document.getElementById('linkFlagComment').addEventListener('click', function(e){
-      e.preventDefault();
-      var targetCommentID = this.dataset.commentid;
-      var flagger = this.dataset.flagger;
-      var flagConf = confirm('Are you sure you want to flag this comment as abuse / spam / in violation of the community guidelines?');
-      if (flagConf) {
-        aja()
-        .method('post')
-        .url('/api/comments/flag')
-        .body({ flagger: flagger, id: targetCommentID })
-        .cache(false)
-        .on('200', function(response){
-          // Reload the window to show the comment has been removed
-          window.location.reload();
-        })
-         .on('40x', function(response){
-            //something is definitely wrong
-            // 'x' means any number (404, 400, etc. will match)
-            console.log(response);
-        })
-        .on('500', function(response){
-            //oh crap
-            console.log(response);
-        })
-        .go();
-      }
-    });
+  if(classExists('link-flag-comment')) {
+    var flagLinks = document.getElementsByClassName('link-flag-comment');
+    for (var i = 0; i < flagLinks.length; i++) {
+      flagLinks[i].addEventListener('click', function(e){
+        e.preventDefault();
+        var targetCommentID = this.dataset.commentid;
+        var flagger = this.dataset.flagger;
+        var flagConf = confirm('Are you sure you want to flag this comment as abuse / spam / in violation of the community guidelines?');
+        if (flagConf) {
+          aja()
+          .method('post')
+          .url('/api/comments/flag')
+          .body({ flagger: flagger, id: targetCommentID })
+          .cache(false)
+          .on('200', function(response){
+            // Reload the window to show the comment has been removed
+            window.location.reload();
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              // 'x' means any number (404, 400, etc. will match)
+              console.log(response);
+          })
+          .on('500', function(response){
+              //oh crap
+              console.log(response);
+          })
+          .go();
+        }
+      });
+    }
   }
 
 
@@ -275,6 +364,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function idExists(el) {
     if (document.getElementById(el)) {
+      return true;
+    }
+    return false;
+  }
+
+  function classExists(className) {
+    if (document.getElementsByClassName(className).length > 0) {
       return true;
     }
     return false;

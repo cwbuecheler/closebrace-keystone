@@ -9,6 +9,22 @@
         </section>
         <!-- /TITLE BOX -->
 
+        <!-- LATEST POST -->
+        <div class="feature">
+          <div class="top-border"></div>
+          <div class="image-box">
+            <a href="/{{toLowerCase firstPost.postType}}s/{{firstPost.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{firstPost.mainImage.version}}/{{firstPost.mainImage.public_id}}.{{firstPost.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+            <span class="feature-type">Latest {{firstPost.postType}}</span>
+            <div class="text-box">
+              <h1><a href="/{{toLowerCase firstPost.postType}}s/{{firstPost.slug}}">{{firstPost.title}}</a></h1>
+              <p>
+                {{firstPost.subHead}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- /LATEST POST -->
+
         <!-- POST TABLE -->
         <table class="table table-posts">
           <tbody>

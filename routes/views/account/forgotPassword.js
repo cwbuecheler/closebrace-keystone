@@ -30,7 +30,7 @@ exports = module.exports = function (req, res) {
     }
 
     // If the email in the form doesn't match the email of the logged in user, no dice
-    if(req.user.email != locals.formData.userEmail) {
+    if(req.user && req.user.email != locals.formData.userEmail) {
       req.flash('error', { detail: 'Sorry, that email address doesn\'t match the one we have on file.' });
       return res.redirect('/account/forgot-password')
     }

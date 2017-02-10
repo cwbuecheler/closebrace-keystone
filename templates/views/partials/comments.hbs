@@ -12,7 +12,7 @@
                     <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon hide-phone" />
                   {{/if}}
                   {{#if user.isPro}}
-                    <span>pro</span>
+                    <a href="/go-pro" class="pro-badge">pro</a>
                   {{/if}}
                 </div>
               </div>
@@ -46,7 +46,7 @@
                       <img src="http://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
                     {{/if}}
                     {{#if this.author.isPro}}
-                      <span>pro</span>
+                      <a href="/go-pro" class="pro-badge">pro</a>
                     {{/if}}
                   </div>
                   <!--
@@ -68,10 +68,10 @@
                   <div class="links">
                     {{#ifeq ../user.id this.author.id}}
                     {{else}}
-                      <a href="#" id="linkFlagComment" class="flag" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
+                      <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
                     {{/ifeq}}
                     {{#if ../user.isAdmin}}
-                      <a href="#" id="linkDeleteComment" data-commentID="{{this.id}}">Delete</a> |
+                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Delete</a> |
                     {{/if}}
                     <a href="">Reply</a>
                   </div>

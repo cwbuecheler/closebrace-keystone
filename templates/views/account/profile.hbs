@@ -8,6 +8,11 @@
           <h1>{{user.name.first}}'s Account</h1>
         </section>
         <!-- /TITLE BOX -->
+        {{#unless user.isVerified}}
+          <div class="confirm-account">
+            This account has not been confirmed. Didn't get the email? <a href="/account/sendconfirm">Click here to resend it</a>.
+          </div>
+        {{/unless}}
 
         <div id="errorBox" class="error-box"></div>
         <div class="profile-box">
@@ -43,7 +48,7 @@
 
                 <h4>Email</h4>
                 <p>
-                  <span class="display">{{user.email}}</a></span>
+                  <span class="display">{{user.email}} {{#if user.isVerified}}(confirmed){{/if}}</span>
                   <span class="edit">{{user.email}}</span>
                 </p>
 
@@ -177,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errors.length > 0) {
       document.getElementById('errorBox').style.display = 'block';
       var errorString = '';
-      for (var i = 0; i < errors.length; i++) {
+      for (var i = 0; i < 3; i++) {
         var messages = errors[i].messages;
         for (var t = 0; t < messages.length; t++) {
           errorString += messages[t] + '<br />';

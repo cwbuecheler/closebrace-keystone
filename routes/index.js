@@ -59,11 +59,13 @@ exports = module.exports = function (app) {
   app.all('/account/register', postLimiter, routes.views.account.register);
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
   app.all('/account/reset-password/:key', postLimiter, routes.views.account.resetPassword);
+  app.get('/account/sendconfirm', routes.views.account.sendConfirm);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
+  app.all('/search', postLimiter, routes.views.searchResults);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
@@ -75,7 +77,7 @@ exports = module.exports = function (app) {
   app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
   app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
-  app.get('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
+  app.all('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
