@@ -35,6 +35,14 @@
         {{/each}}
         </ul>
         {{/if}}
+	  
+        {{#unless tags}}
+	    {{#unless categories}}
+	      {{#unless posts}}
+              <h2>No results found</h2>
+	      {{/unless}}
+	    {{/unless}}
+        {{/unless}}
 
       </article>
       <!-- /CONTENT -->
