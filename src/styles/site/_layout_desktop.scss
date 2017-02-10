@@ -5,55 +5,7 @@
     padding-top: 100px;
   }
 
-  header {
-    position: fixed;
-    top: 0; left: 0;
-    height: 70px;
-    border-bottom: 1px solid $color-grey-light;
 
-    .inner {
-      height: 60px;
-      text-align: center;
-      position: relative;
-    }
-    .logo {
-      border-bottom: none;
-      flex-basis: auto;
-      order: 1;
-      display: flex;
-      align-items: auto;
-
-      img.img-logo {
-        width: auto;
-        height: 30px;
-      }
-    }
-    .main-menu {
-      height: 60px;
-      flex-basis: auto;
-      order: 2;
-      border: none;
-    }
-    .search {
-      flex-basis: auto;
-      order: 3;
-      border: none;
-
-      .search-box {
-        max-width: 1200px;
-
-        input[type=text] {
-          width: auto;
-          min-width: 350px;
-        }
-      }
-    }
-    .user-box {
-      flex-basis: auto;
-      justify-content: space-between;
-      order: 4;
-    }
-  }
 
   /* Big Horizontal Ad */
   .ad-horizontal {

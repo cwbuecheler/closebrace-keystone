@@ -23,6 +23,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   /* Event Catchers ================================================= */
 
+  // Clear values if window is resized
+  window.onresize = function() {
+    if(idExists('userMenu')) {
+      document.getElementById('userMenu').style.display = '';
+    }
+    if(idExists('mainNav')) {
+      document.getElementById('mainNav').style.display = '';
+    }
+  }
+
   // Global ESC key catcher
   document.onkeydown = function(evt) {
     evt = evt || window.event;
@@ -35,18 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isEscape) {
       // contains things to do if the esc key is clicked
 
-      // Close the main menu if it's open
-      if(idExists('mainNav')) {
-        document.getElementById('mainNav').style.display = 'none';
-      }
-
       // Close the search box is it's open
       if(idExists('searchBox')) {
         document.getElementById('searchBox').style.display = 'none';
       }
 
       // Close the user menu if it's open
-      if(idExists('userMenu')) {
+      if(idExists('userMenu') && getComputedStyle(document.querySelector('#mainNav')).position === 'absolute') {
         document.getElementById('userMenu').style.display = 'none';
       }
 
@@ -101,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Main header  click outside of main menu
+  // Main header click outside of main menu
   if (idExists('mainNav')) {
     var navLinks = document.getElementsByClassName('link-main-nav');
     for (var i = 0; i < navLinks.length; i++) {
@@ -126,11 +131,13 @@ document.addEventListener("DOMContentLoaded", function() {
   if(idExists('linkUserImage')) {
     document.getElementById('linkUserImage').addEventListener('click', function(e){
       e.preventDefault();
-      if (document.getElementById('userMenu').style.display === 'block') {
-        document.getElementById('userMenu').style.display = 'none';
-      }
-      else {
-        document.getElementById('userMenu').style.display = 'block';
+      if (getComputedStyle(document.querySelector('#userMenu')).position === 'absolute') {
+        if (document.getElementById('userMenu').style.display === 'block') {
+          document.getElementById('userMenu').style.display = 'none';
+        }
+        else {
+          document.getElementById('userMenu').style.display = 'block';
+        }
       }
     });
   }
