@@ -281,7 +281,62 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Comments - Delete Comment
+  // Comments - Reply Link
+  if(classExists('reply-link')) {
+    var replyLinks = document.getElementsByClassName('reply-link');
+    for (var i = 0; i < replyLinks.length; i++) {
+      replyLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetCommentID = this.dataset.commentid;
+        var originalAuthor = this.dataset.author;
+        // Get back to the comment box
+        var commentBoxLocation = findPos(document.getElementById('commentBox'));
+        window.scrollTo(0, commentBoxLocation[1] - 150);
+        // Add the @ stuff:
+        var atString = '[@' + originalAuthor + '](' + window.location.pathname + '#' + targetCommentID + '): ';
+        document.getElementById('textAddComment').value = atString;
+        // Give the comment box focus
+        document.getElementById('textAddComment').focus();
+      });
+    }
+  }
+
+  // Comments - Delete Comment (user)
+  if(classExists('link-delete-comment-user')) {
+    var deleteLinks = document.getElementsByClassName('link-delete-comment-user');
+    for (var i = 0; i < deleteLinks.length; i++) {
+      deleteLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetCommentID = this.dataset.commentid;
+        var userID = this.dataset.userid;
+        var deleteConf = confirm('Are you sure you want to delete this comment?');
+        // Ajax delete the comment
+        if(deleteConf) {
+          aja()
+          .method('post')
+          .url('/api/comments/' + targetCommentID + '/update')
+          .data({ userID: userID, isUserDeleted: true })
+          .cache(false)
+          .on('200', function(response){
+            // Reload the window to show the comment has been removed
+            window.location.reload();
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              // 'x' means any number (404, 400, etc. will match)
+              console.log(response);
+          })
+          .on('500', function(response){
+              //oh crap
+              console.log(response);
+          })
+          .go();
+        }
+      });
+    }
+  }
+
+  // Comments - Delete Comment (admin)
   if(classExists('link-delete-comment')) {
     var deleteLinks = document.getElementsByClassName('link-delete-comment');
     for (var i = 0; i < deleteLinks.length; i++) {
@@ -376,4 +431,15 @@ document.addEventListener("DOMContentLoaded", function() {
     return false;
   }
 
+  function findPos(obj) {
+    var curleft = curtop = 0;
+    if (obj.offsetParent) {
+      do {
+        curleft += obj.offsetLeft;
+        curtop += obj.offsetTop;
+      }
+      while (obj = obj.offsetParent);
+    }
+    return [curleft,curtop];
+  }
 });

@@ -18,8 +18,11 @@ Comment.add({
   isFlagged: { type: Boolean, default: false },
   flags: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: false },
+  isUserDeleted: { type: Boolean, default: false },
   content: { type: Types.Markdown, height: 250, required: true, initial: true, },
+  isReply: { type: Boolean, default: false },
   inReplyTo: { type: String, default: null },
+  replyToUsername: { type: String, index: true },
   relatedPost: { type: String, index: true },
   flaggers: { type: Types.TextArray },
 });

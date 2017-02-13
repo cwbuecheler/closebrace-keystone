@@ -64,6 +64,12 @@ exports.update = function(req, res) {
     if (err) { return res.apiError('database error', err) };
     if (!item) { return res.apiError('not found') };
     var data = (req.method == 'POST') ? req.body : req.query;
+
+    // Make sure the user requesting the update is the user who posted the comment
+    if (String(item.author) !== String(data.userID)) {
+      return res.apiResponse({ success: false });
+    }
+
     item.getUpdateHandler(req).process(data, function(err) {
       if (err) return res.apiError('create error', err);
       res.apiResponse({

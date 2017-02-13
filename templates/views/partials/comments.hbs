@@ -2,6 +2,8 @@
         <section class="comments">
 
           <h3>Add a Comment</h3>
+          <a name="comment-box" id="commentBox"></a>
+          <p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">MarkDown</a> in comments.</p>
           {{#if user.isVerified}}
             <div class="add-comment form-in-content">
               <div class="author">
@@ -32,6 +34,7 @@
 
           <h3>Comments</h3>
           {{#each comments}}
+            <a name="{{this.id}}"></a>
             <div class="comment">
               {{#ifIsFlagged this.flaggers ../user.id}}
                 <div class="text text-flagged">
@@ -55,10 +58,14 @@
                   </span>
                   -->
                 </div>
-                <div class="text">
+                <div class="text {{#if isUserDeleted}}text-flagged{{/if}}">
                   <h5>by <a href="/u/{{this.author.userName}}">{{this.author.userName}}</a> at {{this.createdAtFormatted}}</h5>
                   <div class="md">
-                    {{{this.content.html}}}
+                    {{#if isUserDeleted}}
+                      <p>The user has deleted this comment</p>
+                    {{else}}
+                      {{{this.content.html}}}
+                    {{/if}}
                   </div>
                   <!--
                   <div class="plus-one">
@@ -66,14 +73,19 @@
                   </div>
                   -->
                   <div class="links">
+                    {{#if ../user.isAdmin}}
+                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Admin Delete</a> |
+                    {{/if}}
                     {{#ifeq ../user.id this.author.id}}
+                      {{#unless this.isUserDeleted}}
+                      <a href="#" class="link-delete-comment-user" data-userID={{../user.id}} data-commentID="{{this.id}}">Delete</a> |
+                      {{/unless}}
                     {{else}}
                       <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
                     {{/ifeq}}
-                    {{#if ../user.isAdmin}}
-                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Delete</a> |
-                    {{/if}}
-                    <a href="">Reply</a>
+                    {{#unless isUserDeleted}}
+                      <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                    {{/unless}}
                   </div>
                 </div>
               {{/ifIsFlagged}}
