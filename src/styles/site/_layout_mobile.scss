@@ -649,6 +649,8 @@ footer {
     }
   }
   .footer-menu {
+    margin: 0 0 15px 0;
+
     ul {
       padding: 0;
       margin: 0;
@@ -658,6 +660,56 @@ footer {
         display: inline-block;
         white-space: nowrap;
         padding: 0 10px;
+      }
+    }
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 15px 0;
+
+    span {
+      margin: 0 15px 0 0;
+    }
+
+    ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        display: block;
+        width: 32px; height: 32px;
+        margin: 0 15px 0 0;
+        padding: 0;
+        overflow: hidden;
+
+        a {
+          display: block;
+          width: 32px; height: 32px;
+          background: url("/images/sprite_social.png") no-repeat 0 0;
+          background-size: 32px 128px;
+          text-indent: 400%;
+          white-space: nowrap;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+
+          &.youtube {
+            background-position: 0 -96px;
+          }
+          &.twitter {
+            background-position: 0 -32px;
+          }
+          &.facebook {
+            background-position: 0 0;
+          }
+          &.instagram {
+            background-position: 0 -64px;
+          }
+        }
       }
     }
   }
