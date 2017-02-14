@@ -62,6 +62,7 @@ exports = module.exports = function (app) {
   app.get('/account/sendconfirm', routes.views.account.sendConfirm);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
+  app.get('/articles/categories/:category', routes.views.articles.categoriesIndex);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.get('/privacy-policy', routes.views.privacyPolicy);
@@ -70,6 +71,7 @@ exports = module.exports = function (app) {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:post', routes.views.tutorials.post);
+  app.get('/tutorials/categories/:category', routes.views.tutorials.categoriesIndex);
   app.get('/u/:username', routes.views.publicProfile)
 
   // API
