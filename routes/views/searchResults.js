@@ -60,7 +60,6 @@ exports = module.exports = function (req, res) {
 
   // Get Posts
   view.on('post', function(next) {
-    console.log(req.body.searchTerms);
     var regex = new RegExp(req.body.searchTerms, 'i');
     var q = Post.model.find()
     .where('content.md', regex)
