@@ -12,17 +12,29 @@
         <!-- TEXT -->
         <section class="article-text">
           <p>
-            You're now a CloseBrace Pro. We very much appreciate your support, and will work hard to make sure your subscription delivers value! As a reminder, here's all the cool stuff you just signed up for:
+            You're now a CloseBrace Pro. Thanks! We very much appreciate your support, and will work hard to make sure your subscription delivers value! As a reminder, here's all the cool stuff you just signed up for:
           </p>
           <ul>
             <li>Nifty profile badge</li>
             <li>No ads!</li>
-            <li>Custom support via email (see tutorial pages for details)</li>
+            <li>
+              Custom support via email (<a href="#" class="link-explain" data-explain="explainEmail">explain</a>)
+              <div class="explain" id="explainEmail">
+                All tutorials and articles will now show forms allowing you to email CloseBrace directly with questions. We still recommend using the comments whenever possible, as it will allow the community to provide answers, but if you're really stuck, drop us a line and we'll help you through it! We try to answer all emails within one business day.
+              </div>
+            </li>
             <li>Early access to new tutorials</li>
-            {{#if user.isPlatinum}}<li>Custom support via slack</li>{{/if}}
+            {{#if user.isPlatinum}}
+              <li>
+                Custom support via Slack (<a href="#" class="link-explain" data-explain="explainSlack">explain</a>)
+                <div class="explain" id="explainSlack">
+                  As a platinum user, you have access to a slack channel in which CloseBrace representatives (which currently means: "Chris Buecheler") hang out and can help with any questions you have. This is a faster and more personal support option, though it should be noted that for the moment it's only available from 8AM - 5PM Eastern Time (UTC -5), Monday through Friday.
+                </div>
+              </li>
+            {{/if}}
           </ul>
           <p>
-            There's more coming!
+            There's more coming! You pro subscription will continue to gain new perks in the coming months as we flesh out the rest of the website. Stay tuned!
           </p>
         </section>
         <!-- /TEXT -->

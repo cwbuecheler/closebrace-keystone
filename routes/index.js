@@ -22,6 +22,8 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
 var RateLimit = require('express-rate-limit');
+var StripeWebhook = require('stripe-webhook-middleware');
+var cbOptions = require('../options.js');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
@@ -32,6 +34,12 @@ var routes = {
 	views: importRoutes('./views'),
   api: importRoutes('./api'),
 };
+
+// needed for Stripe events
+var stripeWebhook = new StripeWebhook({
+  stripeApiKey: cbOptions.stripe.privateKeyTest,
+  respond: true
+});
 
 // Setup Route Bindings
 exports = module.exports = function (app) {
@@ -84,6 +92,8 @@ exports = module.exports = function (app) {
   app.all('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
+  app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
+
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

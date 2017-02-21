@@ -452,6 +452,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  // Explain links
+  if(classExists('link-explain')) {
+    var explainLinks = document.getElementsByClassName('link-explain');
+    for (var i = 0; i < explainLinks.length; i++ ) {
+      explainLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById(this.dataset.explain).style.display = 'block';
+      });
+    }
+  }
+
   // Go-Pro Subscription Select
   if(idExists('subSelectPlatYearly')) {
     var subBoxes = document.getElementsByClassName('sub-select');
