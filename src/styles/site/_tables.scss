@@ -2,13 +2,24 @@
   width: 100%;
   margin: 0 0 30px 0;
   border-collapse: collapse;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+
+  &.table-small {
+    font-size: .9375rem;
+
+    tr {
+      th, td {
+        padding: 8px;
+      }
+    }
+  }
 
   thead {
     background: $color-grey-light;
   }
   tr {
     th, td {
-      padding: 10px 10px;
+      padding: 10px;
       border-bottom: 1px solid $color-grey-light;
     }
     th {

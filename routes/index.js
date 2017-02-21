@@ -65,6 +65,8 @@ exports = module.exports = function (app) {
   app.get('/articles/categories/:category', routes.views.articles.categoriesIndex);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
+  app.get('/go-pro', routes.views.goPro);
+  app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
   app.all('/search', postLimiter, routes.views.searchResults);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
@@ -81,6 +83,7 @@ exports = module.exports = function (app) {
   app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
   app.all('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
+  app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

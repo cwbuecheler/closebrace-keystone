@@ -21,6 +21,7 @@ User.add({
   twitterUsername: { type: String },
   confirmHash: { type: String },
   resetPasswordKey: { type: String, hidden: true },
+  stripeID: { type: String },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
   isAuthor: { type: Boolean, label: 'Is a Post Author', index: true },

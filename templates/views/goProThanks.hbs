@@ -1,0 +1,39 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Congratulations!</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <!-- TEXT -->
+        <section class="article-text">
+          <p>
+            You're now a CloseBrace Pro. We very much appreciate your support, and will work hard to make sure your subscription delivers value! As a reminder, here's all the cool stuff you just signed up for:
+          </p>
+          <ul>
+            <li>Nifty profile badge</li>
+            <li>No ads!</li>
+            <li>Custom support via email (see tutorial pages for details)</li>
+            <li>Early access to new tutorials</li>
+            {{#if user.isPlatinum}}<li>Custom support via slack</li>{{/if}}
+          </ul>
+          <p>
+            There's more coming!
+          </p>
+        </section>
+        <!-- /TEXT -->
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+        {{> sidebar_twitter }}
+      </aside>
+      <!-- /SIDEBAR -->
