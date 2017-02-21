@@ -5140,28 +5140,6 @@
         }
       }
     },
-    "stripe-webhook-middleware": {
-      "version": "0.2.0",
-      "from": "stripe-webhook-middleware@latest",
-      "resolved": "https://registry.npmjs.org/stripe-webhook-middleware/-/stripe-webhook-middleware-0.2.0.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.1.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-        },
-        "qs": {
-          "version": "2.4.2",
-          "from": "qs@>=2.4.1 <3.0.0",
-          "resolved": "https://registry.npmjs.org/qs/-/qs-2.4.2.tgz"
-        },
-        "stripe": {
-          "version": "3.9.0",
-          "from": "stripe@>=3.9.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/stripe/-/stripe-3.9.0.tgz"
-        }
-      }
-    },
     "subarg": {
       "version": "1.0.0",
       "from": "subarg@>=1.0.0 <2.0.0",
