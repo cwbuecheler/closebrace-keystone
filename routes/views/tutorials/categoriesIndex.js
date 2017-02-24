@@ -31,11 +31,9 @@ exports = module.exports = function (req, res) {
       }
 
       var finalPosts = [];
-      console.log(results.length);
       for(var i = 0; i < results.length; i++) {
         var result = results[i];
         var resultCat = result.category;
-        console.log(resultCat);
         if (resultCat !== null && resultCat.key === locals.filters.category) {
           finalPosts.push(result);
           locals.categoryName = resultCat.name;

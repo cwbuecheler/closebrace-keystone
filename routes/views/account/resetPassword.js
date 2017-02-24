@@ -29,8 +29,6 @@ exports = module.exports = function(req, res) {
 
   view.on('post', { action: 'reset-password' }, function(next) {
 
-    console.log('POST!');
-
     if (!req.body.userPassword) {
       req.flash('error', { detail: "Please fill in all the fields." });
       res.redirect('/account/reset-password/' + req.params.key);

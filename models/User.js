@@ -3,6 +3,7 @@ var Types = keystone.Field.Types;
 var md5 = require('js-md5');
 var nodemailer = require('nodemailer');
 var cbOptions = require('../options.js');
+var stripe = require("stripe")(cbOptions.stripe.privateKeyTest);
 
 /**
  * User Model
@@ -23,6 +24,9 @@ User.add({
   resetPasswordKey: { type: String, hidden: true },
   stripeID: { type: String },
   stripeCardID: { type: String },
+  stripeSubscriptionType: { type: String },
+  stripeSubscriptionStart: { type: Date },
+  stripeSubscriptionID: { type: String },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
   isAuthor: { type: Boolean, label: 'Is a Post Author', index: true },
@@ -65,6 +69,100 @@ User.schema.methods.resetPassword = function(callback) {
     });
 
   });
+}
+
+User.schema.methods.addStripeSubscription = function(data, callback) {
+    var user = this;
+
+    // Set user's StripeCardID
+    user.stripeCardID = data.token.id;
+    user.isPro = true;
+
+    if(data.proPlan === 'closebrace-pro-platinum-yearly' || data.proPlan === 'closebrace-pro-platinum-monthly') {
+      // if Platinum, set user to platinum
+      user.isPlatinum = true;
+    }
+
+    // Check if the user already has a stripe customer id
+    if (user.stripeID && user.stripeID !== '') {
+        stripe.subscriptions.create({
+          customer: user.stripeID,
+          plan: data.proPlan,
+        }, function(err, subscription) {
+          // record user's sub type and sub id
+          user.stripeSubscriptionID = subscription.id;
+          user.stripeSubscriptionType = subscription.plan.id;
+          user.stripeSubscriptionStart = Date.now();
+          user.save(function(err) {
+            if (err) return callback(err);
+            return callback();
+          });
+        });
+    }
+    else {
+      // Otherwise save the user as a Stripe customer
+      var customer = stripe.customers.create({
+        email: user.email,
+        card: data.token.id,
+      }, function(err, customer) {
+        // record the user's stripe ID
+        user.stripeID = customer.id;
+        // Then subscribe the user to the Stripe plan
+        stripe.subscriptions.create({
+          customer: customer.id,
+          plan: data.proPlan,
+        }, function(err, subscription) {
+          // record user's sub type and sub id
+          user.stripeSubscriptionID = subscription.id;
+          user.stripeSubscriptionType = subscription.plan.id;
+          user.stripeSubscriptionStart = Date.now();
+          user.save(function(err) {
+            if (err) return callback(err);
+            return callback();
+          });
+        });
+      });
+    }
+}
+
+
+User.schema.methods.cancelStripeSubscription = function(cancelType, callback) {
+  var user = this;
+
+  // On initial cancel, just send the emails, since there will still be time in the billing period
+  if (cancelType === 'cancel-initial') {
+    // create reusable transporter object using the default SMTP transport
+    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    var transporter = nodemailer.createTransport(mailString);
+
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+      from: '"CloseBrace" <contact@closebrace.com>', // sender address
+      to: user.email, // list of receivers
+      subject: 'Subscription Cancelled', // Subject line
+      text: 'We\'ve received a request to cancel your CloseBrace Pro subscription, and have done so. You will continue to enjoy Pro benefits until the end of your billing cycle. If you did not initiate this request, please email contact@closebrace immediately so that we can investigate. Thanks!', // plaintext body
+      html: '<h3>Sorry to See You Go</h3><p>We\'ve received a request to cancel your CloseBrace Pro subscription, and have done so. You will continue to enjoy Pro benefits until the end of your billing cycle. If you did not initiate this request, please <a href="mailto:contact@closebrace.com">email contact@closebrace</a> immediately so that we can investigate. Thanks!' // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+      return callback();
+    });
+  }
+
+  // React to a final cancellation from Stripe
+  if (cancelType === 'cancel-final') {
+    user.stripeSubscriptionID = '';
+    user.stripeSubscriptionType = '';
+    user.stripeSubscriptionStart = '';
+    user.isPro = false;
+    user.isPlatinum = false;
+
+    user.save(function(err) {
+      if (err) return callback(err);
+      return callback();
+    });
+  }
 }
 
 /**

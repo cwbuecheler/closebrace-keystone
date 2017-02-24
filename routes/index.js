@@ -50,6 +50,7 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
   app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
+  app.all('/account/cancel-pro-subscription', postLimiter, routes.views.account.cancelProSubscription)
   app.get('/account/confirm', routes.views.account.confirm);
   app.all('/account/delete-account', postLimiter, routes.views.account.deleteAccount);
   app.all('/account/edit-profile', postLimiter, routes.views.account.editProfile);

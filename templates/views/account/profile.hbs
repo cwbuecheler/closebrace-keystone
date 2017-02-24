@@ -65,7 +65,8 @@
                   {{#unless user.isPro}}
                     Basic User (<a href="/go-pro">Go Pro</a>)
                   {{else}}
-                    <strong>CloseBrace Pro</strong> (thanks!)
+                    <strong>CloseBrace Pro</strong> (thanks!)<br />
+                    <span class="cancel"><button type="button" class="btn btn-primary btn-outline btn-small modal-open">Cancel Subscription</button></span>
                   {{/unless}}
                 </p>
 
@@ -168,6 +169,33 @@
         {{> sidebar_twitter }}
       </aside>
       <!-- /SIDEBAR -->
+
+      <!-- MODAL -->
+      <div id="modal" class="modal-wrap modal-gopro">
+        <div class="modal-outer">
+          <div class="modal-inner">
+            <a href="#" class="modal-close modal-close-link"><span class="sr-only">close modal</span>X</a>
+            <h3>Are You Sure?</h3>
+            <p>
+              You can cancel your CloseBrace Pro subscription at any time, but we want to make absolutely sure this is what you intend to do. Please also make sure you understand our <a href="/terms-of-service#billing">billing policy</a> before proceeding.
+            </p>
+            <p>
+              If you want to go through with it, type "CANCEL SUBSCRIPTION" in the box below (without the quotes, in all caps) and click the button to proceed.
+            </p>
+            <form id="formCancelSubscription" method="post" action="/account/cancel-pro-subscription">
+              <fieldset>
+                <input type="hidden" name="action" value="cancel-subscription" />
+                <input type="hidden" name="userID" value="{{user.id}}" />
+                <input type="text" name="accountCancelSubscriptionConfirmText" />
+              </fieldset>
+              <div class="buttons">
+                <button type="submit" class="btn btn-primary">Cancel Subscription</button>
+                <button type="button" class="btn btn-grey btn-outline" id="btnCancelSubscriptionNeverMind">Never Mind</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {

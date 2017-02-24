@@ -94,30 +94,33 @@ var knownEvents = {
   },
   'customer.subscription.deleted': function(req, res, next) {
     console.log(req.body.type + ': event processed');
-/*
-    if(req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer){
-      // find user where stripeEvent.data.object.customer
-      User.findOne({
-        'stripeID': req.stripeEvent.data.object.customer
-      }, function (err, user) {
+
+    if(req.body.data && req.body.data.object && req.body.data.object.customer){
+      // find user by Stripe ID
+      User.model.findOne().where('stripeID', req.body.data.object.customer).exec(function(err, user) {
         if (err) return next(err);
         if(!user){
           // user does not exist, no need to process
+          console.log('user not found, no subscription deleted');
           return res.status(200).end();
         } else {
-          user.stripe.last4 = '';
-          user.stripe.plan = 'free';
-          user.stripe.subscriptionId = '';
-          user.save(function(err) {
-            if (err) return next(err);
-            console.log('user: ' + user.email + ' subscription was successfully cancelled.');
-            return res.status(200).end();
+          // Save the user
+          user.cancelStripeSubscription('cancel-final', function(err) {
+            // if (err) return next(err);
+            if (err) {
+              if (err) return next(err);
+            }
+            else {
+              console.log('user: ' + user.email + ' subscription was successfully cancelled.');
+              return res.status(200).end();
+            }
           });
         }
       });
     } else {
-      return next(new Error('stripeEvent.data.object.customer is undefined'));
-    }*/
+      return next(new Error('body.data.object.customer is undefined'));
+    }
+
   },
   'customer.subscription.trial_will_end': function(req, res, next) {
     console.log(req.body.type + ': event processed');
