@@ -39,7 +39,7 @@ exports = module.exports = function (req, res) {
     })
     .then( function(err) {
       // Check for duplicate username
-      keystone.list('User').model.findOne({ userName: locals.formData.userUsername }, function(err, user) {
+      keystone.list('User').model.findOne({ userName: new RegExp(locals.formData.userUsername, 'i') }, function(err, user) {
         if (err || user) {
           locals.dupeUsername = true;
         }

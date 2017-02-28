@@ -51,7 +51,7 @@ exports = module.exports = function (req, res) {
 
   view.on('init', function(next) {
     // catch username conflicts
-    User.model.findOne().where('userName', locals.formData.userUsername).exec(function(err, foundUser) {
+    User.model.findOne().where('userName', new RegExp(locals.formData.userUsername, 'i')).exec(function(err, foundUser) {
       locals.dupeUsername = false;
       if (err) {
         console.log(err);
