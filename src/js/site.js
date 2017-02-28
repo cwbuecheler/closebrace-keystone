@@ -55,6 +55,11 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('userMenu').style.display = 'none';
       }
 
+      // Close the modal if it's open
+      if(idExists('modal')) {
+        document.getElementById('modal').style.display = 'none';
+      }
+
     }
   };
 
@@ -82,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var searchBox = document.getElementById('searchBox');
     var searchBtn = document.getElementById('btnSearch');
     document.addEventListener('click', function(e){
-      var isClickInside = searchBox.contains(event.target);
-      var isClickButton = searchBtn.contains(event.target);
+      var isClickInside = searchBox.contains(e.target);
+      var isClickButton = searchBtn.contains(e.target);
       if(!isClickInside && !isClickButton && searchBox.style.display === 'block') {
         document.getElementById('searchBox').style.display = 'none';
       }
@@ -116,8 +121,8 @@ document.addEventListener("DOMContentLoaded", function() {
         var hamburger = document.getElementById('hamburger');
 
         document.addEventListener('click', function(e){
-          var isClickInside = mainNav.contains(event.target);
-          var isClickButton = hamburger.contains(event.target);
+          var isClickInside = mainNav.contains(e.target);
+          var isClickButton = hamburger.contains(e.target);
           if(!isClickInside && !isClickButton && mainNav.style.display === 'block') {
             document.getElementById('mainNav').style.display = 'none';
           }
@@ -200,6 +205,58 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('btnCancelProfileEdits').style.display = 'inline';
     });
   }
+
+  // Modal Open
+  if(classExists('modal-open')) {
+    var modalLinks = document.getElementsByClassName('modal-open');
+    for (var i = 0; i < modalLinks.length; i++) {
+      modalLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // If the link has a modaltext data attribute, there are multiple uses of the modal, so handle that
+        if(this.dataset.modaltext) {
+          var modalTextDivs = document.getElementsByClassName('modal-text');
+          for (var t = 0; t < modalTextDivs.length; t++) {
+            modalTextDivs[t].style.display = 'none';
+          }
+          var textToDisplay = '.modal-text-' + this.dataset.modaltext;
+          document.querySelector(textToDisplay).style.display = 'block';
+        }
+        document.getElementById('modal').style.display = 'block';
+      });
+    }
+  }
+
+  // Modal Exterior Click
+  if(idExists('modal')) {
+    var modal = document.getElementById('modal');
+    var modalOuter = document.querySelector('#modal .modal-outer');
+    var modalBtns = document.getElementsByClassName('modal-open');
+    document.addEventListener('click', function(event){
+      var isClickInside = modalOuter.contains(event.target);
+      var isClickButton = false;
+      for (var i = 0; i < modalBtns.length; i++) {
+        if (modalBtns[i].contains(event.target)) {
+          isClickButton = true;
+        }
+      }
+      if(!isClickInside && !isClickButton) {
+        document.getElementById('modal').style.display = 'none';
+      }
+    });
+  }
+
+  // Modal Close Button
+  if(classExists('modal-close')) {
+    var modalLinks = document.getElementsByClassName('modal-close');
+    for (var i = 0; i < modalLinks.length; i++) {
+      modalLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('modal').style.display = 'none';
+      });
+    }
+  }
+
 
   // Delete Account Step 1 Click
   if(idExists('btnDeleteAccountStep1')) {
@@ -404,6 +461,147 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
+
+  // Explain links
+  if(classExists('link-explain')) {
+    var explainLinks = document.getElementsByClassName('link-explain');
+    for (var i = 0; i < explainLinks.length; i++ ) {
+      explainLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById(this.dataset.explain).style.display = 'block';
+      });
+    }
+  }
+
+  // Go-Pro Subscription Select
+  if(idExists('subSelectPlatYearly')) {
+    var subBoxes = document.getElementsByClassName('sub-select');
+    for (var i = 0; i < subBoxes.length; i++) {
+      subBoxes[i].addEventListener('click', function(e) {
+        // clear all radio buttons
+        var radioButtons = document.getElementsByName('proselect');
+        for (var t = 0; t < radioButtons.length; t++) {
+          radioButtons[t].checked = false;
+        }
+        // set correct radio button to checked
+        radioButtons[this.dataset.check].checked = true;
+        // clear all 'on' classes
+        for (var n = 0; n < subBoxes.length; n++) {
+          subBoxes[n].classList.remove('on');
+        }
+        // set this element's class to 'on'
+        this.classList.add('on');
+      });
+    }
+  }
+
+  // Go-Pro Stripe Integration
+  if(idExists('stripePage')) {
+    // get the user ID & email from the form
+    var userID = document.getElementById('userID').value;
+    var userEmail = document.getElementById('userEmail').value;
+
+    var stripeHandler = StripeCheckout.configure({
+      key: 'pk_test_a8h2HENfpffkX4W1FlStNcYv',
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
+      locale: 'auto',
+      email: userEmail,
+      token: function(token) {
+        // Get the plan name from the hidden input, since we're going to need it
+        var proPlan = document.getElementById('proPlan').value;
+        // Send the token.id to the backend to save it to the user account and turn them into a pro
+        if (token) {
+          aja()
+          .method('post')
+          .url('/api/pro/register')
+          .body({ email: userEmail, userID: userID, token: token, proPlan: proPlan })
+          .cache(false)
+          .on('200', function(response){
+            // Reload the window to show the comment has been removed
+            window.location = '/go-pro-thanks';
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              // 'x' means any number (404, 400, etc. will match)
+              console.log(response);
+          })
+          .on('500', function(response){
+              //oh crap
+              console.log(response);
+          })
+          .go();
+        }
+      }
+    });
+
+    if(classExists('btn-checkout')) {
+      var stripeLinks = document.getElementsByClassName('btn-checkout');
+      for (var i = 0; i < stripeLinks.length; i++) {
+        stripeLinks[i].addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Go through the radio buttons and find the one that's checked, then get its value
+          var radioButtons = document.getElementsByName('proselect');
+          var buttonValue = null;
+          for (var t = 0; t < radioButtons.length; t++) {
+            if (radioButtons[t].checked) {
+                // do whatever you want with the checked radio
+                buttonValue = radioButtons[t].value;
+                break;
+            }
+          }
+
+          // Set $ value and subscription type based on button value
+          var cost = 0;
+          var subPlan = null;
+          var subDesc = null;
+          switch(buttonValue) {
+            case 'py':
+              cost = 14999;
+              subDesc = 'Platinum Yearly Subscription';
+              subPlan = 'closebrace-pro-platinum-yearly';
+              break;
+            case 'pm':
+              cost = 1499;
+              subDesc = 'Platinum Monthly Subscription';
+              subPlan = 'closebrace-pro-platinum-monthly';
+              break;
+            case 'gy':
+              cost = 5999;
+              subDesc = 'Gold Yearly Subscription';
+              subPlan = 'closebrace-pro-gold-yearly';
+              break;
+            case 'gm':
+              cost = 599;
+              subDesc = 'Gold Monthly Subscription';
+              subPlan = 'closebrace-pro-gold-monthly';
+              break;
+          }
+
+          // fill in the "proPlan" hidden input (used elsewhere)
+          document.getElementById('proPlan').value = subPlan;
+
+          // close the modal that is probably open
+          if(idExists('modal')) { document.getElementById('modal').style.display = 'none'; }
+
+          // Open Checkout with further options:
+          stripeHandler.open({
+            name: 'CloseBrace Pro',
+            description: subDesc,
+            amount: cost,
+            zipCode: true,
+          });
+          e.preventDefault();
+        });
+      }
+    }
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function() {
+      stripeHandler.close();
+    });
+  }
+
 
 
 

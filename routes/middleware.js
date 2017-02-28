@@ -7,8 +7,9 @@
  * you have more middleware you may want to group it as separate
  * modules in your project's /lib directory.
  */
+var keystone = require('keystone');
 var _ = require('lodash');
-
+var User = keystone.list('User');
 
 /**
 	Initialises the standard view locals

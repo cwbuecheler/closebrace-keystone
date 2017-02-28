@@ -44,6 +44,7 @@ margin: 0 0 1rem 0;
   input[type=text],
   input[type=email],
   input[type=password],
+  input[type=tel],
   textarea,
   select {
     display: block;
@@ -82,4 +83,15 @@ margin: 0 0 1rem 0;
   line-height: 1.2;
   color: #A00;
   display: none;
+}
+
+// Stripe
+
+.field {
+  border: 1px solid $color-grey-light;
+  padding: 5px 10px;
+}
+.card-errors {
+  color: #A00;
+  margin: 0 0 .5rem 0;
 }
