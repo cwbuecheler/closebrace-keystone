@@ -1,6 +1,5 @@
 var keystone = require('keystone');
 var User = keystone.list('User');
-var nodemailer = require('nodemailer');
 var cbOptions = require('../../../options.js');
 var stripe = require("stripe")(cbOptions.stripe.privateKeyTest);
 
@@ -13,46 +12,49 @@ exports = module.exports = function (req, res) {
 
   // If the id in the form doesn't match the id of the logged in user, no dice
   if(req.user.id != req.body.userID) {
-    req.flash('error', { detail: 'Sorry, something went wrong while trying to cancel your subscription. Please try again. Error #1' });
+    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #1' });
     return res.redirect('/account/profile');
   }
 
-  // If there's no cancel text, give up
-  if(req.body.accountCancelSubscriptionConfirmText !== 'CANCEL SUBSCRIPTION') {
-    req.flash('error', { detail: 'Incorrect text entered.' });
-    return res.redirect('/account/profile')
+  // If there's no token, no dice
+  if(!req.body.stripeToken) {
+    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #2' });
+    return res.redirect('/acount/profile');
   }
 
   var view = new keystone.View(req, res);
   var locals = res.locals;
   locals.section = 'account';
   locals.formData = req.body || {};
-  locals.stripeInfo = {};
   locals.user = req.user;
 
   view.on('post', function(next) {
-    stripe.subscriptions.del(locals.user.stripeSubscriptionID, { at_period_end: true },
-      function(err, confirmation) {
+    console.log(locals.user.stripeID);
+    console.log(locals.formData.stripeToken);
+    stripe.customers.update(
+      locals.user.stripeID,
+      { source: locals.formData.stripeToken },
+      function(err, customer) {
         if(err) {
+          console.log(err);
           req.flash('error', { detail: 'Something went wrong. Please try again or <a href="/contact">contact us</a> for help.' });
           return next();
         }
 
         // Save the user and send a confirmation email
-        locals.user.cancelStripeSubscription('cancel-initial', function(err) {
+        locals.user.updateStripeCard(locals.formData, function(err) {
           // if (err) return next(err);
           if (err) {
-            req.flash('error', { detail: 'Sorry, something went wrong while trying to cancel your subscription. Please try again. Error #2' });
+            req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #3' });
             next();
           }
           else {
-            req.flash('success', { detail: 'Your subscription has been cancelled and will be disabled at the end of your billing period. We\'ve emailed you a confirmation.' });
+            req.flash('success', { detail: 'Your card has been updated. We\'ve emailed you a confirmation.' });
             next();
           }
         });
-      }
-    );
+    });
   });
 
   view.render('account/profile');
-};
+}

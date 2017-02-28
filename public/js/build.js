@@ -300,6 +300,16 @@ document.addEventListener("DOMContentLoaded", function() {
     for (var i = 0; i < modalLinks.length; i++) {
       modalLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
+
+        // If the link has a modaltext data attribute, there are multiple uses of the modal, so handle that
+        if(this.dataset.modaltext) {
+          var modalTextDivs = document.getElementsByClassName('modal-text');
+          for (var t = 0; t < modalTextDivs.length; t++) {
+            modalTextDivs[t].style.display = 'none';
+          }
+          var textToDisplay = '.modal-text-' + this.dataset.modaltext;
+          document.querySelector(textToDisplay).style.display = 'block';
+        }
         document.getElementById('modal').style.display = 'block';
       });
     }

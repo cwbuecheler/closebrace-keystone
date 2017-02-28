@@ -62,6 +62,7 @@ exports = module.exports = function (app) {
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
   app.all('/account/reset-password/:key', postLimiter, routes.views.account.resetPassword);
   app.get('/account/sendconfirm', routes.views.account.sendConfirm);
+  app.all('/account/update-pro-subscription', routes.views.account.updateProSubscription);
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:post', routes.views.articles.post);
   app.get('/articles/categories/:category', routes.views.articles.categoriesIndex);

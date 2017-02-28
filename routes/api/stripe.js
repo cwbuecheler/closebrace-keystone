@@ -34,6 +34,33 @@ var knownEvents = {
   },
   'charge.failed': function(req, res, next) {
     console.log(req.body.type + ': event processed');
+
+    if(req.body.data && req.body.data.object && req.body.data.object.customer){
+      // find user by Stripe ID
+      User.model.findOne().where('stripeID', req.body.data.object.customer).exec(function(err, user) {
+        if (err) return next(err);
+        if(!user){
+          // user does not exist, no need to process
+          console.log('user not found, no need to email');
+          return res.status(200).end();
+        } else {
+          // Save the user
+          user.stripeAlertCardFail(function(err) {
+            // if (err) return next(err);
+            if (err) {
+              if (err) return next(err);
+            }
+            else {
+              console.log('user: ' + user.email + ' was emailed about failing card');
+              return res.status(200).end();
+            }
+          });
+        }
+      });
+    } else {
+      return next(new Error('body.data.object.customer is undefined'));
+    }
+
     res.status(200).end();
   },
   'charge.refunded': function(req, res, next) {
@@ -82,6 +109,7 @@ var knownEvents = {
   },
   'customer.card.deleted': function(req, res, next) {
     console.log(req.body.type + ': event processed');
+    stripeAlertCardFail
     res.status(200).end();
   },
   'customer.subscription.created': function(req, res, next) {

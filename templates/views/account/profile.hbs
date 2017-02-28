@@ -66,7 +66,8 @@
                     Basic User (<a href="/go-pro">Go Pro</a>)
                   {{else}}
                     <strong>CloseBrace Pro</strong> (thanks!)<br />
-                    <span class="cancel"><button type="button" class="btn btn-primary btn-outline btn-small modal-open">Cancel Subscription</button></span>
+                    <span class="modify"><button type="button" class="btn btn-primary btn-small modal-open" data-modaltext="modify">Modify Subscription</button></span>
+                    <span class="cancel"><button type="button" class="btn btn-primary btn-outline btn-small modal-open" data-modaltext="cancel">Cancel Subscription</button></span>
                   {{/unless}}
                 </p>
 
@@ -175,30 +176,174 @@
         <div class="modal-outer">
           <div class="modal-inner">
             <a href="#" class="modal-close modal-close-link"><span class="sr-only">close modal</span>X</a>
-            <h3>Are You Sure?</h3>
-            <p>
-              You can cancel your CloseBrace Pro subscription at any time, but we want to make absolutely sure this is what you intend to do. Please also make sure you understand our <a href="/terms-of-service#billing">billing policy</a> before proceeding.
-            </p>
-            <p>
-              If you want to go through with it, type "CANCEL SUBSCRIPTION" in the box below (without the quotes, in all caps) and click the button to proceed.
-            </p>
-            <form id="formCancelSubscription" method="post" action="/account/cancel-pro-subscription">
-              <fieldset>
-                <input type="hidden" name="action" value="cancel-subscription" />
+
+            <!-- MODIFY SUBSCRIPTION -->
+            <div class="modal-text modal-text-modify">
+              <h3>Update Your Subscription</h3>
+              <p>
+                Need to update your credit card info or switch your subscription to a new card? You can do that here. Note: your card information is not stored on CloseBrace servers at any time (<a href="/privacy-policy#creditcards">learn more</a>).
+              </p>
+
+              <form action="/account/update-pro-subscription" method="post" id="cardUpdateForm">
                 <input type="hidden" name="userID" value="{{user.id}}" />
-                <input type="text" name="accountCancelSubscriptionConfirmText" />
-              </fieldset>
-              <div class="buttons">
-                <button type="submit" class="btn btn-primary">Cancel Subscription</button>
-                <button type="button" class="btn btn-grey btn-outline" id="btnCancelSubscriptionNeverMind">Never Mind</button>
+                <div class="form-row">
+                  <fieldset>
+                    <label for="card-element">
+                      Credit or debit card
+                    </label>
+                    <div id="card-element" class="field">
+                    </div>
+                  </fieldset>
+                  <div id="card-errors" class="card-errors"></div>
+                </div>
+                <button class="btn btn-primary">Update Credit Card</button>
+              </form>
+
+{{!--
+
+              <h4>Subscription Options</h4>
+              <p>
+                Want to change your subscription entirely? You can choose a new one here. Upgrades and downgrades will be prorated with anything you've already paid.
+              </p>
+
+              <!-- SELECT BOXES -->
+              <div class="selects">
+                <div class="sub-select{{#ifeq user.stripeSubscriptionType 'closebrace-pro-platinum-yearly' }} on{{/ifeq}}" id="subSelectPlatYearly" data-check="0">
+                  <div class="text">
+                    <h4>CloseBrace Pro Platinum (yearly)</h4>
+                    <p>$149.99 - will bill immediately, and rebill annually on today's date.</p>
+                  </div>
+                  <div class="check">
+                    <input type="radio" name="proselect" value="py" checked />
+                  </div>
+                </div>
+
+                <div class="sub-select" id="subSelectPlatMonthly" data-check="1">
+                  <div class="text">
+                    <h4>CloseBrace Pro Platinum (monthly)</h4>
+                    <p>$14.99 - will bill immediately, and rebill monthly on this day.</p>
+                  </div>
+                  <div class="check">
+                    <input type="radio" name="proselect" value="pm" />
+                  </div>
+                </div>
+
+                <div class="sub-select" id="subSelectGoldYearly" data-check="2">
+                  <div class="text">
+                    <h4>CloseBrace Pro Platinum (monthly)</h4>
+                    <p>$59.99 - will bill immediately, and rebill yearly on today's date.</p>
+                  </div>
+                  <div class="check">
+                    <input type="radio" name="proselect" value="gy" />
+                  </div>
+                </div>
+
+                <div class="sub-select" id="subSelectGoldMonthly" data-check="3">
+                  <div class="text">
+                    <h4>CloseBrace Pro Platinum (monthly)</h4>
+                    <p>$5.99 - will bill immediately, and rebill monthly on this day.</p>
+                  </div>
+                  <div class="check">
+                    <input type="radio" name="proselect" value="gm" />
+                  </div>
+                </div>
               </div>
-            </form>
+              <!-- /SELECT BOXES -->
+--}}
+
+            </div>
+            <!-- /MODIFY SUBSCRIPTION -->
+
+            <!-- CANCEL SUBSCRIPTION -->
+            <div class="modal-text modal-text-cancel">
+              <h3>Are You Sure?</h3>
+              <p>
+                You can cancel your CloseBrace Pro subscription at any time, but we want to make absolutely sure this is what you intend to do. Please also make sure you understand our <a href="/terms-of-service#billing">billing policy</a> before proceeding.
+              </p>
+              <p>
+                If you want to go through with it, type "CANCEL SUBSCRIPTION" in the box below (without the quotes, in all caps) and click the button to proceed.
+              </p>
+              <form id="formCancelSubscription" method="post" action="/account/cancel-pro-subscription">
+                <fieldset>
+                  <input type="hidden" name="action" value="cancel-subscription" />
+                  <input type="hidden" name="userID" value="{{user.id}}" />
+                  <input type="text" name="accountCancelSubscriptionConfirmText" />
+                </fieldset>
+                <div class="buttons">
+                  <button type="submit" class="btn btn-primary">Cancel Subscription</button>
+                  <button type="button" class="btn btn-grey btn-outline" id="btnCancelSubscriptionNeverMind">Never Mind</button>
+                </div>
+              </form>
+            </div>
+            <!-- /CANCEL SUBSCRIPTION -->
+
           </div>
         </div>
       </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+
+  // Init Stripe
+  var stripe = Stripe('pk_test_a8h2HENfpffkX4W1FlStNcYv');
+  var elements = stripe.elements();
+
+  // Wire up Stripe Forms
+  var style = {
+    base: {
+      // Add your base input styles here. For example:
+      fontSize: '16px',
+      lineHeight: '24px',
+    }
+  };
+  // Create an instance of the card Element
+  var card = elements.create('card', {style: style});
+  // Add an instance of the card Element into the `card-element` <div>
+  card.mount('#card-element');
+
+
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+
+// Create a token or display an error the form is submitted.
+var form = document.getElementById('cardUpdateForm');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('cardUpdateForm');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
+
+
   var validator = new FormValidator('formEditProfile', [
     {
         name: 'userUsername',
