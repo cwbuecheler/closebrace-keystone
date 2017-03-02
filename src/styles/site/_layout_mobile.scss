@@ -488,6 +488,12 @@ header {
         font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
       }
 
+      p.content-image img {
+        max-width: 100%;
+        border: 1px solid $color-grey-light;
+        margin: 0; padding: 0;
+      }
+
       .explain {
         display: none;
       }
