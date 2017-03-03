@@ -465,6 +465,7 @@ header {
       border: 1px solid $color-brand-secondary;
       padding: 20px;
       background: lighten($color-brand-secondary, 40);
+      margin: 0 0 1rem 0;
 
       p {
         margin: 0 0 1rem 0;
@@ -486,6 +487,10 @@ header {
 
       h1, h2, h3, h4, h5 {
         font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      p {
+        margin: 0 0 1rem 0;
       }
 
       p.content-image img {
