@@ -66,7 +66,7 @@ exports.update = function(req, res) {
     var data = (req.method == 'POST') ? req.body : req.query;
 
     // Make sure the user requesting the update is the user who posted the comment
-    if (String(item.author) !== String(data.userID)) {
+    if (String(item.author) !== String(req.user.id)) {
       return res.apiResponse({ success: false });
     }
 
@@ -83,22 +83,27 @@ exports.update = function(req, res) {
  * Delete Comment by ID
  */
 exports.remove = function(req, res) {
-
   // Make sure the user requesting the delete is an admin
-  User.model.findById(req.body.userID).exec(function (err, user) {
+  User.model.findById(req.user.id).exec(function (err, user) {
     if (err) { return res.apiError('database error', err) };
     if (!user) {
+      console.log('couldn\'t find user');
       return res.apiResponse({ success: false });
     }
-  });
+    if (!user.isAdmin) {
+      console.log('user is not an admin');
+      return res.apiResponse({ success: false });
+    }
 
-  Comment.model.findById(req.params.id).exec(function (err, item) {
-    if (err) { return res.apiError('database error', err) };
-    if (!item) { return res.apiError('not found') };
-    item.remove(function (err) {
+    Comment.model.findById(req.params.id).exec(function (err, item) {
+      console.log(err);
       if (err) { return res.apiError('database error', err) };
-      return res.apiResponse({
-        success: true
+      if (!item) { return res.apiError('not found') };
+      item.remove(function (err) {
+        if (err) { return res.apiError('database error', err) };
+        return res.apiResponse({
+          success: true
+        });
       });
     });
   });
