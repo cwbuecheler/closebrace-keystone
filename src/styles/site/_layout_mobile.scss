@@ -598,6 +598,10 @@ header {
     width: 100%;
     margin: 0;
 
+    .timeline-footer {
+      display: none !important;
+    }
+
     /* sidebar box */
     .sidebar-box {
       width: 100%;
