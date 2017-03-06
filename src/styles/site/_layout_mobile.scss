@@ -710,7 +710,7 @@ footer {
           display: block;
           width: 32px; height: 32px;
           background: url("/images/sprite_social.png") no-repeat 0 0;
-          background-size: 32px 128px;
+          background-size: 32px 140px;
           text-indent: 400%;
           white-space: nowrap;
           overflow: hidden;
@@ -718,16 +718,16 @@ footer {
           padding: 0;
 
           &.youtube {
-            background-position: 0 -96px;
+            background-position: 0 -107px;
           }
           &.twitter {
-            background-position: 0 -32px;
+            background-position: 0 -35px;
           }
           &.facebook {
             background-position: 0 0;
           }
           &.instagram {
-            background-position: 0 -64px;
+            background-position: 0 -70px;
           }
         }
       }

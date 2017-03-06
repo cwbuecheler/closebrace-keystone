@@ -118,5 +118,17 @@
 
   .text {
     border-left: 1px solid $color-grey-light;
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: .875rem;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }
