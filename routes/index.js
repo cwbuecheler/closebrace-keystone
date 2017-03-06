@@ -83,8 +83,8 @@ exports = module.exports = function (app) {
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
   app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
-  app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
-  app.all('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
+  app.post('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
+  app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
   //app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
