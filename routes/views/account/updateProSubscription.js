@@ -10,16 +10,10 @@ exports = module.exports = function (req, res) {
     return res.redirect('/account/log-in');
   }
 
-  // If the id in the form doesn't match the id of the logged in user, no dice
-  if(req.user.id != req.body.userID) {
-    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #1' });
-    return res.redirect('/account/profile');
-  }
-
   // If there's no token, no dice
   if(!req.body.stripeToken) {
-    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #2' });
-    return res.redirect('/acount/profile');
+    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #1' });
+    return res.redirect('/account/profile');
   }
 
   var view = new keystone.View(req, res);
@@ -29,8 +23,6 @@ exports = module.exports = function (req, res) {
   locals.user = req.user;
 
   view.on('post', function(next) {
-    console.log(locals.user.stripeID);
-    console.log(locals.formData.stripeToken);
     stripe.customers.update(
       locals.user.stripeID,
       { source: locals.formData.stripeToken },
@@ -45,7 +37,7 @@ exports = module.exports = function (req, res) {
         locals.user.updateStripeCard(locals.formData, function(err) {
           // if (err) return next(err);
           if (err) {
-            req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #3' });
+            req.flash('error', { detail: 'Sorry, something went wrong while trying to update your card. Please try again. Error #2' });
             next();
           }
           else {
