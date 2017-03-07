@@ -21,15 +21,26 @@ exports.register = function(req, res) {
     }
   }
 
-  // Make sure emails are the same
-  User.model.findById(data.userID).exec(function(err, user) {
-    if(user.email != data.email) { return res.apiError('emails do not match', err) }
-
-    user.addStripeSubscription(data, function(err) {
-      if (err) { return res.apiError('error', err) };
-      res.apiResponse({
-        user: user
-      });
+  if(!req.user.id || req.user.id === '') {
+    res.apiResponse({
+      success: false
     });
-  });
+  }
+  else {
+    User.model.findById(req.user.id).exec(function(err, user) {
+      if(user) {
+        user.addStripeSubscription(data, function(err) {
+          if (err) { return res.apiError('error', err) };
+          res.apiResponse({
+            success: true
+          });
+        });
+      }
+      else {
+        res.apiResponse({
+          success: false
+        });
+      }
+    });
+  }
 }

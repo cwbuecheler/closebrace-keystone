@@ -21,7 +21,6 @@
                 <div class="text">
                   <!-- submission handled via ajax -->
                   <fieldset>
-                    <input type="hidden" id="hidUserID" value="{{user._id}}" />
                     <input type="hidden" id="hidPostID" value="{{post._id}}" />
                     <textarea name="comment" id="textAddComment"></textarea>
                   </fieldset>
@@ -80,11 +79,11 @@
                   -->
                   <div class="links">
                     {{#if ../user.isAdmin}}
-                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}" data-userID="{{../user.id}}">Admin Delete</a> |
+                      <a href="#" class="link-delete-comment" data-commentID="{{this.id}}">Admin Delete</a> |
                     {{/if}}
                     {{#ifeq ../user.id this.author.id}}
                       {{#unless this.isUserDeleted}}
-                      <a href="#" class="link-delete-comment-user" data-userID={{../user.id}} data-commentID="{{this.id}}">Delete</a> |
+                      <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a> |
                       {{/unless}}
                     {{else}}
                       <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |

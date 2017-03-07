@@ -11,12 +11,6 @@ exports = module.exports = function (req, res) {
     return res.redirect('/account/log-in');
   }
 
-  // If the id in the form doesn't match the id of the logged in user, no dice
-  if(req.user.id != req.body.userID) {
-    req.flash('error', { detail: 'Sorry, something went wrong while trying to cancel your subscription. Please try again. Error #1' });
-    return res.redirect('/account/profile');
-  }
-
   // If there's no cancel text, give up
   if(req.body.accountCancelSubscriptionConfirmText !== 'CANCEL SUBSCRIPTION') {
     req.flash('error', { detail: 'Incorrect text entered.' });

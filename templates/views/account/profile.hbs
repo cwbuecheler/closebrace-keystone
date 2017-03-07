@@ -25,7 +25,6 @@
             <a href="#" class="image-upload" id="linkChangeImage">change</a>
             <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
               <input type="hidden" name="action" value="avatar-upload" />
-              <input type="hidden" name="userID" value="{{user.id}}" />
               <div class="fallback">
                 <label>Image File:<br/ ><input name="file" type="file" /></label>
               </div>
@@ -34,7 +33,6 @@
           <div class="info">
             <form method="post" action="/account/edit-profile" id="formEditProfile">
               <input type="hidden" name="action" value="edit-profile" />
-              <input type="hidden" name="userID" value="{{user._id}}" />
               <fieldset class="no-center">
 
                 <h4>Name</h4>
@@ -155,7 +153,6 @@
           <form id="formDeleteAccount" method="post" action="/account/delete-account">
             <fieldset>
               <input type="hidden" name="action" value="delete-account" />
-              <input type="hidden" name="userID" value="{{user.id}}" />
               <input type="text" name="accountDeleteConfirmText" />
             </fieldset>
             <div class="buttons">
@@ -189,7 +186,6 @@
               </p>
 
               <form action="/account/update-pro-subscription" method="post" id="cardUpdateForm">
-                <input type="hidden" name="userID" value="{{user.id}}" />
                 <div class="form-row">
                   <fieldset>
                     <label for="card-element">
@@ -270,7 +266,6 @@
               <form id="formCancelSubscription" method="post" action="/account/cancel-pro-subscription">
                 <fieldset>
                   <input type="hidden" name="action" value="cancel-subscription" />
-                  <input type="hidden" name="userID" value="{{user.id}}" />
                   <input type="text" name="accountCancelSubscriptionConfirmText" />
                 </fieldset>
                 <div class="buttons">
