@@ -26,54 +26,73 @@ exports = module.exports = function (req, res) {
 
   // Get Categories
   view.on('init', function(next) {
-    var q = Category.model.find({
-      name: new RegExp(req.body.searchTerms, 'i')
-    });
 
-    q.exec(function(err, results) {
-      if(results) {
-        locals.categories = results;
-      }
-      else {
-        locals.categories = null;
-      }
-      next(err);
-    });
+    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+      locals.categories = null;
+      return next();
+    }
+    else {
+      var q = Category.model.find({
+        name: new RegExp(req.body.searchTerms, 'i')
+      });
+
+      q.exec(function(err, results) {
+        if(results) {
+          locals.categories = results;
+        }
+        else {
+          locals.categories = null;
+        }
+        return next(err);
+      });
+    }
   });
 
   // Get Tags
   view.on('init', function(next) {
-    var q = Tag.model.find({
-      name: new RegExp(req.body.searchTerms, 'i')
-    });
+    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+      locals.tags = null;
+      return next();
+    }
+    else {
+      var q = Tag.model.find({
+        name: new RegExp(req.body.searchTerms, 'i')
+      });
 
-    q.exec(function(err, results) {
-      if(results) {
-        locals.tags = results;
-      }
-      else {
-        locals.tags = null;
-      }
-      next(err);
-    });
+      q.exec(function(err, results) {
+        if(results) {
+          locals.tags = results;
+        }
+        else {
+          locals.tags = null;
+        }
+        return next(err);
+      });
+    }
   });
 
   // Get Posts
   view.on('post', function(next) {
-    var regex = new RegExp(req.body.searchTerms, 'i');
-    var q = Post.model.find()
-    .where('content.md', regex)
-    .sort({'publishedAt': -1});
+    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+      locals.posts = null;
+      return next();
+    }
+    else {
+      var regex = new RegExp(req.body.searchTerms, 'i');
+      var q = Post.model.find()
+      .where('content.md', regex)
+      .sort({'publishedAt': -1});
 
-    q.exec(function(err, results) {
-      if(results) {
-        locals.posts = results;
-      }
-      else {
-        locals.posts = null;
-      }
-      next(err);
-    });
+      q.exec(function(err, results) {
+        if(results) {
+          locals.posts = results;
+        }
+        else {
+          locals.posts = null;
+        }
+        return next(err);
+      });
+    }
   });
 
   // Render the view
