@@ -133,6 +133,12 @@ header {
         align-items: center;
         justify-content: center;
 
+        .search-box-inner {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         .btn.btn-search {
           padding-left: 24px;
           height: 30px;
@@ -159,6 +165,11 @@ header {
           width: 100%;
           z-index: 12;
 
+          form {
+            display: inline-block;
+            width: 80%;
+          }
+
           input[type=text] {
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -168,7 +179,7 @@ header {
             line-height: 1;
             margin: 0;
             font-size: 1rem;
-            width: 70%;
+            width: 80%;
 
             &:focus {
               outline: none;
@@ -187,9 +198,7 @@ header {
           }
         }
         a.close-link {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+          display: inline-block;
           margin-left: auto;
           right: 5px;
           background: $color-brand-primary;
