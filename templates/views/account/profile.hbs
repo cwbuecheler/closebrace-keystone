@@ -23,12 +23,17 @@
               <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
             {{/if}}
             <a href="#" class="image-upload" id="linkChangeImage">change</a>
-            <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
-              <input type="hidden" name="action" value="avatar-upload" />
-              <div class="fallback">
-                <label>Image File:<br/ ><input name="file" type="file" /></label>
-              </div>
-            </form>
+            <!-- DROPZONE MODAL -->
+            <div class="dropzone-wrapper" id="avatarUpload">
+              <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
+                <a href="#" class="close-link" id="linkCloseImageUpload"><span class="sr-only">close modal</span>X</a>
+                <input type="hidden" name="action" value="avatar-upload" />
+                <div class="fallback">
+                  <label>Image File:<br/ ><input name="file" type="file" /></label>
+                </div>
+              </form>
+            </div>
+            <!-- DROPZONE MODAL -->
           </div>
           <div class="info">
             <form method="post" action="/account/edit-profile" id="formEditProfile">
@@ -365,13 +370,12 @@ function stripeTokenHandler(token) {
   });
 
   Dropzone.options.avatarUpload = {
-      maxFilesize: 10, // Mb
-      init: function () {
-          // Set up any event handlers
-          this.on('complete', function () {
-              location.reload();
-          });
-      }
+    init: function () {
+      // Set up any event handlers
+      this.on('complete', function (file) {
+        location.reload();
+      });
+    }
   };
 
 });
