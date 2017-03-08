@@ -23,12 +23,19 @@
               <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
             {{/if}}
             <a href="#" class="image-upload" id="linkChangeImage">change</a>
-            <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
-              <input type="hidden" name="action" value="avatar-upload" />
-              <div class="fallback">
-                <label>Image File:<br/ ><input name="file" type="file" /></label>
+            <!-- DROPZONE MODAL -->
+            <div class="dropzone-wrapper" id="avatarUpload">
+              <div class="dropzone-inner">
+                <a href="#" class="close-link" id="linkCloseImageUpload"><span class="sr-only">close modal</span>X</a>
+                <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
+                  <input type="hidden" name="action" value="avatar-upload" />
+                  <div class="fallback">
+                    <label>Image File:<br/ ><input name="file" type="file" /></label>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
+            <!-- DROPZONE MODAL -->
           </div>
           <div class="info">
             <form method="post" action="/account/edit-profile" id="formEditProfile">
@@ -283,6 +290,19 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
+  // Avatar Upload Dropzone
+  Dropzone.options.avatarUpload = {
+    maxFilesize: 1,
+    uploadMultiple: false,
+    acceptedFiles: 'image/jpeg,image/png,image/gif',
+    init: function () {
+      // Set up any event handlers
+      this.on('success', function (file) {
+        location.reload();
+      });
+    }
+  };
+
   // Init Stripe
   var stripe = Stripe('pk_test_a8h2HENfpffkX4W1FlStNcYv');
   var elements = stripe.elements();
@@ -363,17 +383,6 @@ function stripeTokenHandler(token) {
       document.getElementById('errorBox').innerHTML = errorString;
     }
   });
-
-  Dropzone.options.avatarUpload = {
-      maxFilesize: 10, // Mb
-      init: function () {
-          // Set up any event handlers
-          this.on('complete', function () {
-              location.reload();
-          });
-      }
-  };
-
 });
 </script>
 

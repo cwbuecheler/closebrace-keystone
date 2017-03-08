@@ -13,14 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
   /* Site Globals =================================================== */
   var isAdsBlocked = false;
 
-  /* Config */
-  // Avatar Upload Dropzone
-  Dropzone.options.avatarUpload = {
-    maxFilesize: 1,
-    uploadMultiple: false,
-    acceptedFiles: '.jpg,.png,.gif',
-  };
-
   /* Event Catchers ================================================= */
 
   // Clear values if window is resized
@@ -60,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('modal').style.display = 'none';
       }
 
+      // Close User Avatar Upload modal
+      if(idExists('linkCloseImageUpload')) {
+        document.getElementById('avatarUpload').style.display = 'none';
+      }
     }
   };
 
@@ -177,10 +173,31 @@ document.addEventListener("DOMContentLoaded", function() {
   if(idExists('linkChangeImage')) {
     document.getElementById('linkChangeImage').addEventListener('click', function(e){
       e.preventDefault();
-      // hide self
-      this.style.display = 'none';
       // show form
-      document.getElementById('avatar-upload').style.display = 'block';
+      document.getElementById('avatarUpload').style.display = 'block';
+    });
+  }
+
+  // Profile Image Upload Close Link
+  if(idExists('linkCloseImageUpload')) {
+    document.getElementById('linkCloseImageUpload').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('avatarUpload').style.display = 'none';
+    });
+  }
+
+  // Profile Image Upload Exterior Click
+  if(idExists('avatarUpload')) {
+    var upload = document.getElementById('avatarUpload');
+    var uploadOuter = document.querySelector('#avatarUpload .dropzone');
+    var uploadLink = document.getElementById('linkChangeImage');
+    upload.addEventListener('click', function(event){
+      var isClickInside = uploadOuter.contains(event.target);
+      var isClickLink = uploadLink.contains(event.target);
+
+      if(!isClickInside && !isClickLink) {
+        document.getElementById('avatarUpload').style.display = 'none';
+      }
     });
   }
 
