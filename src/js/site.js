@@ -13,14 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
   /* Site Globals =================================================== */
   var isAdsBlocked = false;
 
-  /* Config */
-  // Avatar Upload Dropzone
-  Dropzone.options.avatarUpload = {
-    maxFilesize: 1,
-    uploadMultiple: false,
-    acceptedFiles: '.jpg,.png,.gif',
-  };
-
   /* Event Catchers ================================================= */
 
   // Clear values if window is resized

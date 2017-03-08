@@ -288,6 +288,19 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
+  // Avatar Upload Dropzone
+  Dropzone.options.avatarUpload = {
+    maxFilesize: 1,
+    uploadMultiple: false,
+    acceptedFiles: 'image/jpeg,image/png,image/gif',
+    init: function () {
+      // Set up any event handlers
+      this.on('complete', function (file) {
+        location.reload();
+      });
+    }
+  };
+
   // Init Stripe
   var stripe = Stripe('pk_test_a8h2HENfpffkX4W1FlStNcYv');
   var elements = stripe.elements();
@@ -368,16 +381,6 @@ function stripeTokenHandler(token) {
       document.getElementById('errorBox').innerHTML = errorString;
     }
   });
-
-  Dropzone.options.avatarUpload = {
-    init: function () {
-      // Set up any event handlers
-      this.on('complete', function (file) {
-        location.reload();
-      });
-    }
-  };
-
 });
 </script>
 
