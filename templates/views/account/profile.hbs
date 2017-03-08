@@ -25,13 +25,15 @@
             <a href="#" class="image-upload" id="linkChangeImage">change</a>
             <!-- DROPZONE MODAL -->
             <div class="dropzone-wrapper" id="avatarUpload">
-              <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
+              <div class="dropzone-inner">
                 <a href="#" class="close-link" id="linkCloseImageUpload"><span class="sr-only">close modal</span>X</a>
-                <input type="hidden" name="action" value="avatar-upload" />
-                <div class="fallback">
-                  <label>Image File:<br/ ><input name="file" type="file" /></label>
-                </div>
-              </form>
+                <form method="post" action="/account/avatar-upload" class="dropzone" id="avatar-upload" enctype="multipart/form-data">
+                  <input type="hidden" name="action" value="avatar-upload" />
+                  <div class="fallback">
+                    <label>Image File:<br/ ><input name="file" type="file" /></label>
+                  </div>
+                </form>
+              </div>
             </div>
             <!-- DROPZONE MODAL -->
           </div>
@@ -295,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
     acceptedFiles: 'image/jpeg,image/png,image/gif',
     init: function () {
       // Set up any event handlers
-      this.on('complete', function (file) {
+      this.on('success', function (file) {
         location.reload();
       });
     }

@@ -559,13 +559,17 @@ header {
           padding-top: 30px;
           display: none;
 
-          .dropzone {
+          .dropzone-inner {
             width: 80%;
-            height: 80%;
+            height: 70%;
             z-index: 15;
             margin: 0 auto;
             max-width: 1200px;
             position: relative;
+          }
+          .dropzone {
+            height: 100%;
+            width: 100%;
           }
           a.close-link {
             display: inline-block;
