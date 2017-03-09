@@ -61,13 +61,17 @@ exports = module.exports = function (req, res) {
       state: 'published',
     })
     .sort({'publishedAt': -1})
-    .limit(6)
+    .limit(12)
     .populate('author categories');
 
     q.exec(function(err, result) {
       locals.posts = result;
       locals.topTwo = [result[0], result[1]];
       locals.nextFour = [result[2], result[3], result[4], result[5]];
+      locals.otherPosts = [];
+      for (var i = 6; i < result.length; i++) {
+        locals.otherPosts.push(result[i]);
+      }
       for (var post in result) {
         var updatedAtFormatted = result[post]._.updatedAt.format('Do MMM YYYY');
         locals.posts[post].updatedAtFormatted = updatedAtFormatted;
