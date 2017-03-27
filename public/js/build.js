@@ -412,7 +412,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // put together our submission
     var commentPacket = {
-      author: document.getElementById('hidUserID').value,
       content: document.getElementById('textAddComment').value,
       inReplyTo: null,
       relatedPost: document.getElementById('hidPostID').value,

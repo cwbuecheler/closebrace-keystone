@@ -39,6 +39,8 @@ exports.create = function(req, res) {
   var item = new Comment.model();
   var data = (req.method == 'POST') ? req.body : req.query;
 
+  data.author = req.user.id;
+
   // sanitize form data
   for (var key in data) {
     // skip loop if the property is from prototype
