@@ -12,6 +12,7 @@ exports = module.exports = function (req, res) {
   locals.section = 'articles';
   locals.filters = {
     post: req.params.post,
+    date: req.params.date,
   }
 
   // Load requested post
@@ -27,7 +28,13 @@ exports = module.exports = function (req, res) {
       locals.filters.postID = locals.post._id;
       var updatedAtFormatted = result._.updatedAt.format('Do MMM YYYY');
       locals.post.updatedAtFormatted = updatedAtFormatted;
-      next(err);
+      var publishedAtFormatted = result._.publishedAt.format('YYYY-MM-DD');
+      if (publishedAtFormatted === locals.filters.date) {
+        next(err);
+      }
+      else {
+        res.redirect('/tutorials/');
+      }
     });
   });
 
