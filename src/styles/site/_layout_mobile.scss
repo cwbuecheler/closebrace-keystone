@@ -349,6 +349,7 @@ header {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: $color-brand-primary;
           }
           p {
             margin: 0;
@@ -424,6 +425,7 @@ header {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          color: $color-brand-primary;
         }
         p {
           margin: 0;
