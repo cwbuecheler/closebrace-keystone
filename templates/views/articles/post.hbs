@@ -26,11 +26,23 @@
         </section>
         <!-- /TITLE BOX -->
 
-        <!-- INTRO IMAGE -->
-        <section class="intro-image">
-          <img src="https://res.cloudinary.com/closebrace/image/upload/w_720/v{{post.mainImage.version}}/{{post.mainImage.public_id}}.{{post.mainImage.format}}" alt="Main Content Image" />
-        </section>
-        <!-- /INTRO IMAGE -->
+        {{#if post.videoURL}}
+          <!-- INTRO VIDEO -->
+          <section class="intro-image">
+            <div class="embed-container">
+              <iframe src="{{post.videoURL}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </section>
+          <!-- /INTRO VIDEO -->
+        {{/if}}
+
+        {{#unless post.videoURL}}
+          <!-- INTRO IMAGE -->
+          <section class="intro-image">
+            <img src="https://res.cloudinary.com/closebrace/image/upload/w_720/v{{post.mainImage.version}}/{{post.mainImage.public_id}}.{{post.mainImage.format}}" alt="Main Content Image" />
+          </section>
+          <!-- /INTRO IMAGE -->
+        {{/unless}}
 
         <!-- ARTICLE TEXT -->
         <section class="article-text">
