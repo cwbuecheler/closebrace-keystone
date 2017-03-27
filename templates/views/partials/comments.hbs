@@ -31,7 +31,7 @@
                 </div>
               </div>
             {{else}}
-              <p>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account.</p>
+              <p><em>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account. Didn't get the email? Visit your <a href="/account/profile">Profile Page</a> to re-send it!</em></p>
             {{/if}}
           {{else}}
             <p>Please log in to comment.</p>
@@ -79,38 +79,40 @@
                   -->
                   <div class="links">
 
-                    {{! don't show any links if someone's logged out }}
-                    {{#if user}}
+                    {{! don't show any links if someone's logged out or not verified }}
+                    {{#if user.isVerified}}
+                      {{#if user}}
 
-                      {{! Admin Users}}
-                      {{#if ../user.isAdmin}}
-                        <a href="#" class="link-delete-comment" data-commentID="{{this.id}}">Admin Delete</a> |
+                        {{! Admin Users}}
+                        {{#if ../user.isAdmin}}
+                          <a href="#" class="link-delete-comment" data-commentID="{{this.id}}">Admin Delete</a> |
+                          {{#ifeq ../user.id this.author.id}}
+                            {{#unless this.isUserDeleted}}
+                              <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a> |
+                            {{/unless}}
+                          {{/ifeq}}
+                          {{#unless isUserDeleted}}
+                            <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
+                            <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                          {{/unless}}
+                        {{/if}}
+                      {{else}}
+                        {{! User viewing own comment }}
                         {{#ifeq ../user.id this.author.id}}
                           {{#unless this.isUserDeleted}}
                             <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a> |
                           {{/unless}}
+                          {{#unless isUserDeleted}}
+                            <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                          {{/unless}}
+                        {{! User is viewing someone else's comment }}
+                        {{else}}
+                          <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a>
+                          {{#unless isUserDeleted}}
+                            | <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                          {{/unless}}
                         {{/ifeq}}
-                        {{#unless isUserDeleted}}
-                          <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
-                          <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
-                        {{/unless}}
                       {{/if}}
-                    {{else}}
-                      {{! User viewing own comment }}
-                      {{#ifeq ../user.id this.author.id}}
-                        {{#unless this.isUserDeleted}}
-                          <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a> |
-                        {{/unless}}
-                        {{#unless isUserDeleted}}
-                          <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
-                        {{/unless}}
-                      {{! User is viewing someone else's comment }}
-                      {{else}}
-                        <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a>
-                        {{#unless isUserDeleted}}
-                          | <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
-                        {{/unless}}
-                      {{/ifeq}}
                     {{/if}}
                   </div>
                 </div>
