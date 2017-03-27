@@ -56,6 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
       if(idExists('linkCloseImageUpload')) {
         document.getElementById('avatarUpload').style.display = 'none';
       }
+
+      // Close front page login box
+      if(idExists('headerLoginBox')) {
+        document.getElementById('headerLoginBox').style.display = 'none';
+        // also clear the inputs
+        document.getElementById('formLogin').reset();
+      }
     }
   };
 
@@ -130,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Main header user image
   if(idExists('linkUserImage')) {
-    document.getElementById('linkUserImage').addEventListener('click', function(e){
+    document.getElementById('linkUserImage').addEventListener('click', function(e) {
       e.preventDefault();
       if (getComputedStyle(document.querySelector('#userMenu')).position === 'absolute') {
         if (document.getElementById('userMenu').style.display === 'block') {
@@ -152,6 +159,45 @@ document.addEventListener("DOMContentLoaded", function() {
       var isClickButton = userImage.contains(event.target);
       if(!isClickInside && !isClickButton && userBox.style.display === 'block') {
         document.getElementById('userMenu').style.display = 'none';
+      }
+    });
+  }
+
+  // Main header log in link
+  if(idExists('linkHeaderLogIn')) {
+    document.getElementById('linkHeaderLogIn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (getComputedStyle(document.querySelector('#userMenu')).position === 'absolute') {
+        if (document.getElementById('userMenu').style.display === 'block') {
+          document.getElementById('userMenu').style.display = 'none';
+        }
+      }
+      document.getElementById('headerLoginBox').style.display = 'block';
+      document.getElementById('userEmail').focus();
+    });
+  }
+
+  // Main header log in box cancel button
+  if(idExists('btnLogInCancel')) {
+    document.getElementById('btnLogInCancel').addEventListener('click', function(e) {
+      var headerLoginBox = document.getElementById('headerLoginBox');
+      headerLoginBox.style.display = 'none';
+      // also clear the inputs
+      document.getElementById('formLogin').reset();
+    });
+  }
+
+  // Main header click outside of login box
+  if(idExists('linkUserImage')) {
+    var headerLoginBox = document.getElementById('headerLoginBox');
+    var loginLink = document.getElementById('linkHeaderLogIn');
+    document.addEventListener('click', function(e){
+      var isClickInside = headerLoginBox.contains(event.target);
+      var isClickLink = loginLink.contains(event.target);
+      if(!isClickInside && !isClickLink && headerLoginBox.style.display === 'block') {
+        document.getElementById('headerLoginBox').style.display = 'none';
+        // also clear the inputs
+        document.getElementById('formLogin').reset();
       }
     });
   }

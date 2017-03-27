@@ -237,6 +237,7 @@ header {
       }
       .user-avatar {
         position: relative;
+        width: 30px; height: 30px;
 
         img.user-icon {
           width: 30px;
@@ -256,6 +257,29 @@ header {
           text-decoration: none;
         }
       }
+
+      .login-box {
+        display: none;
+        position: absolute;
+        width: 311px;
+        padding: 10px 30px 30px 30px;
+        background: #FFF;
+        top: 41px;
+        right: 5px;
+        border: none;
+        box-shadow: 0px -5px 0px #FFF, 0px 0px 5px rgba(16,147,71,0.5);
+        text-align: left;
+        font-size: .875rem;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+        form {
+          margin: 0 0 1rem 0;
+        }
+        p {
+          margin: 0;
+        }
+      }
     } // end user box
 
   } // end inner
@@ -272,6 +296,7 @@ header {
   p {
     font-size: .75rem;
     color: $color-grey-medium;
+    margin: 0;
   }
 
   img {
@@ -284,8 +309,8 @@ header {
 #wrapper {
   margin: 0 auto;
   text-align:center;
-  max-width:600px; min-width: 320px;
-  padding: 0 30px 30px 30px;
+  max-width: 600px; min-width: 320px;
+  padding: 0 15px 30px 15px;
 
   /* Home Page */
   .home {
@@ -350,6 +375,7 @@ header {
       }
       .table-posts {
         margin-bottom: 1rem;
+        text-align: left;
       }
       .more-links {
         ul {
@@ -664,6 +690,7 @@ header {
   aside {
     width: 100%;
     margin: 0;
+    overflow: auto;
 
     .timeline-footer {
       display: none !important;
@@ -681,10 +708,12 @@ header {
         margin-bottom: 0;
       }
       .sidebar-box-inner {
-        padding: 15px;
+        padding: 5px;
+        overflow: auto;
 
         &.ad {
           text-align: center;
+          min-height: 600px;
 
           p {
             margin: 0;

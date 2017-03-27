@@ -63,11 +63,17 @@
         }
         .user-avatar {
           position: relative;
+          width: 40px;
+          height: 40px;
 
           img.user-icon {
             width: 40px;
             height: 40px;
           }
+        }
+
+        .login-box {
+          top: 51px;
         }
       } // end user box
 
