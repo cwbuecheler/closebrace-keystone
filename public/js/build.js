@@ -251,6 +251,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Main header log-in form set destination
+  if(idExists('inputDestination')) {
+    getById('inputDestination').value = window.location.href;
+  }
+
   // Main header log in link
   if(idExists('linkHeaderLogIn')) {
     getById('linkHeaderLogIn').addEventListener('click', function(e) {

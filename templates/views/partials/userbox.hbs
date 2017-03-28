@@ -4,7 +4,7 @@
               Welcome, {{user.name.first }}<br />
               <a href="/account/profile">My Account</a> | <a href="/account/log-out">Log Out</a>
             {{else}}
-              <a href="/account/log-in" id="linkHeaderLogIn">Log In</a> |
+              <a href="/account/log-in" class="log-in-link" id="linkHeaderLogIn">Log In</a> |
               <a href="/account/register">Register</a>
             {{/if}}
           </p>
@@ -27,6 +27,7 @@
             <div id="errorBox" class="error-box"></div>
             <form name="formLogin" id="formLogin" method="post" action="/account/log-in">
               <input type="hidden" name="action" value="login" />
+              <input type="hidden" name="destination" id="inputDestination" value="" />
               <fieldset>
                 <label>Email <input type="email" name="userEmail" placeholder="codemaster@closebrace.com" id="userEmail" /></label>
                 <label>Password <input type="password" name="userPassword" /></label>

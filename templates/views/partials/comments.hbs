@@ -5,6 +5,11 @@
           <a name="comment-box" id="commentBox"></a>
           {{#if user}}
             {{#if user.isVerified}}
+              {{#if user.isPro}}
+                <p class="alert alert-info">Looking for help with this tutorial? As a CloseBrace Pro, you can also <a href="mailto:tutorials@closebrace.com" >send us an email</a></p>
+              {{else}}
+                <p class="alert alert-info">Looking for help with this tutorial? You can leave a comment here, but for faster and more detailed responses, consider signing up for <a href="/go-pro">CloseBrace Pro</a>, which gives access to email support!</p>
+              {{/if}}
               <div class="add-comment form-in-content">
                 <div class="author">
                   <div class="user-avatar">
@@ -31,12 +36,11 @@
                 </div>
               </div>
             {{else}}
-              <p><em>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account. Didn't get the email? Visit your <a href="/account/profile">Profile Page</a> to re-send it!</em></p>
+              <p class="alert alert-warning"><em>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account. Didn't get the email? Visit your <a href="/account/profile">Profile Page</a> to re-send it!</em></p>
             {{/if}}
           {{else}}
             <p>Please log in to comment.</p>
           {{/if}}
-
           <h3>Comments</h3>
           {{#each comments}}
             <a name="{{this.id}}"></a>

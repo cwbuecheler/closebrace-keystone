@@ -29,6 +29,7 @@ exports = module.exports = function (req, res) {
       var updatedAtFormatted = result._.updatedAt.format('Do MMM YYYY');
       locals.post.updatedAtFormatted = updatedAtFormatted;
       var publishedAtFormatted = result._.publishedAt.format('YYYY-MM-DD');
+      locals.post.publishedAtFormatted = publishedAtFormatted;
       if (publishedAtFormatted === locals.filters.date) {
         next(err);
       }
