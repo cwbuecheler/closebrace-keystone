@@ -185,6 +185,20 @@
           text-align: left;
         }
       }
-    }
+    }// end article
+
+    /* Sidebar */
+    aside {
+
+      /* sidebar box */
+      .sidebar-box {
+
+        .sidebar-box-inner {
+          padding: 30px;
+        }
+      } // end sidebar box
+    } // end sidebar
+
+
   } // end wrapper
 }

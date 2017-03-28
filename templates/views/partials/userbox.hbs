@@ -4,7 +4,7 @@
               Welcome, {{user.name.first }}<br />
               <a href="/account/profile">My Account</a> | <a href="/account/log-out">Log Out</a>
             {{else}}
-              <a href="/account/log-in">Log In</a> |
+              <a href="/account/log-in" class="log-in-link" id="linkHeaderLogIn">Log In</a> |
               <a href="/account/register">Register</a>
             {{/if}}
           </p>
@@ -15,9 +15,30 @@
               {{else}}
                 <a href="#" id="linkUserImage"><img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" /></a>
               {{/if}}
+            {{else}}
+              <a href="#" id="linkUserImage"><img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" /></a>
             {{/if}}
             {{#if user.isPro}}
               <a href="/go-pro" class="pro-badge">pro</a>
             {{/if}}
           </div>
+
+          <div class="login-box" id="headerLoginBox">
+            <div id="errorBox" class="error-box"></div>
+            <form name="formLogin" id="formLogin" method="post" action="/account/log-in">
+              <input type="hidden" name="action" value="login" />
+              <input type="hidden" name="destination" id="inputDestination" value="" />
+              <fieldset>
+                <label>Email <input type="email" name="userEmail" placeholder="codemaster@closebrace.com" id="userEmail" /></label>
+                <label>Password <input type="password" name="userPassword" /></label>
+                <label>
+              </fieldset>
+              <button type="submit" id="btnLogInSubmit" class="btn btn-primary">Log In</button> &nbsp;
+              <button type="button" id="btnLogInCancel" class="btn btn-grey">Cancel</button>
+            </form>
+            <p>
+              Forgot your password? <a href="/account/forgot-password">Click here to reset it</a>.
+            </p>
+          </div>
+
         </div>

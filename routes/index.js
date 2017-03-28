@@ -64,7 +64,7 @@ exports = module.exports = function (app) {
   app.get('/account/sendconfirm', routes.views.account.sendConfirm);
   app.all('/account/update-pro-subscription', routes.views.account.updateProSubscription);
   app.get('/articles', routes.views.articles.articlesIndex);
-  app.get('/articles/:post', routes.views.articles.post);
+  app.get('/articles/:date/:post', routes.views.articles.post);
   app.get('/articles/categories/:category', routes.views.articles.categoriesIndex);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
@@ -75,7 +75,7 @@ exports = module.exports = function (app) {
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
-  app.get('/tutorials/:post', routes.views.tutorials.post);
+  app.get('/tutorials/:date/:post', routes.views.tutorials.post);
   app.get('/tutorials/categories/:category', routes.views.tutorials.categoriesIndex);
   app.get('/u/:username', routes.views.publicProfile)
 

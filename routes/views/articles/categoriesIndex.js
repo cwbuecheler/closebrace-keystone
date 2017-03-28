@@ -19,7 +19,7 @@ exports = module.exports = function (req, res) {
       state: 'published',
       postType: 'Article',
     })
-    .sort('-createdAt')
+    .sort('-updatedAt')
     .populate('author category');
 
     q.exec(function(err, results) {

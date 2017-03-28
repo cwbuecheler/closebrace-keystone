@@ -75,6 +75,8 @@ exports = module.exports = function (req, res) {
       for (var post in result) {
         var updatedAtFormatted = result[post]._.updatedAt.format('Do MMM YYYY');
         locals.posts[post].updatedAtFormatted = updatedAtFormatted;
+        var publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
+        locals.posts[post].publishedAtFormatted = publishedAtFormatted;
       }
       next(err);
     });
