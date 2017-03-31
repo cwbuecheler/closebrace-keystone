@@ -46,6 +46,18 @@
       display: none;
     }
   }
+
+  @media only screen and (min-height: 700px) {
+    .modal-outer {
+      max-height: 600px;
+
+      .modal-inner {
+        max-height: 540px;
+      }
+    }
+  }
+
+
 }
 
 .modal-gopro {
