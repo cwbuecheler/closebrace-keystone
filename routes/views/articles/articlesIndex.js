@@ -20,6 +20,14 @@ exports = module.exports = function (req, res) {
     .populate('author categories');
 
     q.exec(function(err, result) {
+
+      // If no posts, move along
+      if(result.length < 1) {
+        locals.firstPost = null;
+        locals.posts = null;
+        return next(err);
+      }
+
       locals.firstPost = result[0];
       locals.firstPost.updatedAtFormatted = locals.firstPost._.updatedAt.format('Do MMM YYYY');
       locals.firstPost.publishedAtFormatted = locals.firstPost._.publishedAt.format('YYYY-MM-DD');

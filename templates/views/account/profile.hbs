@@ -22,12 +22,12 @@
             {{else}}
               <img src="https://res.cloudinary.com/closebrace/image/upload/v1483643228/default_user_rdehx2.png" alt="Default User Icon" class="user-icon" />
             {{/if}}
-            {{if user.isVerified}}
+            {{#if user.isVerified}}
               <a href="#" class="image-upload" id="linkChangeImage">change</a>
             {{else}}
               Please verify your account to change your avatar.
             {{/if}}
-            {{if user.isVerified}}
+            {{#if user.isVerified}}
             <!-- DROPZONE MODAL -->
             <div class="dropzone-wrapper" id="avatarUpload">
               <div class="dropzone-inner">
