@@ -14,19 +14,37 @@
 fieldset {
 border: 0;
 padding: 0;
-margin: 0 0 1rem 0;
+margin: 0;
+
+  &.sidebar {
+    margin: 0;
+    text-align: center;
+
+    label {
+      font-size: .8125rem;
+    }
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+      font-size: .8125rem;
+    }
+    .submit {
+      text-align: center;
+    }
+  }
 
   label {
     display: block;
-    color: $color-grey-ultradark;
-    font-size: 1.25rem;
+    color: $color-grey-medium;
+    font-size: 1rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
-    line-height: 1.5;
+    line-height: 1.4;
   }
   input[type=text],
   input[type=email],
   input[type=password],
+  input[type=tel],
   textarea,
   select {
     display: block;
@@ -65,4 +83,15 @@ margin: 0 0 1rem 0;
   line-height: 1.2;
   color: #A00;
   display: none;
+}
+
+// Stripe
+
+.field {
+  border: 1px solid $color-grey-light;
+  padding: 5px 10px;
+}
+.card-errors {
+  color: #A00;
+  margin: 0 0 .5rem 0;
 }

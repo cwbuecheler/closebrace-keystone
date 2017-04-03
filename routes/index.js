@@ -22,6 +22,7 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
 var RateLimit = require('express-rate-limit');
+var cbOptions = require('../options.js');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
@@ -49,6 +50,7 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
   app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
+  app.all('/account/cancel-pro-subscription', postLimiter, routes.views.account.cancelProSubscription)
   app.get('/account/confirm', routes.views.account.confirm);
   app.all('/account/delete-account', postLimiter, routes.views.account.deleteAccount);
   app.all('/account/edit-profile', postLimiter, routes.views.account.editProfile);
@@ -59,24 +61,33 @@ exports = module.exports = function (app) {
   app.all('/account/register', postLimiter, routes.views.account.register);
   app.get('/account/registration-success', routes.views.account.registrationSuccess);
   app.all('/account/reset-password/:key', postLimiter, routes.views.account.resetPassword);
+  app.get('/account/sendconfirm', routes.views.account.sendConfirm);
+  app.all('/account/update-pro-subscription', routes.views.account.updateProSubscription);
   app.get('/articles', routes.views.articles.articlesIndex);
-  app.get('/articles/:post', routes.views.articles.post);
+  app.get('/articles/:date/:post', routes.views.articles.post);
+  app.get('/categories/:category', routes.views.categories.categoriesIndex);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/community-guidelines', routes.views.communityGuidelines);
+  app.get('/go-pro', routes.views.goPro);
+  app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
+  app.all('/search', postLimiter, routes.views.searchResults);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
-  app.get('/tutorials/:post', routes.views.tutorials.post);
+  app.get('/tutorials/:date/:post', routes.views.tutorials.post);
   app.get('/u/:username', routes.views.publicProfile)
 
   // API
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
   app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
-  app.all('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
-  app.get('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
+  app.post('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
+  app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
+  app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
+  //app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
+  app.post('/api/stripe/events', routes.api.stripe.stripeEvents);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

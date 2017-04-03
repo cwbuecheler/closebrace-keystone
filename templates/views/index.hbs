@@ -1,5 +1,4 @@
 {{!< default}}
-
 			<!-- CONTENT -->
 			<div class="home">
 
@@ -11,10 +10,10 @@
 						<div class="feature">
 							<div class="top-border"></div>
 							<div class="image-box">
-								<a href="/{{toLowerCase this.postType}}s/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+								<a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
 								<span class="feature-type">{{this.postType}}</span>
 								<div class="text-box">
-									<h1><a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a></h1>
+									<h1><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a></h1>
 									<p>
 										{{this.subHead}}
 									</p>
@@ -27,7 +26,7 @@
 				</div>
 				<!-- /LAST TWO FEATURES -->
 
-				<!-- SIB WRAP -->
+				<!-- SUB WRAP -->
 				<div class="sub-wrap">
 
 					<!-- SUB CONTENT -->
@@ -41,10 +40,10 @@
 								<div class="feature">
 									<div class="top-border"></div>
 									<div class="image-box">
-										<a href="/{{toLowerCase this.postType}}s/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
+										<a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
 										<span class="feature-type">{{this.postType}}</span>
 										<div class="text-box">
-											<h1><a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a></h1>
+											<h1><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a></h1>
 											<p>
 												{{this.subHead}}
 											</p>
@@ -64,17 +63,17 @@
 			        <!-- POST TABLE -->
 			        <table class="table table-posts">
 			          <tbody>
-			          {{#each posts}}
+			          {{#each otherPosts}}
 			            <tr>
-			              <td class="shot hide-mobile"><a href="/{{toLowerCase this.postType}}s/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
+			              <td class="shot hide-mobile"><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
 			              <td class="info">
 			                <p>
-			                  <a href="/{{toLowerCase this.postType}}s/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
+			                  <a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
 			                  <em>{{this.subHead}}</em>
 			                </p>
 			              </td>
 			              <td class="hide-above-mobile">
-			                <a href="/{{toLowerCase this.postType}}s/{{this.slug}}" class="btn btn-primary">Read</a>
+			                <a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}" class="btn btn-primary">Read</a>
 			              </td>
 			            </tr>
 			          {{/each}}
@@ -91,6 +90,28 @@
 			        <!-- /MORE LINKS -->
 						</div>
 						<!-- /FEATURE TABLE -->
+
+						<!-- BLOG POSTS -->
+						<div class="feature-list">
+							<div class="top-border"></div>
+							<h2>Latest from the Blog</h2>
+							<table class="table table-posts">
+								<tbody>
+									{{#each blogPosts}}
+										<tr>
+											<td class="date">{{date this.pubDate format='MMM D, YYYY'}}</td>
+											<td class="info">
+												<p>
+													<a href="{{this.link}}" target="_blank">{{this.title}}</a><br />
+													<em>{{{this.summary}}}&hellip;</em>
+												</p>
+											</td>
+										</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+						<!-- /BLOG POSTS -->
 
 					</div>
 					<!-- /SUB CONTENT -->

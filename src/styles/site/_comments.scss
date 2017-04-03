@@ -29,7 +29,7 @@
         padding: 0;
         line-height: 1;
       }
-      span {
+      a.pro-badge {
         position: absolute;
         bottom: 0;
         right: 0;
@@ -40,6 +40,7 @@
         border-radius: 3px;
         text-transform: uppercase;
         line-height: 1;
+        text-decoration: none;
       }
     }
   }
@@ -90,6 +91,7 @@
       text-align: right;
       text-transform: uppercase;
       font-size: .875rem;
+      color: $color-text;
 
       .flag {
         color: #C00;
@@ -117,5 +119,17 @@
 
   .text {
     border-left: 1px solid $color-grey-light;
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: .875rem;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }

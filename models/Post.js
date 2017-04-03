@@ -20,6 +20,7 @@ Post.add({
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
   tags: { type: Types.Relationship, ref: 'Tag', many: true },
   mainImage: { type: Types.CloudinaryImage },
+  videoURL: { type: String },
   createdAt: { type: Date, default: Date.now },
   publishedAt: { type: Date, noedit: true, watch: { state: 'published' }, value: Date.now },
   updatedAt: { type: Date, noedit: true, watch: true, value: Date.now },

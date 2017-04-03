@@ -16,7 +16,7 @@ exports = module.exports = function (req, res) {
   // Load requested user's profile
   view.on('init', function(next) {
     var q = User.model.findOne({
-      userName: locals.filters.username,
+      userName: new RegExp(locals.filters.username, 'i')
     });
 
     q.exec(function(err, result) {

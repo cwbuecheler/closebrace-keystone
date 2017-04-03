@@ -10,6 +10,7 @@ exports = module.exports = function (req, res) {
   // item in the header navigation.
   locals.section = 'tags';
   locals.tag = req.params.tag.toLowerCase();
+  locals.tagName = locals.tag;
 
   // Load requested posts
   view.on('init', function(next) {
