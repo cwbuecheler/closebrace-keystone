@@ -31,7 +31,7 @@ exports = module.exports = function (req, res) {
 
     // If the email in the form doesn't match the email of the logged in user, no dice
     if(req.user && req.user.email != locals.formData.userEmail) {
-      req.flash('error', { detail: 'Sorry, that email address doesn\'t match the one we have on file.' });
+      req.flash('error', { detail: 'All set. If an account with your email address exists, we have emailed you a link to reset your password.' });
       return res.redirect('/account/forgot-password')
     }
 
@@ -39,7 +39,7 @@ exports = module.exports = function (req, res) {
     keystone.list('User').model.findOne({ email: locals.formData.userEmail }, function(err, user) {
       if (err) return next(err);
       if (!user) {
-        req.flash('error', { detail: 'Sorry, that email doesn\'t exist in  our database.' });
+        req.flash('error', { detail: 'All set. If an account with your email address exists, we have emailed you a link to reset your password.' });
         return next();
       }
 
@@ -50,7 +50,7 @@ exports = module.exports = function (req, res) {
           next();
         }
         else {
-          req.flash('success', { detail: 'All set. We\'ve emailed you a link to reset your password' });
+          req.flash('success', { detail: 'All set. If an account with your email address exists, we have emailed you a link to reset your password.' });
           res.redirect('/account/log-in');
         }
       });
