@@ -2,6 +2,84 @@
 
 @media only screen and (min-width: 851px) {
 
+  body {
+    padding-top: 100px;
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .inner {
+      height: 60px;
+
+      // logo
+      .logo {
+        width: 160px;
+        flex-basis: 160px;
+
+        a {
+          width: 160px;
+          height: 21px;
+
+          img {
+            width: 160px;
+            height: 21px;
+          }
+        }
+      } // end logo
+
+      /* Menu & Search */
+      .menu-wrap {
+        /* Search */
+        .search {
+          .search-box {
+            height: 60px;
+
+            .search-box-inner {
+              height: 60px;
+            }
+          }
+        } // end search
+      } // end menu & search
+
+      /* User Box */
+      .user-box {
+
+        p.user-menu {
+          margin: 0 5px 0 0;
+          position: relative;
+          top: auto;
+          right: auto;
+          border: none;
+          background: transparent;
+          box-shadow: none;
+          z-index: 0;
+          padding: 0;
+          width: auto;
+          display: block;
+        }
+        .user-avatar {
+          position: relative;
+          width: 40px;
+          height: 40px;
+
+          img.user-icon {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        .login-box {
+          top: 51px;
+        }
+      } // end user box
+
+    } // end inner
+  } // end header
+
   /* Big Horizontal Ad */
   .ad-horizontal {
     max-width: 1000px;
@@ -102,7 +180,7 @@
       display: block;
       flex-basis: auto;
       flex-grow: 5;
-
+      overflow: auto;
 
       /* User Profile */
       .profile-box {
@@ -126,7 +204,7 @@
     aside {
       flex-grow: 0;
       flex-shrink: 0;
-      flex-basis: 330px;
+      flex-basis: 360px;
       width: auto;
     } // end sidebar
   } // end wrapper

@@ -10,15 +10,9 @@ exports = module.exports = function (req, res) {
     return res.redirect('/account/log-in');
   }
 
-  // If the id in the form doesn't match the id of the logged in user, no dice
-  if(req.user.id != req.body.userID) {
-    req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #1' });
-    return res.redirect('/account/profile')
-  }
-
   // If there's no image submitted, give up
   if(!req.files.file) {
-    req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #2' });
+    req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #1' });
     return res.redirect('/account/profile')
   }
 
@@ -37,26 +31,32 @@ exports = module.exports = function (req, res) {
   }
 
   view.on('init', function(next) {
-    // Look up existing user
-    User.model.findOne().where('_id', locals.formData.userID).exec(function(err, user) {
-      if (err) {
-        console.log(err);
-        return next(err);
-      }
-      if (!user || user === null) {
-        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #3' });
-        return res.redirect('/account/profile');
-      }
-      locals.foundUser = user;
-      next();
-    });
+    if(req.user.id === '' || !req.user.id) {
+      req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #2' });
+      return res.redirect('/account/profile')
+    }
+    else {
+      // Look up existing user
+      User.model.findOne().where('_id', req.user.id).exec(function(err, user) {
+        if (err) {
+          req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #3' });
+          return res.redirect('/account/profile');
+        }
+        if (!user || user === null) {
+          req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #4' });
+          return res.redirect('/account/profile');
+        }
+        locals.foundUser = user;
+        return next();
+      });
+    }
   });
 
   view.on('init', function(next) {
     // upload the image to Cloudinary and assign the new URL
     cloudinary.uploader.upload(req.files.file.path, function(result, err) {
       if (err) {
-        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #4' });
+        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #5' });
         return res.redirect('/account/profile');
       }
       else {
@@ -71,7 +71,7 @@ exports = module.exports = function (req, res) {
     locals.foundUser.userImage = locals.newUserImage;
     locals.foundUser.save(function(err) {
       if (err) {
-        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #5' });
+        req.flash('error', { detail: 'Sorry, something went wrong while uploading your avatar. Please try again. Error #6' });
         res.redirect('/account/profile');
       }
       req.flash('success', { detail: 'Changes Made!' });

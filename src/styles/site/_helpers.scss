@@ -23,12 +23,12 @@
   }
 }
 *.hide-mobile {
-  @media only screen and (max-width: 750px) {
+  @media only screen and (max-width: 850px) {
     display: none !important;
   }
 }
 *.hide-above-mobile {
-  @media only screen and (min-width: 751px) {
+  @media only screen and (min-width: 851px) {
     display: none !important;
   }
 }
@@ -39,7 +39,6 @@
   width: 100%;
   max-width: 1140px;
   padding: 10px 20px;
-  border-radius: 20px;
   border: 1px solid $color-grey-light;
   background: #FFF;
   margin: 0 auto 25px auto;

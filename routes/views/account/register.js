@@ -39,7 +39,7 @@ exports = module.exports = function (req, res) {
     })
     .then( function(err) {
       // Check for duplicate username
-      keystone.list('User').model.findOne({ userName: locals.formData.userUsername }, function(err, user) {
+      keystone.list('User').model.findOne({ userName: new RegExp(locals.formData.userUsername, 'i') }, function(err, user) {
         if (err || user) {
           locals.dupeUsername = true;
         }
@@ -102,7 +102,7 @@ exports = module.exports = function (req, res) {
           to: locals.formData.userEmail, // list of receivers
           subject: 'Please Confirm Your CloseBrace Account', // Subject line
           text: 'Thanks for registering with CloseBrace. You can confirm your account by visiting the following URL: https://dev.closebrace.com/account/confirm?conf=' + userConfirm + ' ... If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.', // plaintext body
-          html: '<h3>Welcome to CloseBrace</h3><p>Thanks for registering with CloseBrace, the tutorial and resource site for JavaScript developers, by JavaScript developers.</p><p>You can confirm your account by visiting the following URL: <a href="https://dev.closebrace.com/account/confirm?conf=' + userConfirm + '" target="_blank">https://dev.closebrace.com/account/confirm?conf=' + userConfirm + '</a>.</p><p>If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.</p>' // html body
+          html: '<h3>Welcome to CloseBrace</h3><p>Thanks for registering with CloseBrace, the tutorial and resource site for JavaScript developers, by JavaScript developers.</p><p>You can confirm your account by visiting the following URL: <a href="https://dev.closebrace.com/account/confirm?conf=' + userConfirm + '" target="_blank">https://dev.closebrace.com/account/confirm?conf=' + userConfirm + '</a></p><p>If you did not sign up for CloseBrace and someone has used your email address by mistake, you don\'t need to do anything. This account will not be emailed again (unless a re-send of this confirmation email is requested), and will be automatically deleted in ten days.</p>' // html body
         };
 
         // send mail with defined transport object

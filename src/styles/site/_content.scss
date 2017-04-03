@@ -2,6 +2,7 @@
 * div.code-box {
   width: 100%;
   margin-bottom: 1rem;
+  overflow: auto;
 
   h5 {
     display: block;
@@ -16,10 +17,16 @@
     border-bottom: 0;
   }
   pre {
-    width: 100%;
-    font-size: .75rem;
-    padding: 10px;
-    margin: 0;
+    width: auto;
+    max-width: 100%;
+    display: block;
+    font-family: Consolas, monaco, monospace;
+    font-size: .75rem !important;
+    margin: 0 0 1em 0;
+    padding: 15px;
+    line-height: 1.2;
+    background: #FFF;
+    border: 1px solid $color-grey-dark;
     overflow: auto;
   }
 }
@@ -50,6 +57,7 @@
   }
   ul, ol {
     font-size: .875rem;
+    padding: 0 15px 0 40px;
   }
   a:link, a:visited {
     color: #A00;
