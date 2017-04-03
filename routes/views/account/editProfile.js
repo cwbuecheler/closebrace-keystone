@@ -9,12 +9,6 @@ exports = module.exports = function (req, res) {
     return res.redirect('/account/log-in');
   }
 
-  // If the id in the form doesn't match the id of the logged in user, no dice
-  if(req.user.id != req.body.userID) {
-    req.flash('error', { detail: 'Sorry, something went wrong while trying to update your profile. Please try again. Error #1' });
-    return res.redirect('/account/profile')
-  }
-
   var view = new keystone.View(req, res);
   var locals = res.locals;
   locals.section = 'account';
@@ -33,16 +27,16 @@ exports = module.exports = function (req, res) {
   locals.hideAds = true;
 
   view.on('init', function(next) {
-    // Look up existing user
-    User.model.findOne().where('_id', locals.formData.userID).exec(function(err, user) {
+    // Look up currently logged in user
+    User.model.findOne().where('_id', req.user.id).exec(function(err, user) {
       if (err) {
-        console.log(err);
         return next(err);
       }
       if (!user) {
         req.flash('error', { detail: 'Sorry, something went wrong while trying to update your profile. Please try again. Error #2' });
         return res.redirect('/account/profile');
       }
+
       locals.found = user;
       next();
     });
@@ -51,7 +45,7 @@ exports = module.exports = function (req, res) {
 
   view.on('init', function(next) {
     // catch username conflicts
-    User.model.findOne().where('userName', locals.formData.userUsername).exec(function(err, foundUser) {
+    User.model.findOne().where('userName', new RegExp(locals.formData.userUsername, 'i')).exec(function(err, foundUser) {
       locals.dupeUsername = false;
       if (err) {
         console.log(err);
@@ -60,7 +54,7 @@ exports = module.exports = function (req, res) {
       if (!foundUser) {
         return next();
       }
-      if (foundUser.id != locals.formData.userID) {
+      if (foundUser.id != req.user.id) {
         locals.dupeUsername = true;
       }
       next();

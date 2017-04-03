@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 var cbOptions = require('../../options.js');
 
 var Comment = keystone.list('Comment');
+var User = keystone.list('User');
 
 /**
  * List Comments
@@ -38,6 +39,8 @@ exports.create = function(req, res) {
   var item = new Comment.model();
   var data = (req.method == 'POST') ? req.body : req.query;
 
+  data.author = req.user.id;
+
   // sanitize form data
   for (var key in data) {
     // skip loop if the property is from prototype
@@ -63,6 +66,12 @@ exports.update = function(req, res) {
     if (err) { return res.apiError('database error', err) };
     if (!item) { return res.apiError('not found') };
     var data = (req.method == 'POST') ? req.body : req.query;
+
+    // Make sure the user requesting the update is the user who posted the comment
+    if (String(item.author) !== String(req.user.id)) {
+      return res.apiResponse({ success: false });
+    }
+
     item.getUpdateHandler(req).process(data, function(err) {
       if (err) return res.apiError('create error', err);
       res.apiResponse({
@@ -76,13 +85,27 @@ exports.update = function(req, res) {
  * Delete Comment by ID
  */
 exports.remove = function(req, res) {
-  Comment.model.findById(req.params.id).exec(function (err, item) {
+  // Make sure the user requesting the delete is an admin
+  User.model.findById(req.user.id).exec(function (err, user) {
     if (err) { return res.apiError('database error', err) };
-    if (!item) { return res.apiError('not found') };
-    item.remove(function (err) {
+    if (!user) {
+      console.log('couldn\'t find user');
+      return res.apiResponse({ success: false });
+    }
+    if (!user.isAdmin) {
+      console.log('user is not an admin');
+      return res.apiResponse({ success: false });
+    }
+
+    Comment.model.findById(req.params.id).exec(function (err, item) {
+      console.log(err);
       if (err) { return res.apiError('database error', err) };
-      return res.apiResponse({
-        success: true
+      if (!item) { return res.apiError('not found') };
+      item.remove(function (err) {
+        if (err) { return res.apiError('database error', err) };
+        return res.apiResponse({
+          success: true
+        });
       });
     });
   });

@@ -17,9 +17,6 @@ exports = module.exports = function (req, res) {
 
   view.on('init', function(next) {
 
-    console.log(locals.confirmString);
-
-
     // Find a user who matches this confirm string
     User.model.findOne().where('confirmHash', locals.confirmString).exec(function(err, user) {
       if (err) return next(err);

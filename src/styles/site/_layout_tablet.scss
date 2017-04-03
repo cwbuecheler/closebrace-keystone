@@ -1,51 +1,90 @@
 /* Smaller tablets and medium-sized screens */
 
 @media only screen and (min-width: 601px) {
+
   header {
-    border-top: 10px solid $color-grey-dark;
 
-    .logo {
-      flex-basis: 50%;
-      height: 60px;
-      justify-content: center;
+    .inner {
 
-      img.img-logo {
-        max-width: 233px;
-        max-height: 30px;
+      /* Menu & Search */
+      .menu-wrap {
+        position: relative;
+
+        .menu {
+
+          .hamburger {
+            display: none;
+          } // end hamburger
+
+          /* Main Nav */
+          .main-nav {
+            position: relative;
+            background: transparent;
+            color: $color-text;
+            box-shadow: none;
+            display: block;
+            top: auto;
+            left: auto;
+
+            ul {
+              margin: 0;
+              padding: 0;
+              list-style-type: none;
+              text-align: left;
+
+              li {
+                display: inline-block;
+                width: auto;
+                margin: 0;
+                padding: 0;
+                margin-left: 10px;
+
+                a {
+                  display: inline;
+                  width: auto;
+                  padding: 0;
+                  color: $color-brand-primary;
+                  border-bottom: none;
+
+                  &:hover {
+                    text-decoration: underline;
+                    background: transparent;
+                  }
+                }
+              }
+            }
+          }
+        } // end menu
+
+        /* Search */
+        .search {
+          .search-box {
+            width: 100%;
+            height: 50px;
+            top: auto;
+            left: auto;
+            padding: 0 20px;
+
+            .search-box-inner {
+              height: 50px;
+              border-left: 1px solid $color-grey-light;
+              border-right: 1px solid $color-grey-light;
+              padding: 0 20px;
+              position: relative;
+              display: flex;
+              align-items: center;
+
+              form {
+                flex-basis: 80%;
+              }
+            }
+          }
+          a.close-link {
+            top: 10px;
+            right: 20px;
+          }
+        } // end search
       }
-    }
-    .main-menu {
-      justify-content: flex-start;
-      flex-basis: 75%;
-      height: 60px;
-      padding: 0;
-      padding-left: 15px;
-      border: 0;
-      border-bottom: 1px solid $color-grey-light;
-      border-left: 1px solid $color-grey-light;
-    }
-    .search {
-      display: flex;
-      flex-basis: 25%;
-      justify-content: flex-end;
-      align-items: center;
-      height: 60px;
-      padding: 0 15px 0 0;
-      border: 0;
-      border-bottom: 1px solid $color-grey-light;
-      border-right: 1px solid $color-grey-light;
-
-      .search-box {
-        text-align: center;
-
-        input[type=text] {
-          width: auto;
-          min-width: 350px;
-        }
-      }
-    }
-    .user-box {
-      flex-basis: 50%;
     }
   }
 
@@ -95,6 +134,39 @@
 
     article {
 
+      /* Big Post on Indices */
+      .feature {
+
+        .image-box {
+          position: relative;
+
+          .text-box {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.85);
+            text-align: left;
+            padding: 20px;
+            height: 100px;
+          }
+          h1 {
+            font-size: 1.375rem;
+            padding: 0;
+            line-height: 1.3;
+          }
+          p {
+            color: $color-text;
+          }
+          a.image-link {
+            line-height: 1;
+            font-size: 0;
+            margin: 0;
+            padding: 0;
+            display: block;
+          }
+        }
+      }
+
       /* User Profile */
       .profile-box {
         display: flex;
@@ -113,6 +185,20 @@
           text-align: left;
         }
       }
-    }
+    }// end article
+
+    /* Sidebar */
+    aside {
+
+      /* sidebar box */
+      .sidebar-box {
+
+        .sidebar-box-inner {
+          padding: 30px;
+        }
+      } // end sidebar box
+    } // end sidebar
+
+
   } // end wrapper
 }

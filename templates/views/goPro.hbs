@@ -1,0 +1,257 @@
+{{!< default}}
+
+      <!-- stripe integration -->
+      <script src="https://checkout.stripe.com/checkout.js"></script>
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Become a CloseBrace Pro</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <!-- COMMUNITY TEXT -->
+        <section class="article-text" id="stripePage">
+
+          {{#if user.isPro}}
+            <p class="alert alert-warning">
+              You're already a CloseBrace Pro. Thanks for that! Looking to manage your subscription? <a href="/account/profile">Head over to your account</a> to make changes.
+            </p>
+          {{/if}}
+
+          <p>
+            "Forget the explanation, just let me go pro!"
+          </p>
+
+          <p class="center">
+            <a href="#" class="btn btn-primary modal-open">OK! Click Here to Go Pro</a>
+          </p>
+
+          <h3>The Explanation</h3>
+
+          <p>
+            By becoming a CloseBrace Pro, you're directly supporting this website's goal of providing great JavaScript tutorials and resources to software engineers of all skill levels. You're also, of course, gaining some perks for yourself! Please note that because we're still in the early stages, some of these features are still in the works. Deciding to go pro now also helps fund and speed up the development of these features!
+          </p>
+          <p>
+            Here's what you get right now:
+          </p>
+
+          <table class="table table-small">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="center">Basic</th>
+                <th class="center">Gold</th>
+                <th class="center">Platinum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Price</td>
+                <td class="center">Free</td>
+                <td class="center">$5.99/m<br />$59.99/y</td>
+                <td class="center">$14.99/m<br />$149.99/y</td>
+              </tr>
+              <tr>
+                <td>Text Tutorials</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Video Tutorials</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Articles</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Can Comment</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Profile Badge</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Disable Ads</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Email Support</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Early Access</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Download Videos</td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Slack Support</td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td class="center"><a href="#" class="btn btn-small btn-primary modal-open">Go Pro</a></td>
+                <td class="center"><a href="#" class="btn btn-small btn-primary modal-open">Go Pro</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            And here's what's on the way:
+          </p>
+
+          <table class="table table-small">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="center">Basic</th>
+                <th class="center">Gold</th>
+                <th class="center">Platinum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>View Jobs</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Respond to Jobs</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Special Content</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Special Newsletter</td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Job Matching</td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td>Webinars</td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td class="center">&bull;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td class="center"><a href="" class="btn btn-small btn-primary modal-open">Go Pro</a></td>
+                <td class="center"><a href="" class="btn btn-small btn-primary modal-open">Go Pro</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </section>
+        <!-- /COMMUNITY TEXT -->
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+        {{> sidebar_twitter }}
+      </aside>
+      <!-- /SIDEBAR -->
+
+      <!-- MODAL -->
+      <div id="modal" class="modal-wrap modal-gopro">
+        <div class="modal-outer">
+          <div class="modal-inner">
+
+            <a href="#" class="modal-close modal-close-link"><span class="sr-only">close modal</span>X</a>
+            <h3>Select Your Subscription</h3>
+
+            <!-- SELECT BOXES -->
+            <div class="selects">
+              <div class="sub-select on" id="subSelectPlatYearly" data-check="0">
+                <div class="text">
+                  <h4>CloseBrace Pro Platinum (yearly)</h4>
+                  <p>$149.99 - will bill immediately, and rebill annually on today's date.</p>
+                </div>
+                <div class="check">
+                  <input type="radio" name="proselect" value="py" checked />
+                </div>
+              </div>
+
+              <div class="sub-select" id="subSelectPlatMonthly" data-check="1">
+                <div class="text">
+                  <h4>CloseBrace Pro Platinum (monthly)</h4>
+                  <p>$14.99 - will bill immediately, and rebill monthly on this day.</p>
+                </div>
+                <div class="check">
+                  <input type="radio" name="proselect" value="pm" />
+                </div>
+              </div>
+
+              <div class="sub-select" id="subSelectGoldYearly" data-check="2">
+                <div class="text">
+                  <h4>CloseBrace Pro Gold (yearly)</h4>
+                  <p>$59.99 - will bill immediately, and rebill yearly on today's date.</p>
+                </div>
+                <div class="check">
+                  <input type="radio" name="proselect" value="gy" />
+                </div>
+              </div>
+
+              <div class="sub-select" id="subSelectGoldMonthly" data-check="3">
+                <div class="text">
+                  <h4>CloseBrace Pro Gold (monthly)</h4>
+                  <p>$5.99 - will bill immediately, and rebill monthly on this day.</p>
+                </div>
+                <div class="check">
+                  <input type="radio" name="proselect" value="gm" />
+                </div>
+              </div>
+            </div>
+            <!-- /SELECT BOXES -->
+            <input type="hidden" id="proPlan" value="" />
+            <div class="center"><button href="#" class="btn btn-primary btn-checkout">Check Out</button></div>
+
+          </div>
+        </div>
+      </div>
+      <!-- /MODAL -->
+
