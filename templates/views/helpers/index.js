@@ -51,7 +51,10 @@ module.exports = function () {
 	};
 
 	_helpers.toLowerCase = function(str) {
-		return str.toLowerCase();
+		if (str) {
+			return str.toLowerCase();
+		}
+		return str;
 	}
 
 	/**
