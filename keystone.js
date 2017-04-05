@@ -37,7 +37,9 @@ keystone.init({
 	}).engine,
 
 	'auto update': true,
+	'mongo': process.env.MONGO_URI,
 	'session': true,
+	'session store': 'mongo',
 	'auth': true,
 	'cloudinary': true,
 	'user model': 'User',

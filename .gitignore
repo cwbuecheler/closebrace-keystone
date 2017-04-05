@@ -38,3 +38,4 @@ jspm_packages
 
 # CloseBrace Specific
 options.json
+.env
