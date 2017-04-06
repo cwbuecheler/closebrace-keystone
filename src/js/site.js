@@ -432,14 +432,13 @@ document.addEventListener("DOMContentLoaded", function() {
       deleteLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
         var targetCommentID = this.dataset.commentid;
-        var userID = this.dataset.userid;
         var deleteConf = confirm('Are you sure you want to delete this comment?');
         // Ajax delete the comment
         if(deleteConf) {
           aja()
           .method('post')
           .url('/api/comments/' + targetCommentID + '/update')
-          .data({ userID: userID, isUserDeleted: true })
+          .data({ isUserDeleted: true })
           .cache(false)
           .on('200', function(response){
             // Reload the window to show the comment has been removed
@@ -467,14 +466,12 @@ document.addEventListener("DOMContentLoaded", function() {
       deleteLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
         var targetCommentID = this.dataset.commentid;
-        var userID = this.dataset.userid;
         var deleteConf = confirm('Are you sure you want to delete this comment?');
         // Ajax delete the comment
         if(deleteConf) {
           aja()
           .method('post')
           .url('/api/comments/' + targetCommentID + '/remove')
-          .data({ userID: userID })
           .cache(false)
           .on('200', function(response){
             // Reload the window to show the comment has been removed
@@ -565,7 +562,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // Go-Pro Stripe Integration
   if(idExists('stripePage')) {
     // get the user ID & email from the form
-    var userID = getById('userID').value;
     var userEmail = getById('userEmail').value;
 
     var stripeHandler = StripeCheckout.configure({
@@ -581,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function() {
           aja()
           .method('post')
           .url('/api/pro/register')
-          .body({ email: userEmail, userID: userID, token: token, proPlan: proPlan })
+          .body({ email: userEmail, token: token, proPlan: proPlan })
           .cache(false)
           .on('200', function(response){
             // Reload the window to show the comment has been removed
