@@ -3,7 +3,7 @@ var Types = keystone.Field.Types;
 var md5 = require('js-md5');
 var nodemailer = require('nodemailer');
 var cbOptions = require('../options.js');
-var stripe = require("stripe")(cbOptions.stripe.privateKeyTest);
+var stripe = require("stripe")(cbOptions.stripe.privateKey);
 
 /**
  * User Model
