@@ -90,7 +90,6 @@ User.schema.methods.addStripeSubscription = function(data, callback) {
           plan: data.proPlan,
         }, function(err, subscription) {
           if(err) {
-            console.log(err);
             return callback(err);
           }
           // record user's sub type and sub id
