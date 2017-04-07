@@ -2,7 +2,7 @@ var keystone = require('keystone');
 var sanitizer = require('sanitizer');
 var nodemailer = require('nodemailer');
 var cbOptions = require('../../options.js');
-var stripe = require("stripe")(cbOptions.stripe.privateKeyTest);
+var stripe = require("stripe")(cbOptions.stripe.privateKey);
 
 var User = keystone.list('User');
 

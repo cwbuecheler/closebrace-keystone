@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Main header click outside of login box
-  if(idExists('linkUserImage')) {
+  if(idExists('linkHeaderLogIn')) {
     var headerLoginBox = getById('headerLoginBox');
     var loginLink = getById('linkHeaderLogIn');
     document.addEventListener('click', function(e){
