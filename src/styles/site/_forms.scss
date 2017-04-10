@@ -11,6 +11,22 @@
   }
 }
 
+::-moz-placeholder {
+  opacity: 1;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #E3E3E3;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #E3E3E3;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #E3E3E3;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #E3E3E3;
+}
+
 fieldset {
 border: 0;
 padding: 0;

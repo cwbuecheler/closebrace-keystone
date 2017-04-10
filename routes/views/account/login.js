@@ -33,7 +33,7 @@ exports = module.exports = function (req, res) {
     }
 
     var onSuccess = function() {
-      if(locals.formData.destination !== '') {
+      if(locals.formData.destination && locals.formData.destination !== '') {
         res.redirect(locals.formData.destination);
       }
       else {
