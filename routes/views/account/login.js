@@ -37,7 +37,7 @@ exports = module.exports = function (req, res) {
         res.redirect(locals.formData.destination);
       }
       else {
-        res.redirect('/');
+        res.redirect('account/profile');
       }
     }
 
