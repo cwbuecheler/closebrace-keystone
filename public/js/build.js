@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Main header main menu
   if (idExists('mainNav')) {
-    var navLinks = document.getElementsByClassName('link-main-nav');
+    var navLinks = getByClass('link-main-nav');
     for (var i = 0; i < navLinks.length; i++) {
       navLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Main header click outside of main menu
   if (idExists('mainNav')) {
-    var navLinks = document.getElementsByClassName('link-main-nav');
+    var navLinks = getByClass('link-main-nav');
     for (var i = 0; i < navLinks.length; i++) {
       navLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -347,12 +347,12 @@ document.addEventListener("DOMContentLoaded", function() {
       // hide self
       this.style.display = 'none';
       // hide info spans
-      var infoSpans = document.getElementsByClassName('display');
+      var infoSpans = getByClass('display');
       for (var i = 0; i < infoSpans.length; i++) {
         infoSpans[i].style.display = 'none';
       }
       // show input spans
-      var editSpans = document.getElementsByClassName('edit');
+      var editSpans = getByClass('edit');
       for (var t = 0; t < editSpans.length; t++) {
         editSpans[t].style.display = 'inline';
       }
@@ -364,14 +364,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Modal Open
   if(classExists('modal-open')) {
-    var modalLinks = document.getElementsByClassName('modal-open');
+    var modalLinks = getByClass('modal-open');
     for (var i = 0; i < modalLinks.length; i++) {
       modalLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
 
         // If the link has a modaltext data attribute, there are multiple uses of the modal, so handle that
         if(this.dataset.modaltext) {
-          var modalTextDivs = document.getElementsByClassName('modal-text');
+          var modalTextDivs = getByClass('modal-text');
           for (var t = 0; t < modalTextDivs.length; t++) {
             modalTextDivs[t].style.display = 'none';
           }
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if(idExists('modal')) {
     var modal = getById('modal');
     var modalOuter = document.querySelector('#modal .modal-outer');
-    var modalBtns = document.getElementsByClassName('modal-open');
+    var modalBtns = getByClass('modal-open');
     document.addEventListener('click', function(event){
       var isClickInside = modalOuter.contains(event.target);
       var isClickButton = false;
@@ -404,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Modal Close Button
   if(classExists('modal-close')) {
-    var modalLinks = document.getElementsByClassName('modal-close');
+    var modalLinks = getByClass('modal-close');
     for (var i = 0; i < modalLinks.length; i++) {
       modalLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -441,14 +441,14 @@ document.addEventListener("DOMContentLoaded", function() {
       getById('btnSubmitProfileEdits').style.display = 'none';
       this.style.display = 'none';
       // hide edit spans
-      var editSpans = document.getElementsByClassName('edit');
+      var editSpans = getByClass('edit');
       for (var t = 0; t < editSpans.length; t++) {
         editSpans[t].style.display = 'none';
       }
       // clear edit spans
       getById("formEditProfile").reset();
       // show info spans
-      var infoSpans = document.getElementsByClassName('display');
+      var infoSpans = getByClass('display');
       for (var i = 0; i < infoSpans.length; i++) {
         infoSpans[i].style.display = 'inline';
       }
@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Comments - Reply Link
   if(classExists('reply-link')) {
-    var replyLinks = document.getElementsByClassName('reply-link');
+    var replyLinks = getByClass('reply-link');
     for (var i = 0; i < replyLinks.length; i++) {
       replyLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Comments - Delete Comment (user)
   if(classExists('link-delete-comment-user')) {
-    var deleteLinks = document.getElementsByClassName('link-delete-comment-user');
+    var deleteLinks = getByClass('link-delete-comment-user');
     for (var i = 0; i < deleteLinks.length; i++) {
       deleteLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -549,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Comments - Delete Comment (admin)
   if(classExists('link-delete-comment')) {
-    var deleteLinks = document.getElementsByClassName('link-delete-comment');
+    var deleteLinks = getByClass('link-delete-comment');
     for (var i = 0; i < deleteLinks.length; i++) {
       deleteLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -582,7 +582,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Comments - Flag Comment
   if(classExists('link-flag-comment')) {
-    var flagLinks = document.getElementsByClassName('link-flag-comment');
+    var flagLinks = getByClass('link-flag-comment');
     for (var i = 0; i < flagLinks.length; i++) {
       flagLinks[i].addEventListener('click', function(e){
         e.preventDefault();
@@ -616,7 +616,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Explain links
   if(classExists('link-explain')) {
-    var explainLinks = document.getElementsByClassName('link-explain');
+    var explainLinks = getByClass('link-explain');
     for (var i = 0; i < explainLinks.length; i++ ) {
       explainLinks[i].addEventListener('click', function(e) {
         e.preventDefault();
@@ -627,7 +627,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Go-Pro Subscription Select
   if(idExists('subSelectPlatYearly')) {
-    var subBoxes = document.getElementsByClassName('sub-select');
+    var subBoxes = getByClass('sub-select');
     for (var i = 0; i < subBoxes.length; i++) {
       subBoxes[i].addEventListener('click', function(e) {
         // clear all radio buttons
@@ -686,7 +686,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     if(classExists('btn-checkout')) {
-      var stripeLinks = document.getElementsByClassName('btn-checkout');
+      var stripeLinks = getByClass('btn-checkout');
       for (var i = 0; i < stripeLinks.length; i++) {
         stripeLinks[i].addEventListener('click', function(e) {
           e.preventDefault();
@@ -758,7 +758,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {
-    var displaySpans = document.getElementsByClassName(displaySpan);
+    var displaySpans = getByClass(displaySpan);
     if (displaySpans.length > 0) {
       for (var i = 0; i < displaySpans.length; i++) {
         displaySpans[i].innerHTML = 'Ad revenue is what allows us to keep this site running. If you\'re blocking ads, we\'d appreciate it if you added us to your whitelist or considered our <a href="/go-pro/">affordable CloseBrace Pro plan</a> instead. You can also <a href="/privacy-policy#ads">learn more about our anti-invasive advertising policy</a> by clicking here. Thanks!';
@@ -774,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function classExists(className) {
-    if (document.getElementsByClassName(className).length > 0) {
+    if (getByClass(className).length > 0) {
       return true;
     }
     return false;
@@ -794,6 +794,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function getById(id) {
     return document.getElementById(id);
+  }
+
+  function getByClass(className) {
+    return document.getElementsByClassName(className);
   }
 });
 
