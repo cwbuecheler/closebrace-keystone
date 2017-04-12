@@ -378,6 +378,7 @@ document.addEventListener("DOMContentLoaded", function() {
       content: getById('textAddComment').value,
       inReplyTo: null,
       relatedPost: getById('hidPostID').value,
+      relatedPostTitle: getById('hidPostTitle').value,
       state: 'published',
       isPublished: true,
     }
