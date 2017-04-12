@@ -21,7 +21,7 @@ app.use(helmet());
 keystone.init({
 	'name': 'CloseBrace',
 	'brand': 'CloseBrace',
-
+	'port': cbOptions.port,
 	'sass': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
