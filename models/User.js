@@ -27,6 +27,7 @@ User.add({
   stripeSubscriptionType: { type: String },
   stripeSubscriptionStart: { type: Date },
   stripeSubscriptionID: { type: String },
+  dateJoined: { type: Types.Date, default: Date.now }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
   isAuthor: { type: Boolean, label: 'Is a Post Author', index: true },

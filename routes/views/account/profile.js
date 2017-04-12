@@ -17,6 +17,8 @@ exports = module.exports = function (req, res) {
   // item in the header navigation.
   locals.section = 'account';
 
+  locals.user.dateJoinedFormatted = req.user._.dateJoined.format('MMMM Do, YYYY');
+
   // Render the view
   view.render('account/profile');
 };
