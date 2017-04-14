@@ -132,12 +132,12 @@ exports.flag = function(req, res) {
 
       // create reusable transporter object using the default SMTP transport
       var mailString;
-      if(process.env.NODE_ENV) {
-        var mailString = 'smtps://localhost:12301';
-      }
-      else {
+      //if(process.env.NODE_ENV) {
+        //var mailString = 'sendmail';
+      //}
+      //else {
         var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
-      }
+      //}
       var transporter = nodemailer.createTransport(mailString);
 
       // setup e-mail data with unicode symbols
