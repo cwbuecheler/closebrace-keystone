@@ -24,6 +24,7 @@ exports = module.exports = function (req, res) {
         req.flash('error', { detail: "Sorry, that user doesn't seem to exist." });
       }
       locals.foundUser = result;
+      locals.foundUser.dateJoinedFormatted = locals.foundUser._.dateJoined.format('MMMM Do, YYYY');
       next(err);
     });
 

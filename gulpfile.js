@@ -58,9 +58,14 @@ gulp.task('watch', [
   'watch:js',
 ]);
 
+// Development
+gulp.task('build-dev', [
+  'sass',
+  'combinejs',
+]);
 
 // Production
-gulp.task('buildprod', [
+gulp.task('build-prod', [
 	'sass',
 	'compressjs'
 ]);

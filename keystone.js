@@ -21,7 +21,7 @@ app.use(helmet());
 keystone.init({
 	'name': 'CloseBrace',
 	'brand': 'CloseBrace',
-
+	'port': cbOptions.port,
 	'sass': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
@@ -48,6 +48,7 @@ keystone.init({
 // Cloudinary Config
 var cloudinaryKeys = 'cloudinary://' + cbOptions.cloudinary.publicKey + ':' + cbOptions.cloudinary.privateKey + '@closebrace';
 keystone.set('cloudinary config', cloudinaryKeys );
+keystone.set('cloudinary secure', true);
 
 // Load your project's Models
 keystone.import('models');
