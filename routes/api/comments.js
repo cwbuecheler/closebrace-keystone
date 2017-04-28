@@ -33,6 +33,42 @@ exports.get = function(req, res) {
 }
 
 /**
+ * Get Comments by Article ID
+ */
+exports.getByArticleId = function(req, res) {
+
+  var data = (req.method == 'POST') ? req.body : req.query;
+
+  var query = Comment.model.find({
+    state: 'published', relatedPost: data.postId
+  })
+  .sort('-createdAt')
+  .populate('author');
+
+  query.exec(function(err, results) {
+
+      // Catch errors
+      if(err) {
+        return res.apiError('error', err);
+      }
+
+      // If no comments, move along
+      if(results.length < 1) {
+        return res.apiResponse([]);
+      }
+
+      // If there are comments, return them!
+      if(results.length > 0) {
+        for (var i = 0; i < results.length; i++) {
+          var createdAtFormatted = results[i]._.createdAt.format('MMMM Do, YYYY');
+          results[i].createdAtFormatted = createdAtFormatted;
+        }
+        return res.apiResponse(results);
+      }
+  });
+}
+
+/**
  * Create a Comment
  */
 exports.create = function(req, res) {

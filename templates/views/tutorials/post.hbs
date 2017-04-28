@@ -55,6 +55,11 @@
           {{{post.content.html}}}
         </section>
         <!-- /ARTICLE TEXT -->
+<section class="comments">
+        <h3> New Comments</h3>
+        <div id="newComments">
+        </div>
+</section>
 
         {{> comments }}
 
@@ -68,3 +73,17 @@
         {{> sidebar_twitter }}
       </aside>
       <!-- /SIDEBAR -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  // We need a couple of things passed from handlebars
+  const cbUser = {{#if user}}'{{user.id}}'{{else}}''{{/if}};
+  const cbIsVerified = {{#if user.isVerified}}true{{else}}false{{/if}};
+  const cbIsAdmin = {{#if user.isAdmin}}true{{else}}false{{/if}};
+
+  getArticleComments('{{post.id}}', cbUser, cbIsVerified, cbIsAdmin);
+
+});
+</script>
