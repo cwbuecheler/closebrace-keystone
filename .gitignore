@@ -42,3 +42,4 @@ options.json
 public/js/build.js
 public/js/build-debug.js
 public/styles/site.css
+nodemon.json
