@@ -83,6 +83,7 @@ exports.create = function(req, res) {
   data.author = req.user.id;
   data.state = 'published';
   data.type = 'reply';
+  console.log(data.inReplyTo);
 
   // sanitize form data
   for (var key in data) {
