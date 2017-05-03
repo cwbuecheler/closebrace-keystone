@@ -42,6 +42,7 @@ exports.getByArticleId = function(req, res) {
   var query = Comment.model.find({
     state: 'published', relatedPost: data.postId
   })
+  .where('flags', { $lt: 3 })
   .sort('-createdAt')
   .populate('author');
 
@@ -75,7 +76,13 @@ exports.create = function(req, res) {
   var item = new Comment.model();
   var data = (req.method == 'POST') ? req.body : req.query;
 
+  if(!req.user) {
+    return res.apiError('error', 'No User');
+  }
+
   data.author = req.user.id;
+  data.state = 'published';
+  data.type = 'reply';
 
   // sanitize form data
   for (var key in data) {

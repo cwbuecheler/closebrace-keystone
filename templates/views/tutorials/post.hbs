@@ -61,7 +61,7 @@
         </div>
 </section>
 
-        {{> comments }}
+        {{!> comments }}
 
       </article>
       <!-- /CONTENT -->
@@ -78,12 +78,25 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  // We need a couple of things passed from handlebars
-  const cbUser = {{#if user}}'{{user.id}}'{{else}}''{{/if}};
-  const cbIsVerified = {{#if user.isVerified}}true{{else}}false{{/if}};
-  const cbIsAdmin = {{#if user.isAdmin}}true{{else}}false{{/if}};
+  // We need a few things passed from handlebars
+  const cbCommentInfo = {
+    user: {{#if user}}'{{user.id}}'{{else}}''{{/if}},
+    isVerified: {{#if user.isVerified}}true{{else}}false{{/if}},
+    isAdmin: {{#if user.isAdmin}}true{{else}}false{{/if}},
+    {{#if user.userImage.version}}
+    userImage: {
+      version: '{{user.userImage.version}}',
+      id: '{{user.userImage.public_id}}'
+    },
+    {{else}}
+    userImage: null;
+    {{/if}}
+    isPro: {{user.isPro}},
+    postId: '{{post.id}}',
+    postTitle: '{{post.title}}',
+  }
 
-  getArticleComments('{{post.id}}', cbUser, cbIsVerified, cbIsAdmin);
+  getArticleComments('{{post.id}}', cbCommentInfo);
 
 });
 </script>
