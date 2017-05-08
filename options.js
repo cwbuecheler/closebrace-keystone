@@ -6,3 +6,4 @@ exports.cloudinary = parsed.cloudinary;
 exports.google = parsed.google;
 exports.stripe = parsed.stripe;
 exports.database = parsed.database;
+exports.mandrill = parsed.mandrill;

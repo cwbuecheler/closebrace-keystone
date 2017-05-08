@@ -97,7 +97,7 @@
 
         {{/if}}
         <h3>Comments</h3>
-        <div class="loader" id="loader">Loading...</div>
+        <div class="loader" id="loader-comments">Loading...</div>
         <div id="newComments">
         </div>
 </section>
@@ -118,7 +118,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-
   // We need a few things passed from handlebars
   const cbCommentInfo = {
     user: {{#if user}}'{{user.id}}'{{else}}''{{/if}},
@@ -139,6 +138,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
   initCommentClick(cbCommentInfo);
   getArticleComments('{{post.id}}', cbCommentInfo);
-
 });
 </script>

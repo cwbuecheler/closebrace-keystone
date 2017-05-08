@@ -1,8 +1,7 @@
-const initCommentClick = (cbCommentInfo) => { 
+const initCommentClick = (cbCommentInfo) => {
   if (document.getElementById('btnAddComment')) {
     document.getElementById('btnAddComment').addEventListener('click', function(e) {
       e.preventDefault();
-      const replyId = null;
       // If there's no reply text, don't bother
       if (document.getElementById('textAddComment').value === '') {
         return false;
@@ -16,7 +15,8 @@ const initCommentClick = (cbCommentInfo) => {
           inReplyTo: null,
           replyToUsername: null,
           relatedPost: document.getElementById('hidPostID').value,
-          relatedPostTitle: document.getElementById('hidPostTitle').value
+          relatedPostTitle: document.getElementById('hidPostTitle').value,
+          relatedPostUrl: window.location.href
         };
 
         // Submit it
@@ -26,6 +26,8 @@ const initCommentClick = (cbCommentInfo) => {
         .body(data)
         .cache(false)
         .on('200', function(response){
+          // Empty the text field
+          getById('textAddComment').value = '';
           // Reload the comments to show the comment has been removed
           getArticleComments(cbCommentInfo.postId, cbCommentInfo);
         })
@@ -39,14 +41,14 @@ const initCommentClick = (cbCommentInfo) => {
             console.log(response);
         })
         .go();
-      }      
+      }
     });
   }
 };
 
 // Get all comments for this article id
 const getArticleComments = (postId, cbCommentInfo) => {
-  showSpinner();
+  showSpinner('loader-comments');
   aja()
     .method('get')
     .url('/api/comments/getByArticleId')
@@ -56,7 +58,7 @@ const getArticleComments = (postId, cbCommentInfo) => {
       if (Array.isArray(response) && response.length > 0) {
 
         // Render the comments to HTML
-        hideSpinner();
+        hideSpinner('loader-comments');
         displayComments(response, cbCommentInfo);
 
       }
@@ -162,7 +164,12 @@ class Comment {
   createText(comment) {
     let content = '';
     let replyToUsername = comment.replyToUsername === 'undefined' ? null : comment.replyToUsername;
-    content += '<div class="text">';
+    if (comment.isUserDeleted) {
+      content += '<div class="text text-flagged">';
+    }
+    else {
+      content += '<div class="text">';
+    }
     content += '<h5>';
     content += `by <a href="/u/${comment.author.userName}}">${comment.author.userName}</a>`;
     if (replyToUsername) {
@@ -171,7 +178,12 @@ class Comment {
     content += `<br />${comment.createdAtFormatted}`;
     content += '</h5>';
     content += '<div class="md">';
-    content += comment.content.html;
+    if (comment.isUserDeleted) {
+      content += '<p>The user has deleted this comment</p>';
+    }
+    else {
+      content += comment.content.html;
+    }
     content += '</div>';
     content += this.createLinks(comment);
     content += '</div>';
@@ -205,7 +217,7 @@ class Comment {
   createAdminLinks(comment) {
     let content = '';
     content += '<a href="#" class="link-delete-comment" data-commentid="' + comment._id + '">Admin Delete</a>';
-    if (this.user === comment.author._id && !comment.isUserDeleted) {
+    if (this.cbCommentInfo.user === comment.author._id && !comment.isUserDeleted) {
       content += '| <a href="#" class="link-delete-comment-user" data-commentid="' + comment._id + '">Delete</a>';
     }
     if (!comment.isUserDeleted) {
@@ -225,7 +237,7 @@ class Comment {
   createNormalLinks(comment) {
     let content = '';
     // User viewing own comment
-    if (this.user === comment.author._id) {
+    if (this.cbCommentInfo.user === comment.author._id) {
       if (!comment.isUserDeleted) {
         content += '<a href="#" class="link-delete-comment-user" data-commentid="' + comment._id + '">Delete</a> |';
         // reply links need a bunch of stuff
@@ -292,7 +304,7 @@ function initClickEvents(cbCommentInfo) {
   }
 
   // Reply Link Click
-  let replyLinks = document.getElementsByClassName('reply-link');
+  const replyLinks = document.getElementsByClassName('reply-link');
   for (let i = 0; i < replyLinks.length; i++) {
     replyLinks[i].addEventListener('click', function(e) {
       e.preventDefault();
@@ -320,6 +332,69 @@ function initClickEvents(cbCommentInfo) {
       }
       initCancelClicks();
       initAddReplyClicks(cbCommentInfo);
+    });
+  }
+
+  // Delete Comment (admin)
+  const adminDeleteLinks = getByClass('link-delete-comment');
+  for (let i = 0; i < adminDeleteLinks.length; i++) {
+    adminDeleteLinks[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetCommentID = this.dataset.commentid;
+      const deleteConf = confirm('Are you sure you want to delete this comment?');
+      // Ajax delete the comment
+      if(deleteConf) {
+        aja()
+        .method('post')
+        .url('/api/comments/' + targetCommentID + '/remove')
+        .cache(false)
+        .on('200', function(response){
+          // Reload the comments to show the comment has been removed
+          getArticleComments(cbCommentInfo.postId, cbCommentInfo);
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
+    });
+  }
+
+  // Delete Comment (user)
+  const userDeleteLinks = getByClass('link-delete-comment-user');
+  for (let i = 0; i < userDeleteLinks.length; i++) {
+    userDeleteLinks[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetCommentID = this.dataset.commentid;
+      const deleteConf = confirm('Are you sure you want to delete this comment?');
+      // Ajax delete the comment
+      if(deleteConf) {
+        aja()
+        .method('post')
+        .url('/api/comments/' + targetCommentID + '/update')
+        .data({ isUserDeleted: true })
+        .cache(false)
+        .on('200', function(response){
+          // Reload the comments to show the comment has been removed
+          getArticleComments(cbCommentInfo.postId, cbCommentInfo);
+        })
+         .on('40x', function(response){
+            //something is definitely wrong
+            // 'x' means any number (404, 400, etc. will match)
+            console.log(response);
+        })
+        .on('500', function(response){
+            //oh crap
+            console.log(response);
+        })
+        .go();
+      }
     });
   }
 }
@@ -351,6 +426,7 @@ function initAddReplyClicks(cbCommentInfo) {
           replyToUsername: hiddenFields.find(node => node.id === 'replyToUserName').value,
           relatedPost: hiddenFields.find(node => node.id === 'hidPostID').value,
           relatedPostTitle: hiddenFields.find(node => node.id === 'hidPostTitle').value,
+          relatedPostUrl: window.location.href
         };
 
         // Submit it
@@ -468,11 +544,11 @@ function nukeReplyBoxes() {
 }
 
 // Show Spinner
-const showSpinner = () => {
-  document.getElementById('loader').style.display = 'block';
+const showSpinner = (el) => {
+  document.getElementById(el).style.display = 'block';
 }
 
 // Hide Spinner
-const hideSpinner = () => {
-  document.getElementById('loader').style.display = 'none';
+const hideSpinner = (el) => {
+  document.getElementById(el).style.display = 'none';
 }

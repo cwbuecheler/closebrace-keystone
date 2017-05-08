@@ -26,6 +26,7 @@ Comment.add({
   replyToUsername: { type: String, index: true },
   relatedPost: { type: String, index: true },
   relatedPostTitle: { type: String },
+  relatedPostUrl: { type: String },
   flaggers: { type: Types.TextArray },
 });
 

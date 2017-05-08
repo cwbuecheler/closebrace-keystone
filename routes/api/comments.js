@@ -6,6 +6,10 @@ var cbOptions = require('../../options.js');
 var Comment = keystone.list('Comment');
 var User = keystone.list('User');
 
+// create reusable transporter object using the default SMTP transport
+var mailString = 'smtps://CloseBrace:' + cbOptions.mandrill.apiKey + '@smtp.mandrillapp.com';
+var transporter = nodemailer.createTransport(mailString);
+
 /**
  * List Comments
  */
@@ -15,7 +19,6 @@ exports.list = function(req, res) {
     res.apiResponse({
       comments: items
     });
-
   });
 }
 
@@ -82,8 +85,7 @@ exports.create = function(req, res) {
 
   data.author = req.user.id;
   data.state = 'published';
-  data.type = 'reply';
-  console.log(data.inReplyTo);
+  data.type = data.isReply === true ? 'reply' : 'comment';
 
   // sanitize form data
   for (var key in data) {
@@ -98,6 +100,19 @@ exports.create = function(req, res) {
     if (err) { return res.apiError('error', err) };
 
     // Mail CloseBrace about a new comment
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+      from: '"CloseBrace" <contact@closebrace.com>', // sender address
+      to: 'contact@closebrace.com', // list of receivers
+      subject: 'New Comment', // Subject line
+      text: 'A new comment has been posted on CloseBrace. You can view it here: ' + data.relatedPostUrl + ' and you can moderate it here: http://closebrace.com/keystone/comments/' + item._id, // plaintext body
+      html: '<p>A new comment has been posted on CloseBrace. You can view it here: <a href="' + data.relatedPostUrl + '">' + data.relatedPostUrl +  '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>' // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+      if(error) { console.log(error); }
+    });
 
     res.apiResponse({
       comment: item
@@ -174,20 +189,10 @@ exports.flag = function(req, res) {
     item.getUpdateHandler(req).process(data, function(err) {
       if (err) return res.apiError('create error', err);
 
-      // create reusable transporter object using the default SMTP transport
-      var mailString;
-      //if(process.env.NODE_ENV) {
-        //var mailString = 'sendmail';
-      //}
-      //else {
-        var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
-      //}
-      var transporter = nodemailer.createTransport(mailString);
-
       // setup e-mail data with unicode symbols
       var mailOptions = {
         from: '"CloseBrace" <contact@closebrace.com>', // sender address
-        to: 'twitter@closebrace.com', // list of receivers
+        to: 'flags@closebrace.com', // list of receivers
         subject: 'Flagged Comment', // Subject line
         text: 'Moderate flagged comment: http://closebrace.com/keystone/comments/' + req.body.id, // plaintext body
         html: '<p>Moderate flagged comment: <a href="http://closebrace.com/keystone/comments/' + req.body.id + '">http://closebrace.com/keystone/comments/' + req.body.id + '</a>' // html body
