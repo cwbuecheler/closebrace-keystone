@@ -118,6 +118,10 @@ class Comment {
     let content = '';
     content += `<a name="${comment._id}"></a>`;
     content += `<div class="comment">`;
+    content += '<div class="comment-top">';
+    content += '<span class="score">1,768</span> ';
+    content += '<a href="#" class="plus-one">+1</a>';
+    content += '</div>';
     content += this.createAuthor(comment);
     // Check if comment is flagged by the user
     if(this.comment.isFlagged) {
@@ -156,12 +160,14 @@ class Comment {
       content += '<a href="/go-pro" class="pro-badge">pro</a>';
     }
     content += '</div>';
+    content += `<div class="score">${comment.author.score}</div>`;
     content += '</div>';
     return content;
   }
 
   // Create Comment Text
   createText(comment) {
+
     let content = '';
     let replyToUsername = comment.replyToUsername === 'undefined' ? null : comment.replyToUsername;
     if (comment.isUserDeleted) {

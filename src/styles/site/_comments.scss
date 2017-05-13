@@ -2,8 +2,41 @@
   width: 100%;
   border: 1px solid $color-grey-light;
   display: flex;
+  flex-wrap: wrap;
   background: #FFF;
   margin-bottom: 1rem;
+
+  .comment-top {
+    flex-basis: 100%;
+    background: lighten($color-grey-light, 10);
+    padding: 5px 0px 5px 10px;
+    text-align: right;
+    display: block;
+    line-height: 1;
+    font-size: .8125rem;
+
+    span.score {
+    }
+    a {
+      display: inline-block;
+      padding: 3px 5px;
+      font-size: .8125rem;
+      margin: 0;
+    }
+    a:link, a:visited {
+      background: #EEE;
+
+      &.on {
+        background: $color-brand-primary;
+        color: #FFF;
+      }
+    }
+    a:hover {
+      background: $color-brand-primary;
+      color: #FFF;
+      text-decoration: none;
+    }
+  }
 
   .author {
     padding: 10px 10px 10px 10px;
@@ -43,6 +76,10 @@
         text-decoration: none;
       }
     }
+    .score {
+      font-size:.6875rem;
+      color:#CCC;
+    }
   }
   .text {
     padding: 10px;
@@ -55,7 +92,7 @@
     }
 
     h5 {
-      margin: 0 0 .5rem 0;
+      margin: 0 30px .5rem 0;
       color: $color-grey-medium;
     }
     .md {

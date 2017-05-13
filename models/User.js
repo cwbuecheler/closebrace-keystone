@@ -22,6 +22,7 @@ User.add({
   twitterUsername: { type: String },
   confirmHash: { type: String },
   resetPasswordKey: { type: String, hidden: true },
+  score: { type: Number, default: 0 },
   stripeID: { type: String },
   stripeCardID: { type: String },
   stripeSubscriptionType: { type: String },

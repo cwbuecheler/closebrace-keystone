@@ -17,6 +17,7 @@ Comment.add({
   state: { type: Types.Select, options: 'published, hidden', default: 'hidden', index: true, required: true, },
   type: { type: Types.Select, options: 'comment, reply', default: 'comment', index: true, required: true, },
   votes: { type: Number, default: 0 },
+  voters: { type: Types.TextArray },
   isFlagged: { type: Boolean, default: false },
   flags: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: false },
