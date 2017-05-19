@@ -63,8 +63,9 @@ const getArticleComments = (postId, cbCommentInfo) => {
 
       }
       else {
-        console.log(response);
-        alert('no comments');
+        hideSpinner('loader-comments');
+        const content = '<p>No Comments yet. Have something to contribute to the discussion? Get started above!</p>';
+        document.getElementById('newComments').innerHTML = content;
       }
     })
     .go();
