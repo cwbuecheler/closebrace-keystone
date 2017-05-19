@@ -9,21 +9,22 @@
   .comment-top {
     flex-basis: 100%;
     background: lighten($color-grey-light, 10);
-    padding: 5px 0px 5px 10px;
     text-align: right;
     display: block;
     line-height: 1;
     font-size: .8125rem;
 
     span.score {
+      margin-right: 15px;
+      padding: 8px 10px;
     }
-    a {
+    a.plus-one, span.plus-one {
       display: inline-block;
-      padding: 3px 5px;
       font-size: .8125rem;
       margin: 0;
+      padding: 8px 10px;
     }
-    a:link, a:visited {
+    a.plus-one:link, a.plus-one:visited, span.plus-one {
       background: #EEE;
 
       &.on {
@@ -31,7 +32,7 @@
         color: #FFF;
       }
     }
-    a:hover {
+    a.plus-one:hover {
       background: $color-brand-primary;
       color: #FFF;
       text-decoration: none;
