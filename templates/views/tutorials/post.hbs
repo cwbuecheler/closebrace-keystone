@@ -56,7 +56,59 @@
         </section>
         <!-- /ARTICLE TEXT -->
 
-        {{> comments }}
+
+<section class="comments">
+        <h3>Add a Comment</h3>
+        {{#unless user.isVerified}}
+          <p class="alert alert-warning"><em>Sorry, only verified accounts can post or reply to comments, and your account is not currently verified. You can fix that by checking your email and confirming your account. Didn't get the email? Visit your <a href="/account/profile">Profile Page</a> to re-send it!</em></p>
+        {{/unless}}
+        {{#if user.isVerified}}
+          {{#if user.isPro}}
+            <p class="alert alert-info">Looking for help with this tutorial? As a CloseBrace Pro, you can also <a href="mailto:tutorials@closebrace.com?subject=Support: {{post.title}}" target="_blank">send us an email</a></p>
+          {{else}}
+            <p class="alert alert-info">Looking for help with this tutorial? You can leave a comment here, but for faster and more detailed responses, consider signing up for <a href="/go-pro">CloseBrace Pro</a>, which gives access to email support!</p>
+          {{/if}}
+
+          <div class="add-comment form-in-content">
+            <div class="author">
+              <div class="user-avatar">
+                {{#if user.userImage.version}}
+                  <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+                {{else}}
+                  <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v1491315007/usericon_id76rb.png" alt="Default User Icon" class="user-icon hide-phone" />
+                {{/if}}
+                {{#if user.isPro}}
+                  <a href="/go-pro" class="pro-badge">pro</a>
+                {{/if}}
+              </div>
+            </div>
+            <div class="text">
+              <!-- submission handled via ajax -->
+              <fieldset id="fieldset-top">
+                <input type="hidden" id="hidPostID" value="{{post._id}}" />
+                <input type="hidden" id="hidPostTitle" value="{{post.title}}" />
+                <textarea name="comment" id="textAddComment"></textarea>
+                <div class="email-confirm">
+                  <input type="checkbox" id="emailReplies" />
+                  <label for="emailReplies">Email Me When Someone Replies</label>
+                </div>
+              </fieldset>
+              <div class="button-container">
+                <p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> in comments.</p>
+                <button type="button" id="btnAddComment" class="btn btn-primary">Add Comment</button>
+              </div>
+            </div>
+          </div>
+
+
+        {{/if}}
+        <h3>Comments</h3>
+        <div class="loader" id="loader-comments">Loading...</div>
+        <div id="newComments">
+        </div>
+</section>
+
+        {{!> comments }}
 
       </article>
       <!-- /CONTENT -->
@@ -68,3 +120,29 @@
         {{> sidebar_twitter }}
       </aside>
       <!-- /SIDEBAR -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // We need a few things passed from handlebars
+  const cbCommentInfo = {
+    user: {{#if user}}'{{user.id}}'{{else}}''{{/if}},
+    isVerified: {{#if user.isVerified}}true{{else}}false{{/if}},
+    isAdmin: {{#if user.isAdmin}}true{{else}}false{{/if}},
+    {{#if user.userImage.version}}
+    userImage: {
+      version: '{{user.userImage.version}}',
+      id: '{{user.userImage.public_id}}'
+    },
+    {{else}}
+    userImage: null,
+    {{/if}}
+    isPro: {{#if user.isPro}}true{{else}}false{{/if}},
+    postId: '{{post.id}}',
+    postTitle: '{{post.title}}',
+  }
+
+  initCommentClick(cbCommentInfo);
+  getArticleComments('{{post.id}}', cbCommentInfo);
+});
+</script>

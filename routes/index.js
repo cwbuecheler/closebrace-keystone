@@ -80,7 +80,9 @@ exports = module.exports = function (app) {
 
   // API
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
+  app.get('/api/comments/getByArticleId', keystone.middleware.api, routes.api.comments.getByArticleId);
   app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
+  app.post('/api/comments/plusone', keystone.middleware.api, routes.api.comments.plusone);
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
   app.post('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
   app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);

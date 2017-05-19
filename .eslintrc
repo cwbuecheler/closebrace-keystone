@@ -1,3 +1,7 @@
 {
-    "extends": "keystone"
+  "extends": "airbnb",
+  "rules": {
+    "indent": ["error", 2],
+    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+  }
 }
