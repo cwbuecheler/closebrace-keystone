@@ -247,7 +247,7 @@ class Comment {
       content += '" data-author="';
       content += comment.author.userName;
       content += '" data-parentid="';
-      content += comment.inReplyTo;
+      content += comment.inReplyTo || 'null';
       content += '">Reply</a>';
     }
     return content;
@@ -265,7 +265,7 @@ class Comment {
         content += '" data-author="';
         content += comment.author.userName;
         content += '" data-parentid="';
-        content += comment.inReplyTo;
+        content += comment.inReplyTo || 'null';
         content += '">Reply</a>';
       }
     }
@@ -279,7 +279,7 @@ class Comment {
         content += '" data-author="';
         content += comment.author.userName;
         content += '" data-parentid="';
-        content += comment.inReplyTo;
+        content += comment.inReplyTo || 'null';
         content += '">Reply</a>';
       }
     }
@@ -456,11 +456,18 @@ function initAddReplyClicks (cbCommentInfo) {
     addReplyButtons[i].addEventListener('click', function (e) {
       e.preventDefault();
       const replyId = this.dataset.replyid;
-      const fieldSet = document.getElementById('fieldset-' + replyId);
+      const fieldSet = getById('fieldset-' + replyId);
+
       // Get hidden fields
       const fieldsArray = [].slice.call(fieldSet.childNodes);
       const hiddenFields = fieldsArray.filter(node => node.type === 'hidden');
       const replyText = fieldsArray.find(node => node.type === 'textarea').value;
+
+      // Determine if we want to email replies or not
+      const emailDiv = fieldsArray.find(node => node.localName === 'div');
+      const divFields = [].slice.call(emailDiv.childNodes);
+      const mailReplies = divFields.find(node => node.type === 'checkbox').checked;
+
       // If there's no reply text, don't bother
       if (replyText === '') {
         return false;
@@ -471,6 +478,8 @@ function initAddReplyClicks (cbCommentInfo) {
         const data = {
           isReply: true,
           content: replyText,
+          mailReplies,
+          emailCommentId: hiddenFields.find(node => node.id === 'emailCommentId').value,
           inReplyTo: hiddenFields.find(node => node.id === 'replyToId').value,
           replyToUsername: hiddenFields.find(node => node.id === 'replyToUserName').value,
           relatedPost: hiddenFields.find(node => node.id === 'hidPostID').value,
@@ -538,9 +547,14 @@ function createReplyBox (commentId, author, replyToId, parentId, cbCommentInfo) 
   content += `<fieldset class="reply-fieldset" id="fieldset-${commentId}">`;
   content += `<input type="hidden" id="replyToUserName" value="${author}" />`;
   content += `<input type="hidden" id="replyToId" value="${replyToId}" />`;
+  content += `<input type="hidden" id="emailCommentId" value="${commentId}" />`;
   content += `<input type="hidden" id="hidPostID" value="${cbCommentInfo.postId}" />`;
   content += `<input type="hidden" id="hidPostTitle" value="${cbCommentInfo.postTitle}" />`;
   content += `<textarea name="comment" class="comment-text" id="reply-to-${parentId}"></textarea>`;
+  content += '<div class="email-confirm">';
+  content += `<input type="checkbox" id="emailReplies-${commentId}" />`;
+  content += `<label for="emailReplies-${commentId}">Email Me When Someone Replies</label>`;
+  content += '</div>';
   content += '</fieldset>';
   content += '<div class="button-container">';
   content += '<div><p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> in comments.</p></div>';

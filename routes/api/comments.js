@@ -1,22 +1,22 @@
-var keystone = require('keystone');
-var sanitizer = require('sanitizer');
-var nodemailer = require('nodemailer');
-var cbOptions = require('../../options.js');
+const keystone = require('keystone');
+const sanitizer = require('sanitizer');
+const nodemailer = require('nodemailer');
+const cbOptions = require('../../options.js');
 
-var Comment = keystone.list('Comment');
-var User = keystone.list('User');
+const Comment = keystone.list('Comment');
+const User = keystone.list('User');
 
 // create reusable transporter object using the default SMTP transport
-var mailString = 'smtps://CloseBrace:' + cbOptions.mandrill.apiKey + '@smtp.mandrillapp.com';
-var transporter = nodemailer.createTransport(mailString);
+const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
+const transporter = nodemailer.createTransport(mailString);
 
 /**
  * List Comments
  */
-exports.list = function (req, res) {
-  Comment.model.find(function (err, items) {
-    if (err) { return res.apiError('database error', err); };
-    res.apiResponse({
+exports.list = (req, res) => {
+  Comment.model.find((err, items) => {
+    if (err) { return res.apiError('database error', err); }
+    return res.apiResponse({
       comments: items,
     });
   });
@@ -25,11 +25,11 @@ exports.list = function (req, res) {
 /**
  * Get Comment by ID
  */
-exports.get = function (req, res) {
-  Comment.model.findById(req.params.id).exec(function (err, item) {
-    if (err) { return res.apiError('database error', err); };
-    if (!item) { return res.apiError('not found'); };
-    res.apiResponse({
+exports.get = (req, res) => {
+  Comment.model.findById(req.params.id).exec((err, item) => {
+    if (err) { return res.apiError('database error', err); }
+    if (!item) { return res.apiError('not found'); }
+    return res.apiResponse({
       comments: item,
     });
   });
@@ -38,46 +38,43 @@ exports.get = function (req, res) {
 /**
  * Get Comments by Article ID
  */
-exports.getByArticleId = function (req, res) {
+exports.getByArticleId = (req, res) => {
+  const data = (req.method === 'POST') ? req.body : req.query;
 
-  var data = (req.method === 'POST') ? req.body : req.query;
-
-  var query = Comment.model.find({
+  const query = Comment.model.find({
     state: 'published', relatedPost: data.postId,
   })
   .where('flags', { $lt: 3 })
   .sort('-createdAt')
   .populate('author');
 
-  query.exec(function (err, results) {
-
+  query.exec((err, results) => {
     // Catch errors
     if (err) {
       return res.apiError('error', err);
     }
 
-    // If no comments, move along
-    if (results.length < 1) {
-      return res.apiResponse([]);
-    }
-
     // If there are comments, return them!
     if (results.length > 0) {
-      for (var i = 0; i < results.length; i++) {
-        var createdAtFormatted = results[i]._.createdAt.format('MMMM Do, YYYY');
-        results[i].createdAtFormatted = createdAtFormatted;
+      const finalResults = results;
+      for (let i = 0; i < results.length; i += 1) {
+        const createdAtFormatted = results[i]._.createdAt.format('MMMM Do, YYYY');
+        finalResults[i].createdAtFormatted = createdAtFormatted;
       }
-      return res.apiResponse(results);
+      return res.apiResponse(finalResults);
     }
+
+    // If there are no results, return a blank array
+    return res.apiResponse([]);
   });
 };
 
 /**
  * Create a Comment
  */
-exports.create = function (req, res) {
-  var item = new Comment.model();
-  var data = (req.method === 'POST') ? req.body : req.query;
+exports.create = (req, res) => {
+  const item = new Comment.model();
+  const data = (req.method === 'POST') ? req.body : req.query;
 
   if (!req.user) {
     return res.apiError('error', 'No User');
@@ -87,8 +84,34 @@ exports.create = function (req, res) {
   data.state = 'published';
   data.type = data.isReply === true ? 'reply' : 'comment';
 
+  // If it's a reply, see if we need to mail the original author
+  if (data.type === 'reply') {
+    const originalComment = data.emailCommentId;
+    Comment.model.findById(originalComment).populate('author').exec((err, comment) => {
+      if (err) { return false; }
+      if (comment.mailReplies) {
+        // Mail original author about a new comment
+        // setup e-mail data with unicode symbols
+        const mailOptions = {
+          from: '"CloseBrace" <contact@closebrace.com>', // sender address
+          to: `${comment.author.email}`, // list of receivers
+          subject: 'New Reply To Your CloseBrace Comment', // Subject line
+          text: `A new reply to your comment has been posted on CloseBrace. You can view it here: ${data.relatedPostUrl}`, // plaintext body
+          html: `<p>A new reply to your comment has been posted on CloseBrace. You can view it here: <a href="${data.relatedPostUrl}">${data.relatedPostUrl}</a>.`, // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error) => {
+          if (error) { return false; }
+          return true;
+        });
+      }
+      return false;
+    });
+  }
+
   // sanitize form data
-  for (var key in data) {
+  for (const key in data) {
     // skip loop if the property is from prototype
     if (!data.hasOwnProperty(key)) continue;
     if (typeof data[key] === 'string') {
@@ -103,7 +126,7 @@ exports.create = function (req, res) {
     // setup e-mail data with unicode symbols
     var mailOptions = {
       from: '"CloseBrace" <contact@closebrace.com>', // sender address
-      to: 'contact@closebrace.com', // list of receivers
+      to: 'comments@closebrace.com', // list of receivers
       subject: 'New Comment', // Subject line
       text: 'A new comment has been posted on CloseBrace. You can view it here: ' + data.relatedPostUrl + ' and you can moderate it here: http://closebrace.com/keystone/comments/' + item._id, // plaintext body
       html: '<p>A new comment has been posted on CloseBrace. You can view it here: <a href="' + data.relatedPostUrl + '">' + data.relatedPostUrl + '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>', // html body

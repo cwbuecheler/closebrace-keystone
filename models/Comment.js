@@ -1,11 +1,12 @@
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+
+const Types = keystone.Field.Types;
 
 /**
  * Comment Model
  * =============
  */
-var Comment = new keystone.List('Comment', {
+const Comment = new keystone.List('Comment', {
   autokey: { path: 'slug', from: '_id', unique: true },
   defaultSort: '+isFlagged, -createdAt',
 });
@@ -16,6 +17,7 @@ Comment.add({
   createdAtFormatted: { type: String },
   state: { type: Types.Select, options: 'published, hidden', default: 'hidden', index: true, required: true },
   type: { type: Types.Select, options: 'comment, reply', default: 'comment', index: true, required: true },
+  mailReplies: { type: Boolean, default: false },
   votes: { type: Number, default: 0 },
   voters: { type: Types.TextArray },
   isFlagged: { type: Boolean, default: false },
@@ -32,10 +34,7 @@ Comment.add({
 });
 
 // Provide access to Keystone
-Comment.schema.virtual('canAccessKeystone').get(function () {
-  return this.isAdmin;
-});
-
+// Comment.schema.virtual('canAccessKeystone').get(() => this.isAdmin);
 
 /**
  * Registration
