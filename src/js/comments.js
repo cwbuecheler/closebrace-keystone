@@ -174,7 +174,7 @@ class Comment {
       content += '<a href="/go-pro" class="pro-badge">pro</a>';
     }
     content += '</div>';
-    content += `<div class="score">${comment.author.score}</div>`;
+    // content += `<div class="score">${comment.author.score}</div>`;
     content += '</div>';
     return content;
   }
