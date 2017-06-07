@@ -63,7 +63,6 @@ const getArticleComments = (postId, cbCommentInfo) => {
         // Render the comments to HTML
         hideSpinner('loader-comments');
         displayComments(response, cbCommentInfo);
-
       }
       else {
         hideSpinner('loader-comments');
@@ -101,6 +100,10 @@ function displayComments (allComments, cbCommentInfo) {
 
   document.getElementById('newComments').innerHTML = content;
   initClickEvents(cbCommentInfo);
+  // check for anchors and scroll to the comment if necessary
+  if (window.location.hash.length > 0) {
+    window.location.href = window.location.hash;
+  }
 
 }
 
