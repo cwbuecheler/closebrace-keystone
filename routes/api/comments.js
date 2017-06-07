@@ -83,6 +83,16 @@ exports.create = (req, res) => {
   data.author = req.user.id;
   data.state = 'published';
   data.type = data.isReply === true ? 'reply' : 'comment';
+  data.contentTrimmed = data.content.trim(0, 200);
+
+  // sanitize form data
+  for (const key in data) {
+    // skip loop if the property is from prototype
+    if (!data.hasOwnProperty(key)) continue;
+    if (typeof data[key] === 'string') {
+      data[key] = sanitizer.sanitize(data[key]);
+    }
+  }
 
   // If it's a reply, see if we need to mail the original author
   if (data.type === 'reply') {
@@ -90,14 +100,16 @@ exports.create = (req, res) => {
     Comment.model.findById(originalComment).populate('author').exec((err, comment) => {
       if (err) { return false; }
       if (comment.mailReplies) {
+        const unsubscribeUrl = `${req.headers.origin}/comments/unsubscribe/${comment._id}`;
+
         // Mail original author about a new comment
         // setup e-mail data with unicode symbols
         const mailOptions = {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
           to: `${comment.author.email}`, // list of receivers
           subject: 'New Reply To Your CloseBrace Comment', // Subject line
-          text: `A new reply to your comment has been posted on CloseBrace. You can view it here: ${data.relatedPostUrl}`, // plaintext body
-          html: `<p>A new reply to your comment has been posted on CloseBrace. You can view it here: <a href="${data.relatedPostUrl}">${data.relatedPostUrl}</a>.`, // html body
+          text: `A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`, // plaintext body
+          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`, // html body
         };
 
         // send mail with defined transport object
@@ -110,14 +122,7 @@ exports.create = (req, res) => {
     });
   }
 
-  // sanitize form data
-  for (const key in data) {
-    // skip loop if the property is from prototype
-    if (!data.hasOwnProperty(key)) continue;
-    if (typeof data[key] === 'string') {
-      data[key] = sanitizer.sanitize(data[key]);
-    }
-  }
+
 
   item.getUpdateHandler(req).process(data, function (err) {
     if (err) { return res.apiError('error', err); };
@@ -128,8 +133,8 @@ exports.create = (req, res) => {
       from: '"CloseBrace" <contact@closebrace.com>', // sender address
       to: 'comments@closebrace.com', // list of receivers
       subject: 'New Comment', // Subject line
-      text: 'A new comment has been posted on CloseBrace. You can view it here: ' + data.relatedPostUrl + ' and you can moderate it here: http://closebrace.com/keystone/comments/' + item._id, // plaintext body
-      html: '<p>A new comment has been posted on CloseBrace. You can view it here: <a href="' + data.relatedPostUrl + '">' + data.relatedPostUrl + '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>', // html body
+      text: 'A new comment has been posted on CloseBrace, on the post "' + data.relatedPostTitle + '". You can view it here: ' + data.relatedPostUrl + '#' + item._id + ' and you can moderate it here: http://closebrace.com/keystone/comments/' + item._id + '\n \n The full text is: \n \n' + data.content, // plaintext body
+      html: '<p>A new comment has been posted on CloseBrace, on the post "' + data.relatedPostTitle + '". You can view it here: <a href="' + data.relatedPostUrl + '#' + item._id + '">' + data.relatedPostUrl + '#' + item._id + '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>.</p><p>The full text is:<br /><br /><em>' + data.content + '</em>', // html body
     };
 
     // send mail with defined transport object

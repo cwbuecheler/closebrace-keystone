@@ -8,10 +8,13 @@ const initCommentClick = (cbCommentInfo) => {
       }
       else {
 
+        const mailReplies = getById('emailReplies').checked;
+
         // Create a data packet
         const data = {
           isReply: false,
           content: document.getElementById('textAddComment').value,
+          mailReplies,
           inReplyTo: null,
           replyToUsername: null,
           relatedPost: document.getElementById('hidPostID').value,
@@ -60,7 +63,6 @@ const getArticleComments = (postId, cbCommentInfo) => {
         // Render the comments to HTML
         hideSpinner('loader-comments');
         displayComments(response, cbCommentInfo);
-
       }
       else {
         hideSpinner('loader-comments');
@@ -98,6 +100,10 @@ function displayComments (allComments, cbCommentInfo) {
 
   document.getElementById('newComments').innerHTML = content;
   initClickEvents(cbCommentInfo);
+  // check for anchors and scroll to the comment if necessary
+  if (window.location.hash.length > 0) {
+    window.location.href = window.location.hash;
+  }
 
 }
 
@@ -162,19 +168,19 @@ class Comment {
     let content = '';
     content += '<div class="author">';
     content += '<div class="user-avatar">';
-
+    content += `<a href="/u/${comment.author.userName}">`;
     if (comment.author.userImage && comment.author.userImage.version) {
       content += `<img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v${comment.author.userImage.version}/${comment.author.userImage.public_id}.jpg" alt="User Icon" class="user-icon" />`;
     }
     else {
       content += '<img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v1491315007/usericon_id76rb.png" alt="Default User Icon" class="user-icon" />';
     }
-
+    content += '</a>';
     if (comment.author.isPro) {
       content += '<a href="/go-pro" class="pro-badge">pro</a>';
     }
     content += '</div>';
-    content += `<div class="score">${comment.author.score}</div>`;
+    // content += `<div class="score">${comment.author.score}</div>`;
     content += '</div>';
     return content;
   }
@@ -553,12 +559,11 @@ function createReplyBox (commentId, author, replyToId, parentId, cbCommentInfo) 
   content += `<input type="hidden" id="hidPostTitle" value="${cbCommentInfo.postTitle}" />`;
   content += `<textarea name="comment" class="comment-text" id="reply-to-${parentId}"></textarea>`;
   content += '<div class="email-confirm">';
-  content += `<input type="checkbox" id="emailReplies-${commentId}" />`;
+  content += `<input type="checkbox" id="emailReplies-${commentId}" checked />`;
   content += `<label for="emailReplies-${commentId}">Email Me When Someone Replies</label>`;
   content += '</div>';
   content += '</fieldset>';
   content += '<div class="button-container">';
-  content += '<div><p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> in comments.</p></div>';
   content += '<div><button type="button" class="btn btn-grey btn-reply-cancel">Cancel</button> &nbsp;';
   content += `<button type="button" class="btn btn-primary btn-add-reply" data-replyid="${commentId}">Add Reply</button></div>`;
   content += '</div>';
