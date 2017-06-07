@@ -543,6 +543,16 @@ header {
         font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
       }
 
+      blockquote {
+        background: lighten($color-brand-secondary, 40);
+        padding: 20px;
+        font-style: italic;
+
+        p:last-child {
+          margin: 0;
+        }
+      }
+
       p {
         margin: 0 0 1rem 0;
       }

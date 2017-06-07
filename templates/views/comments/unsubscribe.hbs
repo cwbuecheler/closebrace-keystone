@@ -1,0 +1,54 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>Unsubscribe From Comment Replies</h1>
+        </section>
+        <!-- /TITLE BOX -->
+
+        <!-- UNSUBSCRIBE TEXT -->
+        <section class="article-text">
+          {{#if correctUser}}
+            <p>
+              Are you sure you want to unsubscribe from replies to the following comment? <strong>This action currently cannot be reversed.</strong>
+            </p>
+
+            <blockquote>
+              {{{comment.content.html}}}
+            </blockquote>
+
+            <form action="/comments/unsubscribe/{{comment._id}}" method="POST" class="buttons">
+              <button class="btn btn-grey" id="btnUnsubCancel">Never Mind</button> &nbsp;
+              <button class="btn btn-primary" id="btnUnsubConfirm">Yes, Unsubscribe Me</button>
+            </form>
+          {{else}}
+            <p>
+              Sorry, it appears you're trying to unsubscribe from a comment you didn't actually create. Are you sure you've got the URL right? If you think you're receiving this message in error, please <a href="/contact">contact CloseBrace</a> for further assistance.
+            </p>
+          {{/if}}
+        </section>
+        <!-- /UNSUBSCRIBE TEXT -->
+
+      </article>
+      <!-- /CONTENT -->
+
+      <!-- SIDEBAR -->
+      <aside>
+        {{> sidebar_newsletter }}
+        {{> sidebar_ad_vertical }}
+        {{> sidebar_twitter }}
+      </aside>
+      <!-- /SIDEBAR -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // cancel button
+  document.getElementById('btnUnsubCancel').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location = '{{comment.relatedPostUrl}}';
+  });
+});
+</script>
