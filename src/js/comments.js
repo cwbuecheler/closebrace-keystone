@@ -168,14 +168,14 @@ class Comment {
     let content = '';
     content += '<div class="author">';
     content += '<div class="user-avatar">';
-
+    content += `<a href="/u/${comment.author.userName}">`;
     if (comment.author.userImage && comment.author.userImage.version) {
       content += `<img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v${comment.author.userImage.version}/${comment.author.userImage.public_id}.jpg" alt="User Icon" class="user-icon" />`;
     }
     else {
       content += '<img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v1491315007/usericon_id76rb.png" alt="Default User Icon" class="user-icon" />';
     }
-
+    content += '</a>';
     if (comment.author.isPro) {
       content += '<a href="/go-pro" class="pro-badge">pro</a>';
     }
