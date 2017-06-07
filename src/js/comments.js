@@ -558,7 +558,6 @@ function createReplyBox (commentId, author, replyToId, parentId, cbCommentInfo) 
   content += '</div>';
   content += '</fieldset>';
   content += '<div class="button-container">';
-  content += '<div><p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> in comments.</p></div>';
   content += '<div><button type="button" class="btn btn-grey btn-reply-cancel">Cancel</button> &nbsp;';
   content += `<button type="button" class="btn btn-primary btn-add-reply" data-replyid="${commentId}">Add Reply</button></div>`;
   content += '</div>';

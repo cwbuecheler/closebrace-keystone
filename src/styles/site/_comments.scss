@@ -159,6 +159,7 @@
         font-size: 0.75rem;
         margin: 0 6px 0 0;
         cursor: pointer;
+        color: #666;
       }
     }
 
@@ -171,9 +172,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+
+      div {
+        flex-basis: 100%;
+      }
 
       p {
-        font-size: .875rem;
+        font-size: .75rem;
         margin: 0;
         padding: 0;
       }
