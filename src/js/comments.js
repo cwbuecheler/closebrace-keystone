@@ -8,10 +8,13 @@ const initCommentClick = (cbCommentInfo) => {
       }
       else {
 
+        const mailReplies = getById('emailReplies').checked;
+
         // Create a data packet
         const data = {
           isReply: false,
           content: document.getElementById('textAddComment').value,
+          mailReplies,
           inReplyTo: null,
           replyToUsername: null,
           relatedPost: document.getElementById('hidPostID').value,

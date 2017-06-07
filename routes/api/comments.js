@@ -97,8 +97,8 @@ exports.create = (req, res) => {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
           to: `${comment.author.email}`, // list of receivers
           subject: 'New Reply To Your CloseBrace Comment', // Subject line
-          text: `A new reply to your comment has been posted on CloseBrace. Here's a brief snippet:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${data.relatedPostUrl}\n\n`, // plaintext body
-          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's a breif snippet:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${data.relatedPostUrl}">${data.relatedPostUrl}</a>.`, // html body
+          text: `A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${data.relatedPostUrl}\n\n`, // plaintext body
+          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${data.relatedPostUrl}">${data.relatedPostUrl}</a>.`, // html body
         };
 
         // send mail with defined transport object
@@ -130,7 +130,7 @@ exports.create = (req, res) => {
       to: 'comments@closebrace.com', // list of receivers
       subject: 'New Comment', // Subject line
       text: 'A new comment has been posted on CloseBrace, on the post "' + data.relatedPostTitle + '". You can view it here: ' + data.relatedPostUrl + ' and you can moderate it here: http://closebrace.com/keystone/comments/' + item._id + '\n \n The full text is: \n \n' + data.content, // plaintext body
-      html: '<p>A new comment has been posted on CloseBrace, on the post "' + data.relatedPostTitle + '". You can view it here: <a href="' + data.relatedPostUrl + '">' + data.relatedPostUrl + '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>.</p><p>The full text is:<br /><br />' + data.content, // html body
+      html: '<p>A new comment has been posted on CloseBrace, on the post "' + data.relatedPostTitle + '". You can view it here: <a href="' + data.relatedPostUrl + '">' + data.relatedPostUrl + '</a>, and you can moderate it here: <a href="http://closebrace.com/keystone/comments/' + item._id + '">http://closebrace.com/keystone/comments/' + item._id + '</a>.</p><p>The full text is:<br /><br /><em>' + data.content + '</em>', // html body
     };
 
     // send mail with defined transport object
