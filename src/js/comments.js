@@ -553,7 +553,7 @@ function createReplyBox (commentId, author, replyToId, parentId, cbCommentInfo) 
   content += `<input type="hidden" id="hidPostTitle" value="${cbCommentInfo.postTitle}" />`;
   content += `<textarea name="comment" class="comment-text" id="reply-to-${parentId}"></textarea>`;
   content += '<div class="email-confirm">';
-  content += `<input type="checkbox" id="emailReplies-${commentId}" />`;
+  content += `<input type="checkbox" id="emailReplies-${commentId}" checked />`;
   content += `<label for="emailReplies-${commentId}">Email Me When Someone Replies</label>`;
   content += '</div>';
   content += '</fieldset>';
