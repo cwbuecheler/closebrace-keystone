@@ -46,7 +46,7 @@ exports = module.exports = function (app) {
     delayMs: 0 // disabled 
   });
 
-	// Views
+  // Views
 	app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
   app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
@@ -66,8 +66,9 @@ exports = module.exports = function (app) {
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:date/:post', routes.views.articles.post);
   app.get('/categories/:category', routes.views.categories.categoriesIndex);
-  app.all('/contact', postLimiter, routes.views.contact);
+  app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
+  app.all('/contact', postLimiter, routes.views.contact);
   app.get('/go-pro', routes.views.goPro);
   app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
@@ -80,7 +81,9 @@ exports = module.exports = function (app) {
 
   // API
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
+  app.get('/api/comments/getByArticleId', keystone.middleware.api, routes.api.comments.getByArticleId);
   app.all('/api/comments/create', keystone.middleware.api, routes.api.comments.create);
+  app.post('/api/comments/plusone', keystone.middleware.api, routes.api.comments.plusone);
   app.get('/api/comments/:id', keystone.middleware.api, routes.api.comments.get);
   app.post('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
   app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);

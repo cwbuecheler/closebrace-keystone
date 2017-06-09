@@ -2,8 +2,42 @@
   width: 100%;
   border: 1px solid $color-grey-light;
   display: flex;
+  flex-wrap: wrap;
   background: #FFF;
   margin-bottom: 1rem;
+
+  .comment-top {
+    flex-basis: 100%;
+    background: lighten($color-grey-light, 10);
+    text-align: right;
+    display: block;
+    line-height: 1;
+    font-size: .8125rem;
+
+    span.score {
+      margin-right: 15px;
+      padding: 8px 10px;
+    }
+    a.plus-one, span.plus-one {
+      display: inline-block;
+      font-size: .8125rem;
+      margin: 0;
+      padding: 8px 10px;
+    }
+    a.plus-one:link, a.plus-one:visited, span.plus-one {
+      background: #EEE;
+
+      &.on {
+        background: $color-brand-primary;
+        color: #FFF;
+      }
+    }
+    a.plus-one:hover {
+      background: $color-brand-primary;
+      color: #FFF;
+      text-decoration: none;
+    }
+  }
 
   .author {
     padding: 10px 10px 10px 10px;
@@ -43,6 +77,10 @@
         text-decoration: none;
       }
     }
+    .score {
+      font-size:.6875rem;
+      color:#CCC;
+    }
   }
   .text {
     padding: 10px;
@@ -55,7 +93,7 @@
     }
 
     h5 {
-      margin: 0 0 .5rem 0;
+      margin: 0 30px .5rem 0;
       color: $color-grey-medium;
     }
     .md {
@@ -63,10 +101,6 @@
       display: block;
       p {
         margin: 0 0 1rem 0;
-
-        &:last-child {
-          margin: 0;
-        }
       }
       pre {
         width: auto;
@@ -109,10 +143,24 @@
     textarea {
       width: 100%;
       max-width: 100%;
-      height: 60px;
+      height: 150px;
       padding: 10px;
       margin: 0 0 .5rem 0;
       text-align: left;
+    }
+
+    .email-confirm {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      margin: 0 0 .25rem 0;
+
+      label {
+        font-size: 0.75rem;
+        margin: 0 6px 0 0;
+        cursor: pointer;
+        color: #666;
+      }
     }
 
   }
@@ -124,9 +172,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+
+      div {
+        flex-basis: 100%;
+      }
 
       p {
-        font-size: .875rem;
+        font-size: .75rem;
         margin: 0;
         padding: 0;
       }
