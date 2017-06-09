@@ -103,6 +103,21 @@ function displayComments (allComments, cbCommentInfo) {
   // check for anchors and scroll to the comment if necessary
   if (window.location.hash.length > 0) {
     window.location.href = window.location.hash;
+    const currPos = window.pageYOffset;
+    window.scrollTo(0, currPos - 90);
+  }
+
+
+  // catch ANY click with an in-page anchor in it
+  var inPageLinks = document.querySelectorAll('a.in-page');
+  for (let i = 0; i < inPageLinks.length; i ++) {
+    inPageLinks[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = e.target.hash.substr(1);
+      const currPos = getById(targetId).scrollTop;
+      console.log(currPos);
+      window.scrollTo(0, currPos - 90);
+    });
   }
 
 }
@@ -123,7 +138,7 @@ class Comment {
   // Create Comment Shell
   createComment(comment) {
     let content = '';
-    content += `<a name="${comment._id}"></a>`;
+    content += `<a name="${comment._id}" id="${comment._id}"></a>`;
     content += `<div class="comment">`;
     content += this.createTopBar(comment);
     content += this.createAuthor(comment);
@@ -199,7 +214,7 @@ class Comment {
     content += '<h5>';
     content += `by <a href="/u/${comment.author.userName}}">${comment.author.userName}</a>`;
     if (replyToUsername) {
-      content += ` in reply to ${replyToUsername}`;
+      content += ` in reply to <a href="#${comment.inReplyTo}" class="in-page">${replyToUsername}</a>`;
     }
     content += `<br />${comment.createdAtFormatted}`;
     content += '</h5>';

@@ -83,7 +83,7 @@ exports.create = (req, res) => {
   data.author = req.user.id;
   data.state = 'published';
   data.type = data.isReply === true ? 'reply' : 'comment';
-  data.contentTrimmed = data.content.trim(0, 200);
+  data.contentTrimmed = data.content.trim(0, 150);
 
   // sanitize form data
   for (const key in data) {
@@ -108,8 +108,8 @@ exports.create = (req, res) => {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
           to: `${comment.author.email}`, // list of receivers
           subject: 'New Reply To Your CloseBrace Comment', // Subject line
-          text: `A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`, // plaintext body
-          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's the first 200 characters:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`, // html body
+          text: `A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`, // plaintext body
+          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`, // html body
         };
 
         // send mail with defined transport object
@@ -121,8 +121,6 @@ exports.create = (req, res) => {
       return false;
     });
   }
-
-
 
   item.getUpdateHandler(req).process(data, function (err) {
     if (err) { return res.apiError('error', err); };
@@ -248,6 +246,11 @@ exports.remove = function (req, res) {
  * Flag Comment by ID
  */
 exports.flag = function (req, res) {
+
+  if (!req.user) {
+    return res.apiError('error', 'No User');
+  }
+
   Comment.model.findById(req.body.id).exec(function (err, item) {
     if (err) { return res.apiError('database error', err); };
     if (!item) { return res.apiError('not found'); };
