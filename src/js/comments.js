@@ -100,26 +100,13 @@ function displayComments (allComments, cbCommentInfo) {
 
   document.getElementById('newComments').innerHTML = content;
   initClickEvents(cbCommentInfo);
+
   // check for anchors and scroll to the comment if necessary
   if (window.location.hash.length > 0) {
     window.location.href = window.location.hash;
     const currPos = window.pageYOffset;
     window.scrollTo(0, currPos - 90);
   }
-
-
-  // catch ANY click with an in-page anchor in it
-  var inPageLinks = document.querySelectorAll('a.in-page');
-  for (let i = 0; i < inPageLinks.length; i ++) {
-    inPageLinks[i].addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = e.target.hash.substr(1);
-      const currPos = getById(targetId).scrollTop;
-      console.log(currPos);
-      window.scrollTo(0, currPos - 90);
-    });
-  }
-
 }
 
 // Comment Object
