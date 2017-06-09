@@ -508,9 +508,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-
-
-
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {
     var displaySpans = getByClass(displaySpan);

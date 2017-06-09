@@ -266,7 +266,7 @@ exports.flag = function (req, res) {
       // setup e-mail data with unicode symbols
       var mailOptions = {
         from: '"CloseBrace" <contact@closebrace.com>', // sender address
-        to: 'flags@closebrace.com', // list of receivers
+        to: 'twitter@closebrace.com', // list of receivers
         subject: 'Flagged Comment', // Subject line
         text: 'Moderate flagged comment: http://closebrace.com/keystone/comments/' + req.body.id, // plaintext body
         html: '<p>Moderate flagged comment: <a href="http://closebrace.com/keystone/comments/' + req.body.id + '">http://closebrace.com/keystone/comments/' + req.body.id + '</a>', // html body
