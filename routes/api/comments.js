@@ -83,7 +83,9 @@ exports.create = (req, res) => {
   data.author = req.user.id;
   data.state = 'published';
   data.type = data.isReply === true ? 'reply' : 'comment';
-  data.contentTrimmed = data.content.trim(0, 150);
+  if (data.content.length > 150) {
+    data.contentTrimmed = data.content.trim(0, 150);
+  }
 
   // sanitize form data
   for (const key in data) {
@@ -98,9 +100,24 @@ exports.create = (req, res) => {
   if (data.type === 'reply') {
     const originalComment = data.emailCommentId;
     Comment.model.findById(originalComment).populate('author').exec((err, comment) => {
+
+      const unsubscribeUrl = `${req.headers.origin}/comments/unsubscribe/${comment._id}`;
+      let plainText = '';
+      let htmlText = '';
+
+      if (data.contentTrimmed) {
+        plainText = `A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`;
+
+        htmlText = `<p>A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`;
+      }
+      else {
+        plainText = `A new reply to your comment has been posted on CloseBrace: ${data.content}\n\n You can view the comment here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`;
+
+        htmlText = `<p>A new reply to your comment has been posted on CloseBrace:</p><p><em>${data.content}</em></p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`;
+      }
+
       if (err) { return false; }
       if (comment.mailReplies) {
-        const unsubscribeUrl = `${req.headers.origin}/comments/unsubscribe/${comment._id}`;
 
         // Mail original author about a new comment
         // setup e-mail data with unicode symbols
@@ -108,8 +125,8 @@ exports.create = (req, res) => {
           from: '"CloseBrace" <contact@closebrace.com>', // sender address
           to: `${comment.author.email}`, // list of receivers
           subject: 'New Reply To Your CloseBrace Comment', // Subject line
-          text: `A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:\n \n ${data.contentTrimmed}...\n\n You can view the whole thing here: ${comment.relatedPostUrl}#${comment._id}\n\n\n\nYou can unsubscribe from replies to this comment by visiting this URL: ${unsubscribeUrl}`, // plaintext body
-          html: `<p>A new reply to your comment has been posted on CloseBrace. Here's the first few sentences:</p><p><em>${data.contentTrimmed}</em>&hellip;</p><p>You can view the whole thing here: <a href="${comment.relatedPostUrl}#${comment._id}">${comment.relatedPostUrl}#${comment._id}</a>.</p><br /><br /><p>You can unsubscribe from replies to your comment by clicking this link: <a href="${unsubscribeUrl}">${unsubscribeUrl}</a>.`, // html body
+          text: plainText, // plaintext body
+          html: htmlText, // html body
         };
 
         // send mail with defined transport object
