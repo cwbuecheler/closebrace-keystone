@@ -14,7 +14,7 @@ exports = module.exports = function (req, res) {
   view.on('init', function(next) {
 
     // create reusable transporter object using the default SMTP transport
-    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
     var transporter = nodemailer.createTransport(mailString);
     var userConfirm = req.user.confirmHash;
 

@@ -93,7 +93,7 @@ exports = module.exports = function (req, res) {
       else {
 
         // create reusable transporter object using the default SMTP transport
-        var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+        const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
         var transporter = nodemailer.createTransport(mailString);
 
         // setup e-mail data with unicode symbols

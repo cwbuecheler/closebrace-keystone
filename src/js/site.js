@@ -147,6 +147,9 @@ document.addEventListener("DOMContentLoaded", function() {
           getById('userMenu').style.display = 'block';
         }
       }
+      else {
+        window.location = '/account/profile';
+      }
     });
   }
 
