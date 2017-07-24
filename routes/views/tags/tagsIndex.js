@@ -38,6 +38,8 @@ exports = module.exports = function (req, res) {
       for (var post in finalPosts) {
         var updatedAtFormatted = finalPosts[post]._.updatedAt.format('Do MMM YYYY');
         finalPosts[post].updatedAtFormatted = updatedAtFormatted;
+        var publishedAtFormatted = finalPosts[post]._.publishedAt.format('YYYY-MM-DD');
+        finalPosts[post].publishedAtFormatted = publishedAtFormatted;
       }
       locals.posts = finalPosts;
       next(err);
