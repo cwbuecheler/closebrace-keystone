@@ -178,7 +178,7 @@ var knownEvents = {
     console.log(req.body.type + ': event processed');
     res.status(200).end();
   },
-  'invoice.payment_failed ': function(req, res, next) {
+  'invoice.payment_failed': function(req, res, next) {
     console.log(req.body.type + ': event processed');
     res.status(200).end();
   },
