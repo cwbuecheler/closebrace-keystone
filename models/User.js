@@ -53,7 +53,7 @@ User.schema.methods.resetPassword = function(callback) {
     if (err) return callback(err);
 
     // create reusable transporter object using the default SMTP transport
-    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
     var transporter = nodemailer.createTransport(mailString);
 
     // setup e-mail data with unicode symbols
@@ -139,7 +139,7 @@ User.schema.methods.updateStripeCard = function(data, callback) {
   user.save(function(err) {
     if (err) return callback(err);
     // create reusable transporter object using the default SMTP transport
-    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
     var transporter = nodemailer.createTransport(mailString);
 
     // setup e-mail data with unicode symbols
@@ -162,7 +162,7 @@ User.schema.methods.stripeAlertCardFail = function(callback) {
   var user = this;
 
   // create reusable transporter object using the default SMTP transport
-  var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+  const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
   var transporter = nodemailer.createTransport(mailString);
 
   // setup e-mail data with unicode symbols
@@ -187,7 +187,7 @@ User.schema.methods.cancelStripeSubscription = function(cancelType, callback) {
   // On initial cancel, just send the emails, since there will still be time in the billing period
   if (cancelType === 'cancel-initial') {
     // create reusable transporter object using the default SMTP transport
-    var mailString = 'smtps://' + cbOptions.google.mailAddress + ':' + cbOptions.google.mailPassword + '@smtp.gmail.com';
+    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
     var transporter = nodemailer.createTransport(mailString);
 
     // setup e-mail data with unicode symbols
