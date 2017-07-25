@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var helmet = require('helmet');
+var Email = require('keystone-email')
 
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
@@ -69,8 +70,9 @@ keystone.set('locals', {
 keystone.set('routes', require('./routes'));
 
 // Switch Keystone Email defaults to handlebars
-keystone.Email.defaults.templateExt = 'hbs';
-keystone.Email.defaults.templateEngine = require('handlebars');
+// new Email(template, emailOptions)
+// keystone.Email.defaults.templateExt = 'hbs';
+// keystone.Email.defaults.templateEngine = require('handlebars');
 
 
 // Configure the navigation bar in Keystone's Admin UI

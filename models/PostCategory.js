@@ -10,7 +10,7 @@ PostCategory.add({
   name: { type: String, required: true },
 });
 
-PostCategory.relationship({ ref: 'Post', refPath: 'PostCategorys' });
+PostCategory.relationship({ ref: 'Post', refPath: 'category' });
 
 PostCategory.track = true;
 PostCategory.register();
