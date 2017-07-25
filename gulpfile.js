@@ -4,6 +4,7 @@ var shell = require('gulp-shell')
 var concat = require('gulp-concat');
 var minify = require('gulp-minify');
 var sass = require('gulp-sass');
+var babel = require('gulp-babel');
 
 var paths = {
 	'src': ['./models/**/*.js','./routes/**/*.js', 'keystone.js', 'package.json'],
@@ -30,12 +31,9 @@ gulp.task('combinejs', function() {
 
 gulp.task('compressjs', function() {
   gulp.src(paths.js.all)
-  	.pipe(concat('build.js'))
-    .pipe(minify({
-        ext:{
-            src:'-debug.js',
-            min:'.js'
-        }
+    .pipe(concat('build.js'))
+    .pipe(babel({
+      presets: ['babili'],
     }))
     .pipe(gulp.dest(paths.js.output))
 });
