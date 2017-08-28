@@ -7,5 +7,6 @@
   "rules": {
     "indent": ["error", 2],
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+    "no-console": 0,
   }
 }
