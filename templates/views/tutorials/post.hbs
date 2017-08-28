@@ -52,7 +52,12 @@
 
         <!-- ARTICLE TEXT -->
         <section class="article-text">
-          {{{post.content.html}}}
+          {{#if post.isProLocked}}
+            {{{trimPost post.content.html}}}
+            <p>Go Pro to See This Post!</p>
+          {{else}}
+            {{{post.content.html}}}
+          {{/if}}
         </section>
         <!-- /ARTICLE TEXT -->
 
