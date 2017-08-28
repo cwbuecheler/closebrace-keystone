@@ -19,7 +19,7 @@ const sendStripeEmail = (info, text) => {
   thisEmail.text = text;
   thisEmail.subject += info;
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error) => {
+  transporter.sendMail(thisEmail, (error) => {
     if (error) { console.log(error); }
   });
 };
