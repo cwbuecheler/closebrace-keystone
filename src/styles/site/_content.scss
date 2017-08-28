@@ -31,6 +31,23 @@
   }
 }
 
+/* Inline Code */
+* .article-text code {
+  display: inline-block;
+  background: $color-grey-light;
+  font-family: consolas, "courier new";
+  padding: 0 5px;
+  border: 1px solid darken($color-grey-light, 10);
+}
+// fix for comments md blocks
+* .comments .text .md p code {
+  display: inline-block;
+  background: $color-grey-light;
+  font-family: consolas, "courier new";
+  padding: 0 5px;
+  border: 1px solid darken($color-grey-light, 10);
+}
+
 /* Tip Box */
 * div.tip-box {
   width: 100%;
