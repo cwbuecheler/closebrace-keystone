@@ -6,16 +6,16 @@ var Types = keystone.Field.Types;
  * ==========
  */
 var Post = new keystone.List('Post', {
-    autokey: { path: 'slug', from: 'title', unique: true },
-    map: { name: 'title' },
-    defaultSort: '-publishedAt'
+  autokey: { path: 'slug', from: 'title', unique: true },
+  map: { name: 'title' },
+  defaultSort: '-publishedAt',
 });
 
 Post.add({
   title: { type: String, required: true, initial: true },
   subHead: { type: String, required: true, initial: true },
   author: { type: Types.Relationship, ref: 'User', filters: { isAuthor: 'true' }, index: true },
-  postType: { type: Types.Select, options: 'Tutorial, Article, Blog, Other'},
+  postType: { type: Types.Select, options: 'Tutorial, Article, Blog, Other' },
   category: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true },
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
   tags: { type: Types.Relationship, ref: 'Tag', many: true },
@@ -28,12 +28,12 @@ Post.add({
   contentImages: { type: Types.CloudinaryImages },
   content: { type: Types.Markdown, height: 500 },
   // comments: { type: Types.Relationship, ref: 'Comment', many: true, hidden: true },
+}, 'Permissions', {
+  isProLocked: { type: Boolean, label: 'Is Pro Locked', index: true },
 });
 
 // Provide access to Keystone
-Post.schema.virtual('canAccessKeystone').get(function () {
-	return this.isAdmin;
-});
+Post.schema.virtual('canAccessKeystone').get(() => this.isAdmin);
 
 
 /**
