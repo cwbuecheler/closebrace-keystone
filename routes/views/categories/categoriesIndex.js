@@ -37,7 +37,7 @@ exports = module.exports = function (req, res) {
       for(var i = 0; i < results.length; i++) {
         var result = results[i];
         var resultCat = result.category;
-        if (resultCat !== null && resultCat.key === locals.filters.category) {
+        if (resultCat && resultCat.key === locals.filters.category) {
           finalPosts.push(result);
           // if any posts are found, overwrite the category name with a prettier version
           locals.categoryName = resultCat.name;
