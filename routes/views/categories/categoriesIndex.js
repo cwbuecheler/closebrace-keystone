@@ -16,7 +16,6 @@ exports = module.exports = function (req, res) {
   // set a basic categoryname for displaying
   locals.categoryName = locals.filters.category;
 
-
   // Load requested posts
   view.on('init', function(next) {
     var q = Post.model.find({
