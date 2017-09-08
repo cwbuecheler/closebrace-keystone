@@ -190,7 +190,9 @@ exports.update = function (req, res) {
  * Plus-One a Comment
  */
 exports.plusone = (req, res) => {
-  Comment.model.findById(req.body.id).exec((err, item) => {
+  const query = Comment.model.findById(req.body.id);
+
+  query.exec((err, item) => {
     if (err) { return res.apiError('database error', err); }
     if (!item) { return res.apiError('not found'); }
 
@@ -202,11 +204,12 @@ exports.plusone = (req, res) => {
 
     // Otherwise carry on
     const votes = item.votes + 1;
-    const voters = item.voters;
-    voters.push(req.user.id);
+    const newVoters = [...item.voters];
+    newVoters.push(req.user.id);
     const data = {
+      author: item.author,
       votes,
-      voters,
+      voters: newVoters,
     };
 
     // Give the post author a point, too
@@ -218,14 +221,12 @@ exports.plusone = (req, res) => {
       });
     }
 
-    item.getUpdateHandler(req).process(data, (error, comment) => {
-      if (err) return res.apiError('update error', err);
+    return item.getUpdateHandler(req).process(data, (error, comment) => {
+      if (error) return res.apiError('update error', error);
       return res.apiResponse({
         comment,
       });
     });
-
-    return false;
   });
 };
 
