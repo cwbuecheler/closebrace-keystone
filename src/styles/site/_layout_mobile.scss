@@ -715,12 +715,29 @@ header {
       text-align: left;
       margin: 0 0 30px 0;
 
+      &.special {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fff6b2+0,fcfaed+75,fff6b2+100 */
+background: #fff6b2; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #fff6b2 0%, #fcfaed 75%, #fff6b2 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #fff6b2 0%,#fcfaed 75%,#fff6b2 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #fff6b2 0%,#fcfaed 75%,#fff6b2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff6b2', endColorstr='#fff6b2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+      }
+
       &:last-child {
         margin-bottom: 0;
       }
       .sidebar-box-inner {
         padding: 5px;
         overflow: auto;
+
+        h3.short-margin {
+          margin-bottom: .5rem;
+        }
+
+        p.no-top-margin {
+          margin-top: 0;
+        }
 
         &.ad {
           text-align: center;
