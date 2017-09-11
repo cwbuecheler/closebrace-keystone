@@ -4,8 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CloseBrace - JavaScript Tutorials and Resources</title>
-    <meta name="description" content="CloseBrace - Tutorials and Recources By JavaScript Developers, For JavaScript Developers">
+    {{#if post}}
+      <title>CloseBrace | {{{post.title}}}</title>
+      <meta name="description" content="{{{post.subHead}}}">
+    {{else}}
+      <title>CloseBrace - JavaScript Tutorials and Resources</title>
+      <meta name="description" content="Tutorials and Recources By JavaScript Developers, For JavaScript Developers">
+    {{/if}}
     <meta name="google-site-verification" content="ZlnNtuycQYx6jR8i4Eeqdu7lHbDvus2KWQv-5WyhdoM" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
