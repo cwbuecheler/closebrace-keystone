@@ -1,11 +1,12 @@
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+
+const Types = keystone.Field.Types;
 
 /**
  * Post Model
  * ==========
  */
-var Post = new keystone.List('Post', {
+const Post = new keystone.List('Post', {
   autokey: { path: 'slug', from: 'title', unique: true },
   map: { name: 'title' },
   defaultSort: '-publishedAt',
@@ -21,12 +22,14 @@ Post.add({
   tags: { type: Types.Relationship, ref: 'Tag', many: true },
   mainImage: { type: Types.CloudinaryImage },
   videoURL: { type: String },
+  videoDownloadURL: { type: String },
   createdAt: { type: Date, default: Date.now },
   publishedAt: { type: Date, noedit: true, watch: { state: 'published' }, value: Date.now },
   updatedAt: { type: Date, noedit: true, watch: true, value: Date.now },
   tutorialInfo: { type: Types.Markdown, height: 150 },
   contentImages: { type: Types.CloudinaryImages },
   content: { type: Types.Markdown, height: 500 },
+  unlockDate: { type: Date, default: new Date(2000, 0, 1, 0, 0, 0) },
   // comments: { type: Types.Relationship, ref: 'Comment', many: true, hidden: true },
 }, 'Permissions', {
   isProLocked: { type: Boolean, label: 'Is Pro Locked', index: true },
@@ -34,7 +37,6 @@ Post.add({
 
 // Provide access to Keystone
 Post.schema.virtual('canAccessKeystone').get(() => this.isAdmin);
-
 
 /**
  * Registration
