@@ -32,6 +32,13 @@
             <div class="embed-container">
               <iframe src="{{post.videoURL}}" frameborder="0" allowfullscreen></iframe>
             </div>
+            {{#if user.isPro}}
+              {{#if post.videoDownloadURL}}
+                <div class="video-link" style="background: #222; color: #F3F3F3; padding: 10px 10px;">
+                  As a CloseBrace Pro, you can <a href="{{post.videoDownloadURL}}" target="_blank">download a copy of this video</a>. Please don't share it!
+                </div>
+              {{/if}}
+            {{/if}}
           </section>
           <!-- /INTRO VIDEO -->
         {{/if}}
@@ -46,7 +53,12 @@
 
         <!-- ARTICLE TEXT -->
         <section class="article-text">
-          {{{post.content.html}}}
+          {{#isDateLocked post.unlockDate user.isPro}}
+            {{{trimPost ../post.content.html}}}
+            {{> cb_pro_cutoff unlockDate=../post/unlockDate}}
+          {{else}}
+            {{{../post.content.html}}}
+          {{/isDateLocked}}
         </section>
         <!-- /ARTICLE TEXT -->
 
