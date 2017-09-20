@@ -41,6 +41,17 @@ module.exports = function () {
     return post.substring(0, (indices[4] + 4));
   };
 
+  _helpers.isDateLocked = (date, isPro, options) => {
+    if (isPro) { return options.inverse(this); }
+    const now = new Date().getTime();
+    if (date.getTime() > now) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  };
+
+  _helpers.getDateSeconds = date => date.getTime();
+
 
   /**
    * Generic HBS Helpers
@@ -62,7 +73,7 @@ module.exports = function () {
       return str.toLowerCase();
     }
     return str;
-  }
+  };
 
   /**
    * Port of Ghost helpers to support cross-theming

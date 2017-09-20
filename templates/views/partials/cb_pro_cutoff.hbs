@@ -1,0 +1,41 @@
+<div class="cb-pro">
+  <h3>Enjoying This Content?</h3>
+  <p>
+    You'll be able to read the rest of it for free on at midnight on <em id="todayDate">{{{unlockDate}}}</em>, but for now the complete tutorial is only available to our <a class="go-pro-link" href="/go-pro">CloseBrace Pro</a> subscribers. You could <a class="go-pro-link" href="/go-pro">join that select group</a> for just five bucks a month, and not only get this content, but also remove ads, gain access to video downloads, and feel good knowing you're supporting a small company!
+  </p>
+  <h3 class="center countdown-container">
+    <span class="days"></span> days,
+    <span class="hours"></span> hours,
+    <span class="minutes"></span> minutes,
+    <span class="seconds"></span> seconds.
+  </h3>
+  <p class="center">
+    <a href="/go-pro" class="btn btn-primary">Unlock Now</a>
+  </p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const dateSpan = document.getElementById('todayDate');
+  const todayDate = new Date();
+  const todaySeconds = todayDate.getTime();
+  const unlockDate = new Date('{{unlockDate}}');
+  const unlockSeconds = unlockDate.getTime();
+  const secondsDiff = (unlockSeconds - todaySeconds) / 1000;
+  countDownClock(secondsDiff, 'seconds');
+
+  const options = {
+      weekday: "long", year: "numeric", month: "long", day: "numeric"
+  };
+
+  dateSpan.innerHTML = new Date('{{unlockDate}}').toLocaleDateString("en-us", options);
+
+  // Add redirect URL to links
+  const currUrl = window.location.href;
+  const goProLinks = document.querySelectorAll('a.go-pro-link');
+  for (link of goProLinks) {
+    link.href = link.href + '/?ref=' + currUrl;
+  }
+
+});
+</script>

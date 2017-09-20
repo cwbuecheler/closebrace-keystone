@@ -91,3 +91,17 @@
   }
 
 }
+
+/* CloseBrace Pro Promotion Box */
+.cb-pro {
+  background: lighten($color-grey-light, 5);
+  border: 1px solid darken($color-grey-light, 10);
+  box-shadow: 3px 3px 5px #CCC;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 10px 10px 3rem 10px;
+  padding: 15px;
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
