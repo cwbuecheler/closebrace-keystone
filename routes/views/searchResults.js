@@ -90,6 +90,14 @@ exports = module.exports = function (req, res) {
         else {
           locals.posts = null;
         }
+
+        for (var post in locals.posts) {
+          var updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
+          locals.posts[post].updatedAtFormatted = updatedAtFormatted;
+          var publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
+          locals.posts[post].publishedAtFormatted = publishedAtFormatted;
+        }
+
         return next(err);
       });
     }
