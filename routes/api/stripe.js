@@ -161,6 +161,11 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
+  'customer.source.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer source was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'customer.subscription.created': (req, res) => {
     sendStripeEmail(req.body.type, 'A customer subscription was created.');
     console.log(`${req.body.type}: event processed`);
@@ -228,6 +233,11 @@ const knownEvents = {
   },
   'invoice.created': (req, res) => {
     sendStripeEmail(req.body.type, 'An invoice was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'invoice.upcoming': (req, res) => {
+    sendStripeEmail(req.body.type, 'An invoice is upcoming.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
