@@ -47,10 +47,10 @@ exports = module.exports = function (app) {
   });
 
   // Views
-	app.get('/', routes.views.index);
+  app.get('/', routes.views.index);
   app.get('/about', routes.views.about);
   app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
-  app.all('/account/cancel-pro-subscription', postLimiter, routes.views.account.cancelProSubscription)
+  app.all('/account/cancel-pro-subscription', postLimiter, routes.views.account.cancelProSubscription);
   app.get('/account/confirm', routes.views.account.confirm);
   app.all('/account/delete-account', postLimiter, routes.views.account.deleteAccount);
   app.all('/account/edit-profile', postLimiter, routes.views.account.editProfile);
@@ -69,6 +69,7 @@ exports = module.exports = function (app) {
   app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.all('/contact', postLimiter, routes.views.contact);
+  app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   app.get('/go-pro', routes.views.goPro);
   app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
@@ -77,7 +78,7 @@ exports = module.exports = function (app) {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:date/:post', routes.views.tutorials.post);
-  app.get('/u/:username', routes.views.publicProfile)
+  app.get('/u/:username', routes.views.publicProfile);
 
   // API
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);

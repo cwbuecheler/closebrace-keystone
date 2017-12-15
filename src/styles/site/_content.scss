@@ -105,3 +105,19 @@
     margin-bottom: 1rem;
   }
 }
+
+/* ExpressJsCheatSheet.com Landing Page */
+.signup-wrap {
+  margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 601px) {
+  .signup-wrap {
+    display: flex;
+    justify-content: center;
+
+    .mailchimp-form {
+      flex-basis: 60%;
+    }
+  }
+}
