@@ -66,6 +66,7 @@ exports = module.exports = function (app) {
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:date/:post', routes.views.articles.post);
   app.get('/categories/:category', routes.views.categories.categoriesIndex);
+  app.get('/cheatSheetThanks', routes.views.cheatSheetThanks);
   app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.all('/contact', postLimiter, routes.views.contact);
