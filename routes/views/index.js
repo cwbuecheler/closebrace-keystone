@@ -59,6 +59,7 @@ exports = module.exports = function (req, res) {
   view.on('init', function(next) {
     var q = Post.model.find({
       state: 'published',
+      hideFromIndex: false,
     })
     .sort({'publishedAt': -1})
     .limit(12)

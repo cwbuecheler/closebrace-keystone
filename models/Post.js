@@ -33,6 +33,7 @@ Post.add({
   // comments: { type: Types.Relationship, ref: 'Comment', many: true, hidden: true },
 }, 'Permissions', {
   isProLocked: { type: Boolean, label: 'Is Pro Locked', index: true },
+  hideFromIndex: { type: Boolean, label: 'Hide From Index', default: false },
 });
 
 // Provide access to Keystone

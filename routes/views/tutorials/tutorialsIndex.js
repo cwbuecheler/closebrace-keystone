@@ -15,6 +15,7 @@ exports = module.exports = function (req, res) {
     var q = Post.model.find({
       state: 'published',
       postType: 'Tutorial',
+      hideFromIndex: false,
     })
     .sort('-publishedAt')
     .populate('author categories');

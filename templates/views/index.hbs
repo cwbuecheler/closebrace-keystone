@@ -91,6 +91,12 @@
 						</div>
 						<!-- /FEATURE TABLE -->
 
+					</div>
+					<!-- /SUB CONTENT -->
+
+					<!-- SIDEBAR -->
+					<aside>
+						{{> sidebar_twitter }}
 						<!-- BLOG POSTS -->
 						<div class="feature-list">
 							<div class="top-border"></div>
@@ -99,7 +105,6 @@
 								<tbody>
 									{{#each blogPosts}}
 										<tr>
-											<td class="date">{{date this.pubDate format='MMM D, YYYY'}}</td>
 											<td class="info">
 												<p>
 													<a href="{{this.link}}" target="_blank">{{this.title}}</a><br />
@@ -112,15 +117,6 @@
 							</table>
 						</div>
 						<!-- /BLOG POSTS -->
-
-					</div>
-					<!-- /SUB CONTENT -->
-
-					<!-- SIDEBAR -->
-					<aside>
-		        {{> sidebar_go_pro }}
-						{{> sidebar_ad_vertical }}
-						{{> sidebar_twitter }}
 					</aside>
 					<!-- /SIDEBAR -->
 
