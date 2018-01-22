@@ -70,6 +70,7 @@ exports = module.exports = function (app) {
   app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.all('/contact', postLimiter, routes.views.contact);
+  app.get('/emailThanks', routes.views.emailThanks);
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   app.get('/go-pro', routes.views.goPro);
   app.get('/go-pro-thanks', routes.views.goProThanks);
