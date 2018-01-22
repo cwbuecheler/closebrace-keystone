@@ -28,7 +28,7 @@ Post.add({
   updatedAt: { type: Date, noedit: true, watch: true, value: Date.now },
   tutorialInfo: { type: Types.Markdown, height: 150 },
   contentImages: { type: Types.CloudinaryImages },
-  content: { type: Types.Markdown, height: 500 },
+  content: { type: Types.Markdown, height: 500, sanitizeOptions: { allowedTags: false, allowedAttributes: false } },
   unlockDate: { type: Date, default: new Date(2000, 0, 1, 0, 0, 0) },
   // comments: { type: Types.Relationship, ref: 'Comment', many: true, hidden: true },
 }, 'Permissions', {
