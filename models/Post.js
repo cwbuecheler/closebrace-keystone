@@ -26,7 +26,7 @@ Post.add({
   createdAt: { type: Date, default: Date.now },
   publishedAt: { type: Date, noedit: true, watch: { state: 'published' }, value: Date.now },
   updatedAt: { type: Date, noedit: true, watch: true, value: Date.now },
-  tutorialInfo: { type: Types.Markdown, height: 150 },
+  tutorialInfo: { type: Types.Markdown, height: 150, sanitizeOptions: { allowedTags: false, allowedAttributes: false } },
   contentImages: { type: Types.CloudinaryImages },
   content: { type: Types.Markdown, height: 500, sanitizeOptions: { allowedTags: false, allowedAttributes: false } },
   unlockDate: { type: Date, default: new Date(2000, 0, 1, 0, 0, 0) },

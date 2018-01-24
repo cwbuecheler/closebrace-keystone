@@ -24,7 +24,7 @@ Comment.add({
   flags: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: false },
   isUserDeleted: { type: Boolean, default: false },
-  content: { type: Types.Markdown, height: 250, required: true, initial: true },
+  content: { type: Types.Markdown, height: 250, required: true, initial: true, sanitizeOptions: { allowedTags: false, allowedAttributes: false } },
   inReplyTo: { type: String, default: null },
   replyToUsername: { type: String, index: true },
   relatedPost: { type: String, index: true },
