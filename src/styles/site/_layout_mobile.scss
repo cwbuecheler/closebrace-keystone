@@ -354,7 +354,7 @@ header {
           p {
             margin: 0;
             color: $color-grey-medium;
-            font-family: Georgia, Times, "Times New Roman", serif;
+            // font-family: Georgia, Times, "Times New Roman", serif;
             font-style: italic;
           }
 
@@ -398,8 +398,60 @@ header {
 
   /* Post or Index */
   article {
-    width: 100%;
     text-align: left;
+    width: 100%;
+
+    /* Boxes for Indices */
+    .category-list {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .category {
+        flex-basis: 100%;
+        margin-bottom: 30px;
+
+        .img-wrap {
+          padding: 0;
+          width: 100%;
+
+          img {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+          }
+        }
+        .info {
+          background: rgba(0,0,0,0.9);
+          color: #EEE;
+          display: flex;
+          font-size: .75rem;
+          justify-content: space-between;
+          margin: 0;
+          padding: 5px 10px;
+          width: 100%;
+
+          .videos {
+          }
+          .length {
+          }
+        }
+        .desc {
+          padding: 15px 20px 20px 20px;
+
+          h2 {
+            margin-bottom: .25rem;
+          }
+
+          p {
+            font-size: .875rem;
+            line-height: 1.4;
+            margin: 0;
+          }
+        }
+      }
+    }
 
     /* Big Post on Indices */
     .feature {
@@ -430,7 +482,7 @@ header {
         p {
           margin: 0;
           color: $color-grey-medium;
-          font-family: Georgia, Times, "Times New Roman", serif;
+          // font-family: Georgia, Times, "Times New Roman", serif;
           font-style: italic;
         }
 
@@ -474,7 +526,7 @@ header {
         margin: 0 0 .4rem 0;
       }
       h2 {
-        font-family: Georgia, Times, "Times New Roman", serif;
+        // font-family: Georgia, Times, "Times New Roman", serif;
         margin: 0 0 .4rem 0;
         color: $color-grey-medium;
         font-size: 1.25rem;
@@ -535,9 +587,9 @@ header {
 
     /* Article Text */
     .article-text {
-      line-height: 1.5;
+      line-height: 1.6;
       font-size: 1.125rem;
-      font-family: Georgia, Times, "Times New Roman", serif;
+      // font-family: Georgia, Times, "Times New Roman", serif;
 
       h1, h2, h3, h4, h5 {
         font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;

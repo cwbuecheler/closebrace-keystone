@@ -1,14 +1,33 @@
-var keystone = require('keystone');
-var Post = keystone.list('Post');
+const keystone = require('keystone');
 
-exports = module.exports = function (req, res) {
+const Post = keystone.list('Post');
+const PostCategory = keystone.list('PostCategory');
 
-	var view = new keystone.View(req, res);
-	var locals = res.locals;
+exports = module.exports = (req, res) => {
+  const view = new keystone.View(req, res);
+  const locals = res.locals;
 
-	// locals.section is used to set the currently selected
-	// item in the header navigation.
-	locals.section = 'tutorials';
+  // locals.section is used to set the currently selected
+  // item in the header navigation.
+  locals.section = 'tutorials';
+
+  // Get a list of categories
+  view.on('init', (next) => {
+    const q = PostCategory.model.find()
+    .sort('+name');
+
+    q.exec((err, results) => {
+      if (err || results.length < 1) {
+        locals.categories = null;
+        return next(err);
+      }
+      locals.categories = results;
+      console.log(locals.categories);
+      return next();
+    });
+  });
+
+  // ===================================================== //
 
   // Load requested posts
   view.on('init', function(next) {
@@ -42,9 +61,10 @@ exports = module.exports = function (req, res) {
       }
       next(err);
     });
-
   });
 
-	// Render the view
-	view.render('tutorials/tutorialsIndex');
+  // ===================================================== //
+
+  // Render the view
+  view.render('tutorials/tutorialsIndex');
 };

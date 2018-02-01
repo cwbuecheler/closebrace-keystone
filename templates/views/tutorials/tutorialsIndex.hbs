@@ -9,49 +9,27 @@
         </section>
         <!-- /TITLE BOX -->
 
-        {{#if firstPost}}
-
-          <!-- LATEST POST -->
-          <div class="feature">
-            <div class="top-border"></div>
-            <div class="image-box">
-              <a href="/{{toLowerCase firstPost.postType}}s/{{firstPost.publishedAtFormatted}}/{{firstPost.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_720/v{{firstPost.mainImage.version}}/{{firstPost.mainImage.public_id}}.{{firstPost.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
-              <span class="feature-type">Latest {{firstPost.postType}}</span>
-              <div class="text-box">
-                <h1><a href="/{{toLowerCase firstPost.postType}}s/{{firstPost.publishedAtFormatted}}/{{firstPost.slug}}">{{firstPost.title}}</a></h1>
-                <p>
-                  {{firstPost.subHead}}
-                </p>
+        {{#if categories}}
+          <div class="category-list">
+            {{#each categories}}
+              <div class="category">
+                <div class="img-wrap"><a href="/categories/{{this.key}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_553/v{{this.image.version}}/{{this.image.public_id}}.{{this.image.format}}" alt="{{this.name}} thumbnail" /></a></div>
+                <div class="info">
+                  <span class="videos">{{this.numVideos}} Tutorials</span>
+                  {{#if this.totalHours}}
+                    <span class="length">Video Length: {{this.totalHours}}</span>
+                  {{/if}}
+                </div>
+                <div class="desc">
+                  <h2><a href="/categories/{{this.key}}">{{this.name}}</a></h2>
+                  <p>{{this.description}}</p>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- /LATEST POST -->
-
-          <!-- POST TABLE -->
-          <table class="table table-posts">
-            <tbody>
-            {{#each posts}}
-              <tr>
-                <td class="shot hide-mobile"><a href="/tutorials/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
-                <td class="info">
-                  <p>
-                    <a href="/tutorials/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a> | {{this.updatedAtFormatted}}<br />
-                    <em>{{this.subHead}}</em>
-                  </p>
-                </td>
-                <td class="hide-above-mobile">
-                  <a href="/tutorials/{{this.publishedAtFormatted}}/{{this.slug}}" class="btn btn-primary">Read</a>
-                </td>
-              </tr>
             {{/each}}
-
-            </tbody>
-          </table>
-          <!-- /POST TABLE -->
-
+          </div>
         {{else}}
           <p>
-            Well, this is a tragedy &hellip; no posts were found!
+            Well, this is a tragedy &hellip; no tutorials were found!
           </p>
         {{/if}}
 
