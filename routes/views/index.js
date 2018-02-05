@@ -19,14 +19,15 @@ exports = module.exports = function (req, res) {
     var feedparser = new FeedParser();
 
     feed.on('error', function (error) {
-      // We'll generate an error on the front-end if null
-      locals.blogPosts = null;
+      // We'll generate an error on the front-end if needed
+      next();
     });
 
     feed.on('response', function (res) {
       var stream = this;
       if (res.statusCode !== 200) {
         this.emit('error', new Error('Bad status code'));
+        next();
       }
       else {
         stream.pipe(feedparser);
@@ -34,8 +35,8 @@ exports = module.exports = function (req, res) {
     });
 
     feedparser.on('error', function (error) {
-      // same deal, if there's an error, just go null
-      locals.blogPosts = null;
+      // same deal, if there's an error, just bail out
+      next();
     });
 
     feedparser.on('readable', function () {

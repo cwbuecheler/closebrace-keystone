@@ -74,6 +74,8 @@ exports = module.exports = function (app) {
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   app.get('/go-pro', routes.views.goPro);
   app.get('/go-pro-thanks', routes.views.goProThanks);
+  app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
+  app.get('/newsletter/thanks', routes.views.newsletter.thanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
   app.all('/search', postLimiter, routes.views.searchResults);
   app.get('/tags/:tag', routes.views.tags.tagsIndex);

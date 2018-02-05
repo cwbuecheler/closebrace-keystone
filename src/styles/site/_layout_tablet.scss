@@ -134,6 +134,22 @@
 
     article {
 
+      /* Boxes for Indices */
+      .category-list {
+        display: flex;
+
+        .category {
+          flex-basis: 50%;
+
+          &:nth-child(odd) {
+            padding-right: 15px;
+          }
+          &:nth-child(even) {
+            padding-left: 15px;
+          }
+        }
+      }
+
       /* Big Post on Indices */
       .feature {
 

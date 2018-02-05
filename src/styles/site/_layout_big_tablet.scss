@@ -182,6 +182,21 @@
       flex-grow: 5;
       overflow: auto;
 
+      /* Boxes for Indices */
+      .category-list {
+
+        .category {
+          flex-basis: 100%;
+
+          &:nth-child(odd) {
+            padding-right: 0px;
+          }
+          &:nth-child(even) {
+            padding-left: 0px;
+          }
+        }
+      }
+
       /* User Profile */
       .profile-box {
         display: flex;

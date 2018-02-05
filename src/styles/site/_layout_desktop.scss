@@ -21,6 +21,21 @@
       flex-grow: 1;
       overflow: auto;
 
+      /* Boxes for Indices */
+      .category-list {
+
+        .category {
+          flex-basis: 50%;
+
+          &:nth-child(odd) {
+            padding-right: 15px;
+          }
+          &:nth-child(even) {
+            padding-left: 15px;
+          }
+        }
+      }
+
       /* User Profile */
       .profile-box {
         display: flex;
