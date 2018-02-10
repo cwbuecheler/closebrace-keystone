@@ -1,9 +1,8 @@
 const keystone = require('keystone');
 
-const Post = keystone.list('Post');
 const PostCategory = keystone.list('PostCategory');
 
-exports = module.exports = (req, res) => {
+module.exports = (req, res) => {
   const view = new keystone.View(req, res);
   const locals = res.locals;
 
@@ -22,7 +21,6 @@ exports = module.exports = (req, res) => {
         return next(err);
       }
       locals.categories = results;
-      console.log(locals.categories);
       return next();
     });
   });
@@ -30,3 +28,5 @@ exports = module.exports = (req, res) => {
   // Render the view
   view.render('tutorials/tutorialsIndex');
 };
+
+exports = module.exports;

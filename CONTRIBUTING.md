@@ -4,4 +4,4 @@ Hey, thanks for your interest in CloseBrace. I (Chris Buecheler) am always inter
  - We don't have a testing suite established yet, but it's coming. If you have thoughts on best practices for testing, please get in touch.
  - Please create an open issue that specifies what it is you intend to work on, if one does not already exist. Please then create a branch that contains the same issue number (eg: 7-adding-comments) in which to do your work.
  - Please follow the existing coding conventions, naming conventions, and similar. Two-space tabs, semi-colons, brace style, etc.
- - That's about it for now. You can find CloseBrace at our [blog](http://blog.closebrace.com), [Twitter](https://twitter.com/closebracejs), [Instagram](https://www.instagram.com/closebrace/), or [Facebook](). Tons of ways to get in touch if you want to talk!
+ - That's about it for now. You can find CloseBrace at our [blog](http://blog.closebrace.com) or [Twitter](https://twitter.com/closebracejs). Tons of ways to get in touch if you want to talk!

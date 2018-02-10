@@ -17,6 +17,7 @@ exports = module.exports = function (req, res) {
 
   // Load requested post
   view.on('init', function(next) {
+
     var q = Post.model.findOne({
       state: 'published',
       postType: 'Tutorial',
@@ -24,6 +25,9 @@ exports = module.exports = function (req, res) {
     }).populate('author tags category');
 
     q.exec(function(err, result) {
+      if (!result) {
+        return res.status(404).send(keystone.wrapHTMLError('Sorry, no page could be found at this address (404)'));
+      }
       locals.post = result;
       locals.filters.postID = locals.post._id;
       var updatedAtFormatted = result._.updatedAt.format('Do MMM YYYY');
