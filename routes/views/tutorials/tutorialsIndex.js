@@ -38,6 +38,8 @@ module.exports = (req, res) => {
 
     // Get posts and count them by category
     const totalPosts = await q.exec();
+
+    // Now loop through the categories and compare them to the posts
     for (let i = 0; i < locals.categories.length; i += 1) {
       const category = locals.categories[i].name;
       const numPosts = totalPosts.filter((post) => {
