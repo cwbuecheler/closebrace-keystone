@@ -1,5 +1,6 @@
 const keystone = require('keystone');
 
+const Post = keystone.list('Post');
 const PostCategory = keystone.list('PostCategory');
 
 module.exports = (req, res) => {
@@ -18,12 +19,41 @@ module.exports = (req, res) => {
     q.exec((err, results) => {
       if (err || results.length < 1) {
         locals.categories = null;
-        return next(err);
+        next(err);
       }
       locals.categories = results;
       return next();
     });
   });
+
+  view.on('init', async (next) => {
+    // Build post query
+    const q = Post.model.find({
+      state: 'published',
+      postType: 'Tutorial',
+      hideFromIndex: false,
+    })
+    .sort('-publishedAt')
+    .populate('author category');
+
+    // Get posts and count them by category
+    const totalPosts = await q.exec();
+    for (let i = 0; i < locals.categories.length; i += 1) {
+      const category = locals.categories[i].name;
+      const numPosts = totalPosts.filter((post) => {
+        if (post.category) {
+          if (post.category.name === category) { return true; }
+        }
+        return false;
+      }).length;
+
+      // Update the numbers in locals.categories
+      locals.categories[i].numVideos = numPosts;
+    }
+
+    return next();
+  });
+
 
   // Render the view
   view.render('tutorials/tutorialsIndex');

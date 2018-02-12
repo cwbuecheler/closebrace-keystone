@@ -11,7 +11,7 @@ PostCategory.add({
   name: { type: String, required: true },
   image: { type: Types.CloudinaryImage },
   description: { type: Types.Textarea, height: 150 },
-  numVideos: { type: Types.Number },
+  numVideos: { type: Types.Number, default: 0 },
   totalHours: { type: String },
 });
 

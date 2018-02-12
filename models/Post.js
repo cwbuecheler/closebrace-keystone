@@ -39,6 +39,10 @@ Post.add({
 // Provide access to Keystone
 Post.schema.virtual('canAccessKeystone').get(() => this.isAdmin);
 
+Post.schema.methods.isPublished = function() {
+    return true;
+}
+
 /**
  * Registration
  */
