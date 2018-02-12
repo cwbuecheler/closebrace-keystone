@@ -22,7 +22,7 @@ exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
 		{ label: 'Home', key: 'home', href: '/' },
 		{ label: 'Tutorials', key: 'tutorials', href: '/tutorials', main: true },
-		{ label: 'Articles', key: 'articles', href: '/articles', main: true },
+		// { label: 'Articles', key: 'articles', href: '/articles', main: true },
 		// { label: 'Jobs', key: 'jobs', href: '/jobs', main: true },
 		{ label: 'About', key: 'about', href: '/about', main: true },
 		{ label: 'Blog', key: 'blog', href: 'http://blog.closebrace.com/', main: true },
