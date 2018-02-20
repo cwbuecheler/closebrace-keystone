@@ -1,21 +1,21 @@
-var keystone = require('keystone');
-var Enquiry = keystone.list('Enquiry');
-var sanitizer = require('sanitizer');
+const keystone = require('keystone');
 
-exports = module.exports = function (req, res) {
+const Enquiry = keystone.list('Enquiry');
+const sanitizer = require('sanitizer');
 
-	var view = new keystone.View(req, res);
-	var locals = res.locals;
+module.exports = (req, res) => {
+  const view = new keystone.View(req, res);
+  const locals = res.locals;
 
-	// Set locals
-	locals.section = 'contact';
-	locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
-	locals.formData = req.body || {};
-	locals.validationErrors = {};
-	locals.enquirySubmitted = false;
+  // Set locals
+  locals.section = 'contact';
+  locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
+  locals.formData = req.body || {};
+  locals.validationErrors = {};
+  locals.enquirySubmitted = false;
 
   // sanitize form data for obvious reasons
-  for (var key in locals.formData) {
+  for (const key in locals.formData) {
     // skip loop if the property is from prototype
     if (!locals.formData.hasOwnProperty(key)) continue;
     if (typeof locals.formData[key] === 'string') {
@@ -23,25 +23,27 @@ exports = module.exports = function (req, res) {
     }
   }
 
-	// On POST requests, add the Enquiry item to the database
-	view.on('post', { action: 'contact' }, function (next) {
+  // On POST requests, add the Enquiry item to the database
+  view.on('post', { action: 'contact' }, (next) => {
+    const newEnquiry = new Enquiry.model();
+    const updater = newEnquiry.getUpdateHandler(req);
 
-		var newEnquiry = new Enquiry.model();
-		var updater = newEnquiry.getUpdateHandler(req);
+    updater.process(locals.formData, {
+      flashErrors: true,
+      fields: 'name, email, enquiryType, message',
+      errorMessage: 'There was a problem submitting your enquiry:',
+    }, (err) => {
+      if (err) {
+        locals.validationErrors = err.errors;
+      }
+      else {
+        locals.enquirySubmitted = true;
+      }
+      newEnquiry.sendAlert(locals.formData['name.full'], next);
+    });
+  });
 
-		updater.process(locals.formData, {
-			flashErrors: true,
-			fields: 'name, email, enquiryType, message',
-			errorMessage: 'There was a problem submitting your enquiry:',
-		}, function (err) {
-			if (err) {
-				locals.validationErrors = err.errors;
-			} else {
-				locals.enquirySubmitted = true;
-			}
-			next();
-		});
-	});
-
-	view.render('contact');
+  view.render('contact');
 };
+
+exports = module.exports;
