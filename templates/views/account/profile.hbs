@@ -79,7 +79,7 @@
                 <h4>Account Type</h4>
                 <p>
                   {{#unless user.isPro}}
-                    Basic User (<a href="/go-pro">Go Pro</a>)
+                    CloseBrace User
                   {{else}}
                     <strong>CloseBrace Pro</strong> (thanks!)<br />
                     <span class="modify"><button type="button" class="btn btn-primary btn-small modal-open" data-modaltext="modify">Modify Subscription</button></span>
@@ -212,59 +212,6 @@
                 </div>
                 <button class="btn btn-primary">Update Credit Card</button>
               </form>
-
-{{!--
-
-              <h4>Subscription Options</h4>
-              <p>
-                Want to change your subscription entirely? You can choose a new one here. Upgrades and downgrades will be prorated with anything you've already paid.
-              </p>
-
-              <!-- SELECT BOXES -->
-              <div class="selects">
-                <div class="sub-select{{#ifeq user.stripeSubscriptionType 'closebrace-pro-platinum-yearly' }} on{{/ifeq}}" id="subSelectPlatYearly" data-check="0">
-                  <div class="text">
-                    <h4>CloseBrace Pro Platinum (yearly)</h4>
-                    <p>$149.99 - will bill immediately, and rebill annually on today's date.</p>
-                  </div>
-                  <div class="check">
-                    <input type="radio" name="proselect" value="py" checked />
-                  </div>
-                </div>
-
-                <div class="sub-select" id="subSelectPlatMonthly" data-check="1">
-                  <div class="text">
-                    <h4>CloseBrace Pro Platinum (monthly)</h4>
-                    <p>$14.99 - will bill immediately, and rebill monthly on this day.</p>
-                  </div>
-                  <div class="check">
-                    <input type="radio" name="proselect" value="pm" />
-                  </div>
-                </div>
-
-                <div class="sub-select" id="subSelectGoldYearly" data-check="2">
-                  <div class="text">
-                    <h4>CloseBrace Pro Platinum (monthly)</h4>
-                    <p>$59.99 - will bill immediately, and rebill yearly on today's date.</p>
-                  </div>
-                  <div class="check">
-                    <input type="radio" name="proselect" value="gy" />
-                  </div>
-                </div>
-
-                <div class="sub-select" id="subSelectGoldMonthly" data-check="3">
-                  <div class="text">
-                    <h4>CloseBrace Pro Platinum (monthly)</h4>
-                    <p>$5.99 - will bill immediately, and rebill monthly on this day.</p>
-                  </div>
-                  <div class="check">
-                    <input type="radio" name="proselect" value="gm" />
-                  </div>
-                </div>
-              </div>
-              <!-- /SELECT BOXES -->
---}}
-
             </div>
             <!-- /MODIFY SUBSCRIPTION -->
 
