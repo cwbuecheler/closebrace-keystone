@@ -25,6 +25,12 @@ module.exports = (req, res) => {
 
   // On POST requests, add the Enquiry item to the database
   view.on('post', { action: 'contact' }, (next) => {
+
+    // If no one's logged in, 404 dat bot!
+    if (!req.user || req.user.length < 1 || req.user === '') {
+      return res.status(404).send('Not found');
+    }
+
     const newEnquiry = new Enquiry.model();
     const updater = newEnquiry.getUpdateHandler(req);
 
