@@ -22,7 +22,7 @@ exports = module.exports = function (req, res) {
       state: 'published',
       hideFromIndex: false,
     })
-    .sort('-publishedAt')
+    .sort('+publishedAt')
     .populate('author category');
 
     q.exec(function(err, results) {
