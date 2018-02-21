@@ -13,6 +13,6 @@ SearchTerm.add({
   lastSearch: { type: Date, default: Date.now },
 });
 
-SearchTerm.defaultColumns = 'text, count, lastSearch'
+SearchTerm.defaultColumns = 'text, count, lastSearch';
 SearchTerm.track = true;
 SearchTerm.register();
