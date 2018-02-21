@@ -1,18 +1,19 @@
-var keystone = require('keystone');
-var sanitizer = require('sanitizer');
+const keystone = require('keystone');
+const sanitizer = require('sanitizer');
 
-var Post = keystone.list('Post');
-var Category = keystone.list('PostCategory');
-var Tag = keystone.list('Tag');
+const Post = keystone.list('Post');
+const Category = keystone.list('PostCategory');
+const SearchTerm = keystone.list('SearchTerm').model;
+const Tag = keystone.list('Tag');
 
 exports = module.exports = function (req, res) {
 
-  var view = new keystone.View(req, res);
-  var locals = res.locals;
+  const view = new keystone.View(req, res);
+  const locals = res.locals;
   locals.searchTerms = req.body.searchTerms;
 
   // sanitize form data for obvious reasons
-  for (var key in locals.formData) {
+  for (const key in locals.formData) {
     // skip loop if the property is from prototype
     if (!locals.formData.hasOwnProperty(key)) continue;
     if (typeof locals.formData[key] === 'string') {
@@ -24,83 +25,123 @@ exports = module.exports = function (req, res) {
   // item in the header navigation.
   locals.section = 'home';
 
-  // Get Categories
-  view.on('init', function(next) {
-
-    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+  // Record the search term
+  view.on('init', (next) => {
+    if (req.body.searchTerms === '' || !req.body.searchTerms) {
       locals.categories = null;
       return next();
     }
-    else {
-      var q = Category.model.find({
-        name: new RegExp(req.body.searchTerms, 'i')
-      });
 
-      q.exec(function(err, results) {
-        if(results) {
-          locals.categories = results;
-        }
-        else {
-          locals.categories = null;
-        }
+    const q = SearchTerm.findOne({
+      text: new RegExp(req.body.searchTerms, 'i'),
+    });
+
+    q.exec((err, result) => {
+      if (result) {
+        locals.foundTerm = result;
+        // Increment the count of the existing term
+        locals.foundTerm.count += 1;
+        locals.foundTerm.lastSearch = new Date();
+        locals.foundTerm.save((error) => {
+          if (error) {
+            return next(err);
+          }
+          return next();
+        });
+      }
+      else if (err) {
+        // fail gracefully
         return next(err);
-      });
+      }
+      else {
+        // Create a new search term
+        const newTerm = new SearchTerm({ text: req.body.searchTerms });
+
+        newTerm.save((error) => {
+          if (error) {
+            // fail gracefully
+            return next(err);
+          }
+          return next();
+        });
+      }
+    });
+  });
+
+  // Get Categories
+  view.on('init', (next) => {
+
+    if (req.body.searchTerms === '' || !req.body.searchTerms) {
+      locals.categories = null;
+      return next();
     }
+
+    const q = Category.model.find({
+      name: new RegExp(req.body.searchTerms, 'i'),
+    });
+
+    q.exec((err, results) => {
+      if (results) {
+        locals.categories = results;
+      }
+      else {
+        locals.categories = null;
+      }
+      return next(err);
+    });
   });
 
   // Get Tags
-  view.on('init', function(next) {
-    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+  view.on('init', (next) => {
+    if (req.body.searchTerms === '' || !req.body.searchTerms) {
       locals.tags = null;
       return next();
     }
-    else {
-      var q = Tag.model.find({
-        name: new RegExp(req.body.searchTerms, 'i')
-      });
 
-      q.exec(function(err, results) {
-        if(results) {
-          locals.tags = results;
-        }
-        else {
-          locals.tags = null;
-        }
-        return next(err);
-      });
-    }
+    const q = Tag.model.find({
+      name: new RegExp(req.body.searchTerms, 'i'),
+    });
+
+    q.exec((err, results) => {
+      if (results) {
+        locals.tags = results;
+      }
+      else {
+        locals.tags = null;
+      }
+      return next(err);
+    });
   });
 
   // Get Posts
-  view.on('post', function(next) {
-    if(req.body.searchTerms === '' || !req.body.searchTerms) {
+  view.on('post', (next) => {
+    if (req.body.searchTerms === '' || !req.body.searchTerms) {
       locals.posts = null;
       return next();
     }
-    else {
-      var regex = new RegExp(req.body.searchTerms, 'i');
-      var q = Post.model.find()
-      .where('content.md', regex)
-      .sort({'publishedAt': -1});
 
-      q.exec(function(err, results) {
-        if(results) {
-          locals.posts = results;
-        }
-        else {
-          locals.posts = null;
-        }
+    const regex = new RegExp(req.body.searchTerms, 'i');
+    const q = Post.model.find()
+    .where('content.md', regex)
+    .sort({ 'publishedAt': -1 });
 
-        for (var post in locals.posts) {
-          var updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
-          locals.posts[post].updatedAtFormatted = updatedAtFormatted;
-          var publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
-          locals.posts[post].publishedAtFormatted = publishedAtFormatted;
-        }
+    q.exec((err, results) => {
+      if (results) {
+        locals.posts = results;
+      }
+      else {
+        locals.posts = null;
+      }
 
-        return next(err);
-      });
-    }
+      for (const post in locals.posts) {
+        const updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
+        locals.posts[post].updatedAtFormatted = updatedAtFormatted;
+        const publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
+        locals.posts[post].publishedAtFormatted = publishedAtFormatted;
+      }
+
+      return next(err);
+    });
   });
 
   // Render the view
