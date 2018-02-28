@@ -49,7 +49,7 @@ exports = module.exports = function (req, res) {
         locals.posts = null;
         return next();
       }
-
+      locals.categoryId = finalPosts[0].category._id.toString();
       locals.firstPost = finalPosts[0];
       locals.firstPost.updatedAtFormatted = locals.firstPost._.updatedAt.format('Do MMM YYYY');
       locals.firstPost.publishedAtFormatted = locals.firstPost._.publishedAt.format('YYYY-MM-DD');

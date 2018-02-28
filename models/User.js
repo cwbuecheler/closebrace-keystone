@@ -29,7 +29,7 @@ User.add({
   stripeSubscriptionStart: { type: Date },
   stripeSubscriptionID: { type: String },
   dateJoined: { type: Types.Date, default: Date.now },
-  courses: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true },
+  courses: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true, many: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
   isAuthor: { type: Boolean, label: 'Is a Post Author', index: true },
