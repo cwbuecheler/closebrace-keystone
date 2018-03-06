@@ -2,7 +2,7 @@
 
 @media only screen and (min-width: 1001px) {
   body {
-    padding-top: 100px;
+    padding-top: 70px;
   }
 
 
@@ -20,6 +20,10 @@
       max-width: 720px;
       flex-grow: 1;
       overflow: auto;
+
+      &.wide {
+        max-width: 1170px;
+      }
 
       /* Boxes for Indices */
       .category-list {

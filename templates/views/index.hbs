@@ -1,127 +1,16 @@
-{{!< default}}
-			<!-- CONTENT -->
-			<div class="home">
+{{!< testme}}
+		<!-- CONTENT -->
+		<div class="home">
 
-				<!-- LAST TWO FEATURES -->
-				<div class="main-features">
+      <!-- JUMBOTRON -->
+      <div class="jumbo">
+          <h1>Feel Like You Can’t Keep Up?</h1>
+          <p>Learn New JavaScript Tech Easily with Short, Clear, Fun Tutorials</p>
+          <h2>Get Started Instantly - It’s FREE!</h2>
+          [mailchimp form]
+          
+      </div>
+      <!-- /JUMBOTRON -->
 
-          {{#each topTwo}}
-						<!-- ITEM -->
-						<div class="feature">
-							<div class="top-border"></div>
-							<div class="image-box">
-								<a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}" class="image-link"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
-								<span class="feature-type">{{this.postType}}</span>
-								<div class="text-box">
-									<h1><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a></h1>
-									<p>
-										{{this.subHead}}
-									</p>
-								</div>
-							</div>
-						</div>
-						<!-- /ITEM -->
-          {{/each}}
-
-				</div>
-				<!-- /LAST TWO FEATURES -->
-
-				<!-- SUB WRAP -->
-				<div class="sub-wrap">
-
-					<!-- SUB CONTENT -->
-					<div class="sub-content">
-
-						<!-- EXTRA FEATURES -->
-						<div class="extra-features">
-
-		          {{#each nextFour}}
-								<!-- ITEM -->
-								<div class="feature">
-									<div class="top-border"></div>
-									<div class="image-box">
-										<a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/w_555/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a>
-										<span class="feature-type">{{this.postType}}</span>
-										<div class="text-box">
-											<h1><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a></h1>
-											<p>
-												{{this.subHead}}
-											</p>
-										</div>
-									</div>
-								</div>
-								<!-- /ITEM -->
-		          {{/each}}
-
-						</div>
-						<!-- /EXTRA FEATURES -->
-
-						<!-- FEATURE TABLE -->
-						<div class="feature-list">
-							<div class="top-border"></div>
-							<h2>More Features</h2>
-			        <!-- POST TABLE -->
-			        <table class="table table-posts">
-			          <tbody>
-			          {{#each otherPosts}}
-			            <tr>
-			              <td class="shot hide-mobile"><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
-			              <td class="info">
-			                <p>
-			                  <a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a> | <span class="date">{{this.updatedAtFormatted}}</span><br />
-			                  <em>{{this.subHead}}</em>
-			                </p>
-			              </td>
-			              <td class="hide-above-mobile">
-			                <a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}" class="btn btn-primary">Read</a>
-			              </td>
-			            </tr>
-			          {{/each}}
-			          </tbody>
-			        </table>
-			        <!-- /POST TABLE -->
-			        <!-- MORE LINKS -->
-			        <nav class="more-links">
-			        	<ul>
-			        		<li><a href="/tutorials">All Tutorials</a></li>
-			        		<li><a href="/articles">All Articles</a></li>
-			        	</ul>
-			        </nav>
-			        <!-- /MORE LINKS -->
-						</div>
-						<!-- /FEATURE TABLE -->
-
-					</div>
-					<!-- /SUB CONTENT -->
-
-					<!-- SIDEBAR -->
-					<aside>
-						{{> sidebar_twitter }}
-						<!-- BLOG POSTS -->
-						<div class="feature-list">
-							<div class="top-border"></div>
-							<h2>Latest from the Blog</h2>
-							<table class="table table-posts">
-								<tbody>
-									{{#each blogPosts}}
-										<tr>
-											<td class="info">
-												<p>
-													<a href="{{this.link}}" target="_blank">{{this.title}}</a><br />
-													<em>{{{this.summary}}}&hellip;</em>
-												</p>
-											</td>
-										</tr>
-									{{/each}}
-								</tbody>
-							</table>
-						</div>
-						<!-- /BLOG POSTS -->
-					</aside>
-					<!-- /SIDEBAR -->
-
-				</div>
-				<!-- /SUB WRAP -->
-
-			</div>
-			<!-- /CONTENT -->
+		</div>
+		<!-- /CONTENT -->

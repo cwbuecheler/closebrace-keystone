@@ -3,7 +3,7 @@
 /* Header */
 header {
   background-color: #FFF;
-  border-top: 5px solid $color-grey-dark;
+  border-top: 5px solid $color-brand-primary;
   display: flex;
   min-height: 50px;
   border-bottom: 1px solid $color-grey-light;
@@ -12,7 +12,7 @@ header {
   padding: 0;
   justify-content: center;
   font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-  margin: 0 0 30px 0;
+  margin: 0;
   z-index: 10;
   position: relative;
 
@@ -305,96 +305,22 @@ header {
   }
 }
 
+/* Home Page */
+.home {
+
+  .jumbo {
+    width: 100%;
+    background: url('/images/texture.png');
+  }
+
+} // home page
+
 /* Content Wrapper */
 #wrapper {
   margin: 0 auto;
   text-align:center;
   max-width: 600px; min-width: 320px;
   padding: 0 15px 30px 15px;
-
-  /* Home Page */
-  .home {
-
-    /* Home Page - Main Features */
-    .main-features, .extra-features {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: column;
-
-      .feature {
-        width: 100%;
-        min-width: 260px;
-        max-width: 555px;
-        margin-bottom: 30px;
-
-        .image-box {
-          position: relative;
-
-          span {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            color: #FFF;
-            font-size: 0.6875rem;
-            background: rgba(0,0,0,0.6);
-            padding: 5px 10px;
-            text-transform: uppercase;
-          }
-          h1 {
-            font-size: 1.125rem;
-            margin: 0 0 .25rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: $color-brand-primary;
-          }
-          p {
-            margin: 0;
-            color: $color-grey-medium;
-            // font-family: Georgia, Times, "Times New Roman", serif;
-            font-style: italic;
-          }
-
-          img {
-            width: 100%;
-            min-width: 260px;
-            max-width: 555px;
-          }
-        }
-      }
-    } // main-features
-
-    /* Homepage - Feature List */
-    .feature-list {
-      margin: 0 0 30px 0;
-
-      .top-border {
-        margin-bottom: .5rem;
-      }
-      .table-posts {
-        margin-bottom: 1rem;
-        text-align: left;
-      }
-      .more-links {
-        ul {
-          margin: 0;
-          padding: 0;
-          list-style-type: none;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-
-          li {
-            display: inline-block;
-            padding: 0 15px;
-          }
-        }
-      }
-    }
-  } // home page
 
   /* Post or Index */
   article {
