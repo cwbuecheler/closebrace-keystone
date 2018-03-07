@@ -372,6 +372,10 @@ header {
         p {
           margin: 0 0 1rem 0;
 
+          &.image {
+            padding: 10px 0;
+          }
+
           &:last-child {
             margin: 0;
           }
