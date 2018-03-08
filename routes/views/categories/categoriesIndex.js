@@ -1,24 +1,44 @@
-var keystone = require('keystone');
-var Post = keystone.list('Post');
+const keystone = require('keystone');
 
-exports = module.exports = function (req, res) {
+const Category = keystone.list('PostCategory');
+const Post = keystone.list('Post');
 
-  var view = new keystone.View(req, res);
-  var locals = res.locals;
+module.exports = (req, res) => {
+  const view = new keystone.View(req, res);
+  const locals = res.locals;
 
   // locals.section is used to set the currently selected
   // item in the header navigation.
   locals.section = 'tutorials';
   locals.filters = {
     category: req.params.category,
-  }
+  };
 
   // set a basic categoryname for displaying
   locals.categoryName = locals.filters.category;
 
+  // Look up category information and get it into locals
+  view.on('init', (next) => {
+    const q = Category.model.findOne({
+      key: locals.filters.category,
+    });
+
+    q.exec((err, result) => {
+      if (!result || result.length < 1) {
+        return res.status(404).send(keystone.wrapHTMLError('Sorry, no page could be found at this address (404)'));
+      }
+      if (err) {
+        return next(err);
+      }
+      locals.categoryInfo = result;
+      return next();
+    });
+  });
+
+
   // Load requested posts
-  view.on('init', function(next) {
-    var q = Post.model.find({
+  view.on('init', (next) => {
+    const q = Post.model.find({
       state: 'published',
       hideFromIndex: false,
     })
@@ -49,7 +69,7 @@ exports = module.exports = function (req, res) {
         locals.posts = null;
         return next();
       }
-
+      locals.categoryId = finalPosts[0].category._id.toString();
       locals.firstPost = finalPosts[0];
       locals.firstPost.updatedAtFormatted = locals.firstPost._.updatedAt.format('Do MMM YYYY');
       locals.firstPost.publishedAtFormatted = locals.firstPost._.publishedAt.format('YYYY-MM-DD');
@@ -71,3 +91,5 @@ exports = module.exports = function (req, res) {
   // Render the view
   view.render('categories/categoriesIndex');
 };
+
+exports = module.exports;

@@ -17,6 +17,10 @@
     line-height: 1;
   }
 
+  &.btn-fat {
+    padding: 12px 15px;
+  }
+
   &.btn-primary {
     background: $color-brand-primary;
     color: #FFF;

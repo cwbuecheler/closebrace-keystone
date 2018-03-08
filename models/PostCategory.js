@@ -13,6 +13,8 @@ PostCategory.add({
   description: { type: Types.Textarea, height: 150 },
   numVideos: { type: Types.Number, default: 0 },
   totalHours: { type: String },
+  hasIntroPage: { type: Boolean, label: 'Has an Intro Page' },
+  introPageHtml: { type: Types.Html, height: 500 },
 });
 
 PostCategory.relationship({ ref: 'Post', refPath: 'category' });

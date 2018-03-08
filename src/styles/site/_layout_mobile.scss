@@ -3,7 +3,7 @@
 /* Header */
 header {
   background-color: #FFF;
-  border-top: 5px solid $color-grey-dark;
+  border-top: 5px solid $color-brand-primary;
   display: flex;
   min-height: 50px;
   border-bottom: 1px solid $color-grey-light;
@@ -12,7 +12,7 @@ header {
   padding: 0;
   justify-content: center;
   font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-  margin: 0 0 30px 0;
+  margin: 0;
   z-index: 10;
   position: relative;
 
@@ -305,6 +305,197 @@ header {
   }
 }
 
+/* Home Page */
+.home {
+
+  .jumbo {
+    background: #444 url('/images/texture.png');
+    color: #FFF;
+    line-height: 1.4;
+    padding: 30px;
+    width: 100%;
+
+    .wrap {
+      h1 {
+        color: #FFF;
+        font-weight: 600;
+      }
+      h2 {
+        margin: 0 auto 1rem auto;
+        max-width: 250px;
+      }
+      p {
+        color: #d2d2d2;
+      }
+      input[type=email] {
+        border: 3px solid #606060;
+        margin: 0 0 1rem 0;
+        max-width: 360px;
+        padding: 10px 12px;
+        width: 100%;
+      }
+    }
+  } // end jumbo
+
+  .learn {
+    background: #FFF;
+    padding: 30px;
+    width: 100%;
+
+    .wrap {
+      .logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 0 20px 0;
+        width: 100%;
+
+        img {
+          border: 0;
+          height: 50px;
+          margin: 0 10px 20px 10px;
+          padding: 0;
+          width: 50px;
+        }
+      }
+      .text {
+        color: #7f7f7f;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        text-align: left;
+
+        h3 {
+          color: #3e3e3e;
+          line-height: 1;
+          text-align: center;
+        }
+        p {
+          margin: 0 0 1rem 0;
+
+          &.image {
+            padding: 10px 0;
+          }
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+        ul {
+          font-size: 1rem;
+          padding-left: 20px;
+
+          li {
+
+            span {
+              color: #555;
+            }
+          }
+        }
+        img {
+          max-width: 546px;
+          width: 100%;
+        }
+      }
+    }
+  } // end learn
+
+  .about {
+    background: #f3f3f3;
+    color: #7f7f7f;
+    line-height: 1.6;
+    padding: 30px;
+    text-align: left;
+    width: 100%;
+
+    .wrap {
+      h3 {
+        color: #7f7f7f;
+        font-size: 1.25rem;
+        line-height: 1;
+        margin: 0 0 1rem 0;
+      }
+      p {
+        margin: 0;
+      }
+      img {
+        border-radius: 50%;
+        border: 2px solid #FFF;
+        display: block;
+        float: right;
+        height: 80px;
+        margin: 0 0 0 20px;
+        width: 80px;
+      }
+    }
+  } // end about
+
+  .testimonials {
+    background-color: #FFF;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 30px;
+    text-align: justify;
+    width: 100%;
+
+    .wrap {
+      .item {
+        border-bottom: 1px solid $color-grey-light;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+
+        p {
+          margin: 0;
+
+          span {
+            color: $color-brand-primary;
+            font-family: Georgia, Times, "Times New Roman", serif;
+          }
+          a:link, a:visited {
+            color: #222;
+          }
+        }
+
+        img {
+          border-radius: 50%;
+          display: block;
+          height: 80px;
+          margin: 0 auto .75rem auto;
+          padding: 0;
+          width: 80px;
+        }
+      }
+    }
+  } // end testimonials
+
+  .cta {
+    background-color: #F3F3F3;
+    padding: 30px;
+    width: 100%;
+
+    .wrap {
+      h2 {
+        margin: 0 auto 1rem auto;
+        max-width: 250px;
+      }
+      p {
+        color: #d2d2d2;
+      }
+      input[type=email] {
+        border: 3px solid #606060;
+        margin: 0 0 1rem 0;
+        max-width: 360px;
+        padding: 10px 12px;
+        width: 100%;
+      }
+      input.btn {
+        line-height: 1.4;
+        max-width: 240px;
+        white-space: normal;
+      }
+    }
+  } // end cta
+} // home page
+
 /* Content Wrapper */
 #wrapper {
   margin: 0 auto;
@@ -312,89 +503,9 @@ header {
   max-width: 600px; min-width: 320px;
   padding: 0 15px 30px 15px;
 
-  /* Home Page */
-  .home {
-
-    /* Home Page - Main Features */
-    .main-features, .extra-features {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: column;
-
-      .feature {
-        width: 100%;
-        min-width: 260px;
-        max-width: 555px;
-        margin-bottom: 30px;
-
-        .image-box {
-          position: relative;
-
-          span {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            color: #FFF;
-            font-size: 0.6875rem;
-            background: rgba(0,0,0,0.6);
-            padding: 5px 10px;
-            text-transform: uppercase;
-          }
-          h1 {
-            font-size: 1.125rem;
-            margin: 0 0 .25rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: $color-brand-primary;
-          }
-          p {
-            margin: 0;
-            color: $color-grey-medium;
-            // font-family: Georgia, Times, "Times New Roman", serif;
-            font-style: italic;
-          }
-
-          img {
-            width: 100%;
-            min-width: 260px;
-            max-width: 555px;
-          }
-        }
-      }
-    } // main-features
-
-    /* Homepage - Feature List */
-    .feature-list {
-      margin: 0 0 30px 0;
-
-      .top-border {
-        margin-bottom: .5rem;
-      }
-      .table-posts {
-        margin-bottom: 1rem;
-        text-align: left;
-      }
-      .more-links {
-        ul {
-          margin: 0;
-          padding: 0;
-          list-style-type: none;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-
-          li {
-            display: inline-block;
-            padding: 0 15px;
-          }
-        }
-      }
-    }
-  } // home page
+  &.pad {
+    padding-top: 35px;
+  }
 
   /* Post or Index */
   article {

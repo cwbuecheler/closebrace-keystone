@@ -53,6 +53,13 @@ module.exports = function () {
   _helpers.getDateSeconds = date => date.getTime();
 
 
+  _helpers.isTutorialOwned = (userCategories, tutCategory, options) => {
+    for (let i = 0; i < userCategories.length; i += 1) {
+      if (userCategories[i].toString() === tutCategory) { return options.fn(this); }
+    }
+    return options.inverse(this);
+  };
+
   /**
    * Generic HBS Helpers
    * ===================
