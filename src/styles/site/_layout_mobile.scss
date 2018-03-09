@@ -698,7 +698,7 @@ header {
 
     /* Article Text */
     .article-text {
-      line-height: 1.6;
+      line-height: 1.8;
       font-size: 1.125rem;
       // font-family: Georgia, Times, "Times New Roman", serif;
 
@@ -724,6 +724,25 @@ header {
         max-width: 100%;
         border: 1px solid $color-grey-light;
         margin: 0; padding: 0;
+      }
+
+      /* Promotional Page for Courses */
+      p.promo {
+        color: $color-grey-medium;
+        font-size: 2.5rem;
+        font-style: italic;
+        padding: 5px 10px;
+        text-align: center;
+      }
+      p.testimonial {
+        background: #FFF;
+        border-top: 4px solid $color-brand-primary;
+        color: $color-grey-dark;
+        margin: 0 30px 2rem 30px;
+        padding: 20px;
+
+        span {
+        }
       }
 
       .explain {
