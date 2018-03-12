@@ -104,7 +104,18 @@
 		max-width: 1000px;
 	}
 
-	// Home page unchanged from tablet!
+  /* Home Page */
+  .home {
+
+    .jumbo {
+
+      .wrap {
+        p {
+          max-width: 500px;
+        }
+      }
+    } // end jumbo
+  } // end home page
 
 	/* Content Wrapper */
 	#wrapper
