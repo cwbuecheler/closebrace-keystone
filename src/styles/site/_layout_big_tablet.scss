@@ -1,108 +1,90 @@
 /* Sidebar for larger tablets */
 
-@media only screen and (min-width: 851px)
-{
-	body
-	{
-		padding-top: 70px;
-	}
+@media only screen and (min-width: 851px) {
+  body {
+    padding-top: 65px;
+  }
 
-	/* Header */
-	header
-	{
-		position: fixed;
-		top: 0;
-		left: 0;
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
 
-		.inner
-		{
-			height: 60px;
+    .inner {
+      height: 60px;
 
-			// logo
-			.logo
-			{
-				width: 180px;
+      // logo
+      .logo {
+        flex-basis: 180px;
+        width: 180px;
 
-				flex-basis: 180px;
+        a {
+          width: 180px;
+          height: 24px;
 
-				a
-				{
-					width: 180px;
-					height: 24px;
+          img {
+            width: 180px;
+            height: 24px;
+          }
+        }
+      } // end logo
 
-					img
-					{
-						width: 180px;
-						height: 24px;
-					}
-				}
-			} // end logo
+      /* Menu & Search */
+      .menu-wrap {
+        /* Search */
+        .search {
+          .search-box {
+            height: 60px;
 
-			/* Menu & Search */
-			.menu-wrap
-			{
-				/* Search */
-				.search
-				{
-					.search-box
-					{
-						height: 60px;
+            .search-box-inner {
+              height: 60px;
+            }
+          }
+        } // end search
+      } // end menu & search
 
-						.search-box-inner
-						{
-							height: 60px;
-						}
-					}
-				} // end search
-			} // end menu & search
+      /* User Box */
+      .user-box {
+        p.user-menu {
+          position: relative;
+          z-index: 0;
+          top: auto;
+          right: auto;
 
-			/* User Box */
-			.user-box
-			{
-				p.user-menu
-				{
-					position: relative;
-					z-index: 0;
-					top: auto;
-					right: auto;
+          display: block;
 
-					display: block;
+          width: auto;
+          margin: 0 5px 0 0;
+          padding: 0;
 
-					width: auto;
-					margin: 0 5px 0 0;
-					padding: 0;
+          border: none;
+          background: transparent;
+          box-shadow: none;
+        }
+        .user-avatar {
+          position: relative;
 
-					border: none;
-					background: transparent;
-					box-shadow: none;
-				}
-				.user-avatar
-				{
-					position: relative;
+          width: 40px;
+          height: 40px;
 
-					width: 40px;
-					height: 40px;
+          img.user-icon {
+            width: 40px;
+            height: 40px;
+          }
+        }
 
-					img.user-icon
-					{
-						width: 40px;
-						height: 40px;
-					}
-				}
+        .login-box {
+          top: 51px;
+        }
+      } // end user box
+    } // end inner
+  } // end header
 
-				.login-box
-				{
-					top: 51px;
-				}
-			} // end user box
-		} // end inner
-	} // end header
-
-	/* Big Horizontal Ad */
-	.ad-horizontal
-	{
-		max-width: 1000px;
-	}
+  /* Big Horizontal Ad */
+  .ad-horizontal {
+    max-width: 1000px;
+  }
 
   /* Home Page */
   .home {
@@ -117,164 +99,61 @@
     } // end jumbo
   } // end home page
 
-	/* Content Wrapper */
-	#wrapper
-	{
-		display: flex;
+  /* Content Wrapper */
+  #wrapper {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 30px 30px 30px;
+    text-align: center;
+    align-content: stretch;
+    justify-content: space-around;
 
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 0 30px 30px 30px;
+    .ad-horizontal {
+      width: auto;
+      flex-basis: 100%;
+    }
 
-		text-align: center;
+    /* Article */
+    article {
+      display: block;
+      overflow: auto;
 
-		align-content: stretch;
-		justify-content: space-around;
+      width: auto;
+      margin: 0;
 
-		.ad-horizontal
-		{
-			width: auto;
+      text-align: left;
 
-			flex-basis: 100%;
-		}
+      flex-basis: auto;
+      flex-grow: 5;
 
-		/* Home Page */
-		.home
-		{
-			/* Main Features */
-			.main-features
-			{
-				.feature
-				{
-					.image-box
-					{
-						position: relative;
+      /* User Profile */
+      .profile-box {
+        display: flex;
 
-						.text-box
-						{
-							position: absolute;
-							bottom: 0;
-							left: 0;
+        .image {
+          width: auto;
+          max-width: 200px;
+          margin: 0 30px 1rem 0;
 
-							width: 100%;
-							height: 100px;
-							padding: 20px;
+          flex-basis: 200px;
+        }
+        .info {
+          width: auto;
 
-							text-align: left;
+          text-align: left;
 
-							background: rgba(255,255,255,.85);
-						}
-						h1
-						{
-							font-size: 1.375rem;
-							line-height: 1.3;
+          flex-basis: 100%;
+        }
+      }
+    } // end article
 
-							padding: 0;
-						}
-						p
-						{
-							color: $color-text;
-						}
-						a.image-link
-						{
-							font-size: 0;
-							line-height: 1;
-
-							display: block;
-
-							margin: 0;
-							padding: 0;
-						}
-					}
-				}
-			} // main-features
-
-			/* Sub Wrap */
-			.sub-wrap
-			{
-				display: flex;
-
-				.sub-content
-				{
-					display: block;
-
-					width: auto;
-					margin: 0 30px 0 0;
-
-					text-align: left;
-
-					flex-basis: auto;
-					flex-grow: 5;
-
-					/* Home Page - Extra Features */
-					.extra-features
-					{
-						flex-direction: row;
-
-						flex-wrap: wrap;
-						justify-content: space-between;
-						align-items: flex-start;
-					} // extra features
-				}
-			}// sub wrap
-
-			/* Sidebar */
-			aside
-			{
-				width: auto;
-
-				flex-grow: 0;
-				flex-shrink: 0;
-				flex-basis: 330px;
-			}
-		} // end home page
-
-		/* Article */
-		article
-		{
-			display: block;
-			overflow: auto;
-
-			width: auto;
-			margin: 0;
-
-			text-align: left;
-
-			flex-basis: auto;
-			flex-grow: 5;
-
-			/* User Profile */
-			.profile-box
-			{
-				display: flex;
-
-				.image
-				{
-					width: auto;
-					max-width: 200px;
-					margin: 0 30px 1rem 0;
-
-					flex-basis: 200px;
-				}
-				.info
-				{
-					width: auto;
-
-					text-align: left;
-
-					flex-basis: 100%;
-				}
-			}
-		} // end article
-
-		/* Sidebar */
-		aside
-		{
-			width: auto;
-
-			flex-grow: 0;
-			flex-shrink: 0;
-			flex-basis: 360px;
-		} // end sidebar
-	} // end wrapper
+    /* Sidebar */
+    aside {
+      width: auto;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 360px;
+    } // end sidebar
+  } // end wrapper
 }

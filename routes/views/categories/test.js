@@ -94,7 +94,7 @@ module.exports = (req, res) => {
   });
 
   // Render the view
-  view.render('categories/test');
+  view.render('categories/test', { layout: 'wide' });
 };
 
 exports = module.exports;

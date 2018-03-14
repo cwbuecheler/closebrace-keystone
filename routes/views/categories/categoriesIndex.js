@@ -89,7 +89,7 @@ module.exports = (req, res) => {
   });
 
   // Render the view
-  view.render('categories/categoriesIndex');
+  view.render('categories/categoriesIndex', { layout: 'wide' });
 };
 
 exports = module.exports;
