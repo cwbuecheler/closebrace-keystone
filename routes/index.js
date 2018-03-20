@@ -83,6 +83,8 @@ exports = module.exports = function (app) {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:date/:post', routes.views.tutorials.post);
+  app.get('/tutorials/five-minute-react-thanks', routes.views.tutorials.fiveMinuteReactThanks);
+  app.get('/tutorials/list/:category/:code', routes.views.tutorials.list);
   app.get('/u/:username', routes.views.publicProfile);
 
   // API
@@ -95,6 +97,7 @@ exports = module.exports = function (app) {
   app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
+  app.post('/api/purchase', keystone.middleware.api, routes.api.purchase.course);
   //app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
   app.post('/api/stripe/events', routes.api.stripe.stripeEvents);
 

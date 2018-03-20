@@ -1,0 +1,37 @@
+{{!< default}}
+
+      <!-- CONTENT -->
+      <article>
+        <!-- TITLE BOX -->
+        <section class="title-box">
+          <h1>{{categoryName}}</h1>
+        </section>
+        <!-- /TITLE BOX -->
+        {{#unless posts}}
+          <p>
+            Sorry, no lessons found with that category.
+          </p>
+        {{else}}
+          <!-- POST TABLE -->
+          <table class="table table-posts">
+            <tbody>
+            {{#each posts}}
+              <tr>
+                <td class="shot hide-mobile"><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}"><img src="https://res.cloudinary.com/closebrace/image/upload/h_50/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="Main Content Image Thumbnail" /></a></td>
+                <td class="info">
+                  <p>
+                    <a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a> | {{this.updatedAtFormatted}}<br />
+                    <em>{{this.subHead}}</em>
+                  </p>
+                </td>
+                <td class="hide-above-mobile">
+                  <a href="/tutorials/{{this.slug}}" class="btn btn-primary">Read</a>
+                </td>
+              </tr>
+            {{/each}}
+            </tbody>
+          </table>
+          <!-- /POST TABLE -->
+        {{/unless}}
+      </article>
+      <!-- /CONTENT -->

@@ -2,3 +2,4 @@ public/js
 public/js
 src/js
 node_modules
+*.hbs

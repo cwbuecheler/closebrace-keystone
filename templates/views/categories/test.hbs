@@ -1,13 +1,16 @@
-{{!< default}}
+{{!< wide}}
+
+      <!-- stripe integration -->
+      <script src="https://checkout.stripe.com/checkout.js"></script>
 
       <!-- CONTENT -->
-      <article class="category-5mr">
+      <article class="category-5mr" id="stripePage">
 
         <!-- JUMBOTRON -->
         <section class="jumbo">
           <h1>Five Minute React</h1>
           <div class="separator">&nbsp;</div>
-          <h2>Learn React, Redux, Webpack and More with Fun, Easy, Bite-sized Tutorials</h2>
+          <h2>Learn React, Redux, Webpack and More with Fun, Easy, Bite-sized Lessons</h2>
         </section>
         <!-- /JUMBOTRON -->
 
@@ -78,7 +81,7 @@
             <div class="box flex-1">
               <h3>What Are the Prerequisites?</h3>
               <p>
-                You should be very comfortable with basic JavaScript concepts like variables, for loops, switch statements, and the like. Familiarity with XHR and asynchronous coding is a plus. You should have a general understanding of how APIs work and what HTTP requests do. This course uses ES2015 (aka ES6), but those features are explained in the tutorials as they come up.
+                You should be very comfortable with basic JavaScript concepts like variables, for loops, switch statements, and the like. Familiarity with XHR and asynchronous coding is a plus. You should have a general understanding of how APIs work and what HTTP requests do. This course uses ES2015 (aka ES6), but those features are explained in the lessons as they come up.
               </p>
               <p>
                 That’s about it. If you’ve taken a front-end bootcamp, you’re probably ready for this course!
@@ -115,17 +118,6 @@
 
             <div class="box listing flex-2">
               <h3 class="margin">Full Course Listing</h3>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
-              <p class="center"><img src="http://res.cloudinary.com/closebrace/image/upload/h_100/v1516396019/valmxkgzrqt7hhdp2c8y.png" alt="test" /></p>
               <p class="center"><img src="https://res.cloudinary.com/closebrace/image/upload/h_100/v{{firstPost.mainImage.version}}/{{firstPost.mainImage.public_id}}.{{this.mainImage.format}}" alt="{{firstPost.title}}" /></p>
               {{#each posts}}
                 <p class="center"><img src="https://res.cloudinary.com/closebrace/image/upload/h_100/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="{{this.title}}" /></p>
@@ -141,35 +133,37 @@
           <div class="wrap">
             <h3>Buy Now</h3>
 
+            <p class="center" style="flex-basis: 100%;"><strong>35% off for a limited time!</strong></p>
+
             <div class="box">
-              <h4>Option 1 - React-Only Package - $149</h4>
+              <h4>Option 1 - React-Only Package - <strike>$149</strike> $97</h4>
               <p>
                 If you’re a developer who’s already comfortable getting your text editor, Yarn, Express, MongoDB, Jest, ESLint, Babel, Webpack, set up on your own, and doesn’t need an introduction to Express, this package will get you started coding right away. You’ll get:
               </p>
               <ul>
-                <li>A quick, text-based overview of the first 24 tutorials</li>
-                <li>All of the files you would’ve created in those tutorials</li>
-                <li>The remaining tutorials (25 - 84)</li>
+                <li>A quick, text-based overview of the first 24 lessons</li>
+                <li>All necessary files from those lessons</li>
+                <li>The remaining lessons (25 - 84)</li>
                 <li>Access to ALL Source Code</li>
               </ul>
               <p class="center">
-                <a href="" class="btn btn-primary btn-fat">Get the React-Only Package for $149</a>
+                <a href="" class="btn btn-primary btn-fat" id="btnBuyReactOnly">Get the React-Only Package for <strike>$149</strike> $97</a>
               </p>
             </div>
 
             <div class="box">
-              <h4>Option 2 - Full-Stack Package - $297</h4>
+              <h4>Option 2 - Full-Stack Package - <strike>$297</strike> $193</h4>
               <p>
                 Not as experienced with Express, Node, or MongoDB? Not sure how to get everything up and running on your machine? Just want to make sure you have absolutely all of the instruction, whether you need it or not? This is the package for you. You’ll get:
               </p>
               <ul>
-                <li>ALL 84 Tutorials</li>
+                <li>ALL 84 lessons</li>
                 <li>Access to ALL Source Code</li>
                 <li>Download Videos to Your Local Machine</li>
                 <li>Lifetime access to my Slack support channel</li>
               </ul>
               <p class="center">
-                <a href="" class="btn btn-primary btn-fat">Get the Full-Stack Package for $297</a>
+                <a href="" class="btn btn-primary btn-fat" id="btnBuyFullStack">Get the Full-Stack Package for <strike>$297</strike> $193</a>
               </p>
             </div>
           </div>
@@ -214,6 +208,10 @@
           </div>
         </div>
         <!-- /FAQ -->
+
+        {{#if user}}
+          <input type="hidden" id="stripeEmail" value="{{user.email}}" />
+        {{/if}}
 
       </article>
       <!-- /CONTENT -->
