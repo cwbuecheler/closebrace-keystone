@@ -1,5 +1,10 @@
 {{!< wide}}
 
+{{#unless categoryInfo.hasIntroPage }}
+    <!-- WRAPPER -->
+    <div id="wrapper" class="pad">
+{{/unless}}
+
       <!-- CONTENT -->
       <article>
         {{#if categoryInfo.hasIntroPage}}
@@ -60,3 +65,8 @@
 
       </article>
       <!-- /CONTENT -->
+
+{{#unless categoryInfo.hasIntroPage }}
+    </div>
+    <!-- /WRAPPER -->
+{{/unless}}

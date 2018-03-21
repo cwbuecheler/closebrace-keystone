@@ -322,12 +322,14 @@ article.category-5mr {
 
         .intro {
           border-bottom: 0;
-          flex-basis: 400px;
-          flex-grow: 2;
-          margin-right: 60px;
+          flex-basis: 100%;
+          margin: 0 auto 30px auto;
+          max-width: 600px;
         }
         .testimonials {
-          flex-basis: 260px;
+          flex-basis: 100%;
+          max-width: 600px;
+          margin: 0 auto 30px auto;
         }
       }
     } // end intro & testimonials
