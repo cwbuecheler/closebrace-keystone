@@ -1,3 +1,8 @@
+/* =================================================================== */
+/* This is just a test page so I don't have to keep saving things in   */
+/* Keystone's arbitrary HTML field to see what I'm doing. :)           */
+/* =================================================================== */
+
 const keystone = require('keystone');
 
 const Category = keystone.list('PostCategory');
@@ -89,7 +94,7 @@ module.exports = (req, res) => {
   });
 
   // Render the view
-  view.render('categories/categoriesIndex', { layout: 'wide' });
+  view.render('categories/test', { layout: 'wide' });
 };
 
 exports = module.exports;

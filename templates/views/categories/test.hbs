@@ -1,0 +1,217 @@
+{{!< wide}}
+
+      <!-- stripe integration -->
+      <script src="https://checkout.stripe.com/checkout.js"></script>
+
+      <!-- CONTENT -->
+      <article class="category-5mr" id="stripePage">
+
+        <!-- JUMBOTRON -->
+        <section class="jumbo">
+          <h1>Five Minute React</h1>
+          <div class="separator">&nbsp;</div>
+          <h2>Learn React, Redux, Webpack and More with Fun, Easy, Bite-sized Lessons</h2>
+        </section>
+        <!-- /JUMBOTRON -->
+
+        <!-- INTRO & TESTIMONIALS -->
+        <section class="intro-testimonials">
+          <div class="wrap">
+            <div class="flexwrap">
+              <div class="intro">
+                <h3>Let's Face It &hellip; Most React Tutorials Suck</h3>
+                <p>
+                  Don’t you hate it when a React Instructor:
+                </p>
+                <ul>
+                  <li>Jumps straight to the flashy stuff without covering critical basic concepts?</li>
+                  <li>Teaches you how to build a trivial app that’s useless in the real world?</li>
+                  <li>Leaves out the nitty gritty details required to build a production-quality app?</li>
+                </ul>
+                <p class="promo">Five Minute React is different.</p>
+                  <p>
+                    In this course, you’ll start with basic sample components and moving up to a fully-operational application that includes user registration and authentication. You’ll work with props, container components, and 3rd-party modules. You’ll also get a thorough grounding in managing application state with Redux actions and reducers.
+                  </p>
+
+                  <p>
+                    Not familiar with Express and MongoDB? Grab the full-stack package and we’ll cover installation and setup of everything you’ll need before diving into the React portion of the course.
+                  </p>
+
+                  <p>
+                    Every single lesson comes with full video and full text. Nothing is skipped; everything is explained. We’ll give you the tools and knowledge you need to develop any web app your heart desires.
+                  </p>
+
+                  <p>
+                    And if you don't think the course was worth your money, it comes with a 100% money-back guarantee.
+                  </p>
+              </div>
+              <div class="testimonials">
+                <p class="testimonial">
+                  <span>“CloseBrace really helped me in shifting my career from being a BioInformatician to a Web Developer. With his clear and instructive tutorials I was able to launch my first React site in two months’ time. Without CloseBrace, I wouldn't have managed.”</span>
+                  Sjors van Heuveln
+                </p>
+
+                <p class="testimonial">
+                  <span>“Your 5 Minute ReactJS course is, in my opinion, the best React course out there.”</span>
+                  Nick Wood
+                </p>
+
+                <p class="testimonial">
+                  <span>“Great tutorial, thanks! Very clear and simple instructions. You definitely deserve more subscribers.”</span>
+                  Timo Ernst
+                </p>
+
+                <p class="testimonial">
+                  <span>“Thank you for the tutorial series and all the useful stuff you are providing. It helped me get confident with React and understand many basics.”</span>
+                  Samos
+                </p>
+              </div>
+            </div>
+
+            <p class="center">
+              <a href="#buy" class="btn btn-secondary btn-fat">Learn React Now</a>
+            </p>
+          </div>
+        </section>
+        <!-- /INTRO & TESTIMONIALS -->
+
+        <!-- INFO BOXES -->
+        <div class="infoboxes">
+          <div class="wrap">
+            <div class="box flex-1">
+              <h3>What Are the Prerequisites?</h3>
+              <p>
+                You should be very comfortable with basic JavaScript concepts like variables, for loops, switch statements, and the like. Familiarity with XHR and asynchronous coding is a plus. You should have a general understanding of how APIs work and what HTTP requests do. This course uses ES2015 (aka ES6), but those features are explained in the lessons as they come up.
+              </p>
+              <p>
+                That’s about it. If you’ve taken a front-end bootcamp, you’re probably ready for this course!
+              </p>
+            </div>
+
+            <div class="box flex-3">
+              <h3>What Do I Get?</h3>
+              <p>
+                84 bite-sized lessons, roughly nine hours of video, a complete git repo, and a thorough grounding in everything you need to build a real-world, production quality React application . Here are some things you’ll do during this course:
+              </p>
+
+              <h4>React-Only Tier</h4>
+
+              <ul>
+                <li>Become familiar with React components, including using props, container components, and component state.</li>
+                <li>Learn the difference between class-based and pure function components and when to use each.</li>
+                <li>Become familiar with Redux, the industry standard for app state management, including detailed explanations of actions, action creators, reducers, and the Store.</li>
+                <li>Build an internal API for data handling and connect your React app to it.</li>
+                <li>Work with an external API service.</li>
+                <li>Build an entire front-end application that includes error handling, validation, and front-end routing.</li>
+                <li>Set up a server and deploy your app live on the internet.</li>
+              </ul>
+
+              <h4>Full-Stack Tier</h4>
+
+              <ul>
+                <li>Set up everything you’ll need. Text editor, database, web server, transpiler, bundler, etc.</li>
+                <li>Learn about linting with ESLint, testing with Jest, and version control with Git</li>
+                <li>Work with one of the most popular authentication packages for Express to allow users to register, log in, and log out.</li>
+                <li>Get an introduction to how Webpack works and use it to bundle your React app, Bootstrap, and custom CSS.</li>
+              </ul>
+            </div>
+
+            <div class="box listing flex-2">
+              <h3 class="margin">Full Course Listing</h3>
+              <p class="center"><img src="https://res.cloudinary.com/closebrace/image/upload/h_100/v{{firstPost.mainImage.version}}/{{firstPost.mainImage.public_id}}.{{this.mainImage.format}}" alt="{{firstPost.title}}" /></p>
+              {{#each posts}}
+                <p class="center"><img src="https://res.cloudinary.com/closebrace/image/upload/h_100/v{{this.mainImage.version}}/{{this.mainImage.public_id}}.{{this.mainImage.format}}" alt="{{this.title}}" /></p>
+              {{/each}}
+            </div>
+            <a id="buy"></a>
+          </div>
+        </div>
+        <!-- /INFO BOXES -->
+
+        <!-- BUY NOW -->
+        <section class="buy-now">
+          <div class="wrap">
+            <h3>Buy Now</h3>
+
+            <p class="center" style="flex-basis: 100%;"><strong>35% off for a limited time!</strong></p>
+
+            <div class="box">
+              <h4>Option 1 - React-Only Package - <strike>$149</strike> $97</h4>
+              <p>
+                If you’re a developer who’s already comfortable getting your text editor, Yarn, Express, MongoDB, Jest, ESLint, Babel, Webpack, etc. set up on your own, and doesn’t need an introduction to Express, this package will get you started coding right away. You’ll get:
+              </p>
+              <ul>
+                <li>A quick, text-based overview of the first 24 lessons</li>
+                <li>All necessary files from those lessons</li>
+                <li>The remaining lessons (25 - 84)</li>
+                <li>Access to ALL Source Code</li>
+              </ul>
+              <p class="center">
+                <a href="" class="btn btn-primary btn-fat" id="btnBuyReactOnly">Get the React-Only Package for <strike>$149</strike> $97</a>
+              </p>
+            </div>
+
+            <div class="box">
+              <h4>Option 2 - Full-Stack Package - <strike>$297</strike> $193</h4>
+              <p>
+                Not as experienced with Express, Node, or MongoDB? Not sure how to get everything up and running on your machine? Just want to make sure you have absolutely all of the instruction, whether you need it or not? This is the package for you. You’ll get:
+              </p>
+              <ul>
+                <li>ALL 84 lessons</li>
+                <li>Access to ALL Source Code</li>
+                <li>Download Videos to Your Local Machine</li>
+                <li>Lifetime access to my Slack support channel</li>
+              </ul>
+              <p class="center">
+                <a href="" class="btn btn-primary btn-fat" id="btnBuyFullStack">Get the Full-Stack Package for <strike>$297</strike> $193</a>
+              </p>
+            </div>
+          </div>
+        </section>
+        <!-- /BUY NOW -->
+
+        <!-- FAQ -->
+        <div class="faq">
+          <div class="wrap">
+            <h3>FAQ</h3>
+
+            <h4>Help! I lost my email</h4>
+
+            <p><a href="/contact">Drop me a line</a> and we’ll get you sorted out.</p>
+
+            <h4>What Version of React does this cover?</h4>
+
+            <p>The course was written for React 15.x and features an update to 16.x late in the series, but good news: it works just fine with React 16 right out of the gate!</p>
+
+            <h4>Why are you still using Redux instead of the new Context API?</h4>
+
+            <p>Once the Context API solidifies, I’ll be releasing an inexpensive expansion pack showing how to convert from Redux to Context. For now, Redux is what’s being used out there in the real world, so that’s what I’m teaching.</p>
+
+            <h4>How do I view the videos?</h4>
+
+            <p>If you bought the React-only version, you’ll be emailed a link to a course listing that contains links to all of your lessons.</p>
+
+            <p>If you buy the full version, you can also download all the videos as sweet, sweet, 1080p resolution MP4 files. The total size of the course is approximately 11.5 GB.</p>
+
+            <h4>Do you offer support?</h4>
+
+            <p>Yes and no. I do hang out in the Slack and will help you get unstuck, but I don’t debug code.</p>
+
+            <h4>Do you offer volume discounts for businesses looking to train multiple developers?</h4>
+
+            <p>I do indeed. <a href="/contact">Contact me</a> for more information.</p>
+
+            <h4>I’m a broke student. Can I get a discount?</h4>
+
+            <p>Yep! Just <a href="/contact">get in touch</a> and I’ll send you the details.</p>
+
+          </div>
+        </div>
+        <!-- /FAQ -->
+
+        {{#if user}}
+          <input type="hidden" id="stripeEmail" value="{{user.email}}" />
+        {{/if}}
+
+      </article>
+      <!-- /CONTENT -->

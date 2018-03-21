@@ -12,6 +12,7 @@ module.exports = (req, res) => {
   locals.section = 'tutorials';
   locals.filters = {
     category: req.params.category,
+    code: req.params.code,
   };
 
   // set a basic categoryname for displaying
@@ -45,18 +46,16 @@ module.exports = (req, res) => {
     .sort('+publishedAt')
     .populate('author category');
 
-    q.exec(function(err, results) {
-
+    q.exec((err, results) => {
       if (!results || results.length < 1) {
-        locals.firstPost = null;
         locals.posts = null;
         return next();
       }
 
-      var finalPosts = [];
-      for(var i = 0; i < results.length; i++) {
-        var result = results[i];
-        var resultCat = result.category;
+      const finalPosts = [];
+      for (let i = 0; i < results.length; i += 1) {
+        const result = results[i];
+        const resultCat = result.category;
         if (resultCat && resultCat.key === locals.filters.category) {
           finalPosts.push(result);
           // if any posts are found, overwrite the category name with a prettier version
@@ -65,31 +64,42 @@ module.exports = (req, res) => {
       }
 
       if (finalPosts.length < 1) {
-        locals.firstPost = null;
         locals.posts = null;
         return next();
       }
+
       locals.categoryId = finalPosts[0].category._id.toString();
-      locals.firstPost = finalPosts[0];
-      locals.firstPost.updatedAtFormatted = locals.firstPost._.updatedAt.format('Do MMM YYYY');
-      locals.firstPost.publishedAtFormatted = locals.firstPost._.publishedAt.format('YYYY-MM-DD');
-      finalPosts.splice(0,1);
       locals.posts = finalPosts;
       if (locals.posts.length > 0) {
-        for (var post in locals.posts) {
-          var updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
+        for (const post in locals.posts) {
+          const updatedAtFormatted = locals.posts[post]._.updatedAt.format('Do MMM YYYY');
           locals.posts[post].updatedAtFormatted = updatedAtFormatted;
-          var publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
+          const publishedAtFormatted = locals.posts[post]._.publishedAt.format('YYYY-MM-DD');
           locals.posts[post].publishedAtFormatted = publishedAtFormatted;
         }
       }
-      next(err);
-    });
 
+      // Now check access codes
+      if (locals.filters.category === 'five-minute-react') {
+        if (locals.filters.code === '3xWbVULhnTR3F0HgVX') {
+          locals.posts.splice(0, 24);
+          return next(err);
+        }
+        else if (locals.filters.code === 'XFuAXn6WV8cdfGYXbT') {
+          return next(err)
+        }
+        else {
+          locals.posts = null;
+          return next(err);
+        }
+      }
+
+      return next(err);
+    });
   });
 
   // Render the view
-  view.render('categories/categoriesIndex', { layout: 'wide' });
+  view.render('tutorials/list');
 };
 
 exports = module.exports;

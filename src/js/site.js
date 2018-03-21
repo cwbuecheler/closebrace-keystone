@@ -405,6 +405,77 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  if(idExists('stripePage')) {
+
+    let purchaseType = '';
+
+    // Fill in the email address if the user happens to be logged in
+    var stripeEmail = '';
+    if(idExists('stripeEmail')) { stripeEmail = getById('stripeEmail').value; }
+
+    // Handle stripe submissions
+    var stripeHandler = StripeCheckout.configure({
+      key: 'pk_test_a8h2HENfpffkX4W1FlStNcYv',
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
+      locale: 'auto',
+      token: function(token) {
+        if (token) {
+          // Hit the API
+          aja()
+          .method('post')
+          .url('/api/purchase')
+          .body({ token, purchaseType })
+          .cache(false)
+          .on('200', function(response){
+            // Redirect to the thanks page
+            window.location = '/tutorials/five-minute-react-thanks';
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              alert('Your payment was processed but something went wrong delivering your order. Please contact us immediately to sort it out!')
+          })
+          .on('500', function(response){
+              //oh crap
+              alert('Your payment was processed but something went wrong delivering your order. Please contact us immediately to sort it out!')
+          })
+          .go();
+        }
+      },
+    });
+
+    // Buy React Only Button Click
+    getById('btnBuyReactOnly').addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Set the purchase type
+      purchaseType = '5mr-react-only';
+
+      // Open Checkout with further options:
+      stripeHandler.open({
+        name: 'React-Only Course',
+        description: 'Five Minute React by CloseBrace',
+        email: stripeEmail,
+        amount: 9700,
+      });
+    });
+
+    // Buy Full Stack Button Click
+    getById('btnBuyFullStack').addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Set the purchase type
+      purchaseType = '5mr-full-stack';
+
+      // Open Checkout with further options:
+      stripeHandler.open({
+        name: 'Full-Stack Course',
+        description: 'Five Minute React by CloseBrace',
+        email: stripeEmail,
+        amount: 19300,
+      });
+    });
+
+/*
   // Go-Pro Stripe Integration
   if(idExists('stripePage')) {
     // get the user ID & email from the form
@@ -504,6 +575,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
     }
+
+*/
 
     // Close Checkout on page navigation:
     window.addEventListener('popstate', function() {

@@ -66,14 +66,15 @@ exports = module.exports = function (app) {
   app.get('/articles', routes.views.articles.articlesIndex);
   app.get('/articles/:date/:post', routes.views.articles.post);
   app.get('/categories/:category', routes.views.categories.categoriesIndex);
+  app.get('/categories/test/:category', routes.views.categories.test);
   app.get('/cheatSheetThanks', routes.views.cheatSheetThanks);
   app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/emailThanks', routes.views.emailThanks);
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
-  app.get('/go-pro', routes.views.goPro);
-  app.get('/go-pro-thanks', routes.views.goProThanks);
+  // app.get('/go-pro', routes.views.goPro);
+  // app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
   app.get('/newsletter/thanks', routes.views.newsletter.thanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
@@ -82,6 +83,8 @@ exports = module.exports = function (app) {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:date/:post', routes.views.tutorials.post);
+  app.get('/tutorials/five-minute-react-thanks', routes.views.tutorials.fiveMinuteReactThanks);
+  app.get('/tutorials/list/:category/:code', routes.views.tutorials.list);
   app.get('/u/:username', routes.views.publicProfile);
 
   // API
@@ -94,6 +97,7 @@ exports = module.exports = function (app) {
   app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
+  app.post('/api/purchase', keystone.middleware.api, routes.api.purchase.course);
   //app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
   app.post('/api/stripe/events', routes.api.stripe.stripeEvents);
 

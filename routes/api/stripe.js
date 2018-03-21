@@ -29,16 +29,7 @@ const sendStripeEmail = (info, text) => {
  */
 
 const knownEvents = {
-  'account.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A user account was updated.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'account.application.deauthorized': (req, res) => {
-    sendStripeEmail(req.body.type, 'An account application was deauthorized.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
+
   'application_fee.created': (req, res) => {
     sendStripeEmail(req.body.type, 'Application fee was created.');
     console.log(`${req.body.type}: event processed`);
@@ -49,13 +40,63 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
+  'account.application.deauthorized': (req, res) => {
+    sendStripeEmail(req.body.type, 'An account application was deauthorized.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'account.external_account.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'An external account was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'account.external_account.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'An external account was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'account.external_account.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'An external account was updated');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'account.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A user account was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'balance.available': (req, res) => {
     sendStripeEmail(req.body.type, 'Balance is available.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'charge.succeeded': (req, res) => {
-    sendStripeEmail(req.body.type, 'A charge succeeded.');
+  'charge.captured': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge was captured.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.dispute.closed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge dispute was closed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.dispute.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge dispute was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.dispute.funds_reinstated': (req, res) => {
+    sendStripeEmail(req.body.type, 'Funds were reinstated after a charge dispute.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.dispute.funds_withdrawn': (req, res) => {
+    sendStripeEmail(req.body.type, 'Funds were withdrawn after a charge dispute.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.dispute.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge dispute was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -96,13 +137,23 @@ const knownEvents = {
 
     return res.status(200).end();
   },
+  'charge.pending': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge is pending.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'charge.refunded': (req, res) => {
     sendStripeEmail(req.body.type, 'A charge was refunded.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'charge.captured': (req, res) => {
-    sendStripeEmail(req.body.type, 'A charge was captured.');
+  'charge.refund.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge refund was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'charge.succeeded': (req, res) => {
+    sendStripeEmail(req.body.type, 'A charge succeeded.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -111,18 +162,23 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'charge.dispute.created': (req, res) => {
-    sendStripeEmail(req.body.type, 'A charge dispute was created.');
+  'coupon.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A coupon was created.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'charge.dispute.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A charge dispute was updated.');
+  'coupon.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A coupon was deleted.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'charge.dispute.closed': (req, res) => {
-    sendStripeEmail(req.body.type, 'A charge dispute was closed.');
+  'coupon.updated,': (req, res) => {
+    sendStripeEmail(req.body.type, 'A coupon was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.bank_account.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer bank account was deleted.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -131,23 +187,8 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'customer.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer was updated.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'customer.deleted': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer was deleted.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
   'customer.card.created': (req, res) => {
     sendStripeEmail(req.body.type, 'A customer card was created.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'customer.card.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer card was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -156,8 +197,43 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
+  'customer.card.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer card was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.discount.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer discount was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.discount.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer discount was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.discount.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer discount was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'customer.source.created': (req, res) => {
     sendStripeEmail(req.body.type, 'A customer source was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.source.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer source was deleted');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'customer.source.expiring': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer source is expiring.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -168,11 +244,6 @@ const knownEvents = {
   },
   'customer.subscription.created': (req, res) => {
     sendStripeEmail(req.body.type, 'A customer subscription was created.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'customer.subscription.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer subscription was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -198,7 +269,7 @@ const knownEvents = {
         user.cancelStripeSubscription('cancel-final', (error) => {
           if (error) return next(error);
 
-          console.log(`user: ${user.email} subscription was successfully cancelled.`);
+          console.log(`user: ${user.email} subscription was successfully canceled.`);
           return res.status(200).end();
         });
 
@@ -211,28 +282,43 @@ const knownEvents = {
 
     return res.status(200).end();
   },
+  'customer.subscription.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer subscription was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'customer.subscription.trial_will_end': (req, res) => {
     sendStripeEmail(req.body.type, 'A customer\'s subscription trial is about to end.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'customer.discount.created': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer discount was created.');
+  'customer.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A customer was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'customer.discount.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer discount was updated.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'customer.discount.deleted': (req, res) => {
-    sendStripeEmail(req.body.type, 'A customer discount was deleted.');
+  'file.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A file was created.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
   'invoice.created': (req, res) => {
     sendStripeEmail(req.body.type, 'An invoice was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'invoice.payment_failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'An invoice payment failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'invoice.payment_succeeded': (req, res) => {
+    sendStripeEmail(req.body.type, 'An invoice payment succeeded.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'invoice.sent': (req, res) => {
+    sendStripeEmail(req.body.type, 'An invoice was sent.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -246,23 +332,8 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'invoice.payment_succeeded': (req, res) => {
-    sendStripeEmail(req.body.type, 'An invoice payment succeeded.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'invoice.payment_failed': (req, res) => {
-    sendStripeEmail(req.body.type, 'An invoice payment failed.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
   'invoiceitem.created': (req, res) => {
     sendStripeEmail(req.body.type, 'An invoice item was created.');
-    console.log(`${req.body.type}: event processed`);
-    res.status(200).end();
-  },
-  'invoiceitem.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'An invoice item was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -271,13 +342,63 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'plan.created': (req, res) => {
-    sendStripeEmail(req.body.type, 'A new plan was created.');
+  'invoiceitem.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'An invoice item was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'plan.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'An existing plan was updated.');
+  'order.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'An order was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'order.payment_failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'An order payment failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'order.payment_succeeded': (req, res) => {
+    sendStripeEmail(req.body.type, 'An order payment succeeded.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'order.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'An order was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'order_return.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'An order return was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'payout.canceled': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payout was canceled.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'payout.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payout was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'payout.failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payout failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'payout.paid': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payout was paid.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'payout.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payout was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'plan.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A new plan was created.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -286,13 +407,23 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'coupon.created': (req, res) => {
-    sendStripeEmail(req.body.type, 'A coupon was created.');
+  'plan.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'An existing plan was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'coupon.deleted': (req, res) => {
-    sendStripeEmail(req.body.type, 'A coupon was deleted.');
+  'product.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A product was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'product.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A product was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'product.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A Product was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -301,13 +432,83 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
+  'recipient.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A recipient was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'recipient.updated': (req, res) => {
     sendStripeEmail(req.body.type, 'A recipient was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'recipient.deleted': (req, res) => {
-    sendStripeEmail(req.body.type, 'A recipient was deleted.');
+  'review.closed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A review was closed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'review.opened': (req, res) => {
+    sendStripeEmail(req.body.type, 'A review was opened.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'sigma.scheduled_query_run.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A sigma scheduled query run was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'sku.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A SKU was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'sku.deleted': (req, res) => {
+    sendStripeEmail(req.body.type, 'A SKU was deleted.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'sku.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A SKU was updated.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'source.canceled': (req, res) => {
+    sendStripeEmail(req.body.type, 'A source was canceled.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'source.chargeable': (req, res) => {
+    sendStripeEmail(req.body.type, 'A source was chargeable.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'source.failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A source failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'source.mandate_notification': (req, res) => {
+    sendStripeEmail(req.body.type, 'A source received a mandate notification');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'source.transaction.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A source transaction was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'topup.created': (req, res) => {
+    sendStripeEmail(req.body.type, 'A top-up was created.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'topup.failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A top-up failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'topup.succeeded': (req, res) => {
+    sendStripeEmail(req.body.type, 'A top-up succeeded');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -316,8 +517,8 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'transfer.updated': (req, res) => {
-    sendStripeEmail(req.body.type, 'A transfer was updated.');
+  'transfer.failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A transfer failed.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
@@ -326,8 +527,13 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
-  'transfer.failed': (req, res) => {
-    sendStripeEmail(req.body.type, 'A transfer failed.');
+  'transfer.reversed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A transfer was reversed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
+  'transfer.updated': (req, res) => {
+    sendStripeEmail(req.body.type, 'A transfer was updated.');
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },

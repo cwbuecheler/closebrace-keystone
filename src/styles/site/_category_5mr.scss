@@ -1,0 +1,421 @@
+// Mobile
+article.category-5mr {
+
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* Jumbotron */
+  .jumbo {
+    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
+    margin: 0;
+
+    h1 {
+      color: #FFF;
+      font-family: 'segoe ui';
+      font-weight: 600;
+      margin: 0;
+      padding: 30px 30px 0 30px;
+    }
+    .separator {
+      background-image: url("http://res.cloudinary.com/closebrace/image/upload/v1520963195/react_logo_lines_dxgpgp.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 40px;
+      height: 40px;
+      margin: 20px 0;
+      width: 100%;
+    }
+    h2 {
+      color: #bbb;
+      font-size: 1.25rem;
+      margin: 0 auto;
+      max-width: 450px;
+      padding: 0 30px 30px 30px;
+    }
+  }// end jumbotron
+
+  /* Info & Testimonials */
+  .intro-testimonials {
+    background: #FFF;
+    padding: 30px;
+    width: 100%;
+
+    .flexwrap {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .intro {
+        border-bottom: 1px solid $color-grey-light;
+        flex-basis: 100%;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        text-align: left;
+
+        ul {
+          padding-left: 20px;
+
+          li {
+            margin-bottom: 1rem;
+          }
+        }
+        p.promo {
+          color: $color-grey-medium;
+          font-size: 2.5rem;
+          font-style: italic;
+          line-height: 1.4;
+          padding: 5px 10px;
+          text-align: center;
+        }
+      }
+      .testimonials {
+        flex-basis: 100%;
+        line-height: 1.6;
+
+        .testimonial {
+          margin-bottom: 1.5rem;
+          text-align: right;
+
+          span {
+            color: $color-brand-primary;
+            display: block;
+            margin: 0;
+            text-align: left;
+          }
+        }
+      }
+    }
+  } // end intro & testimonials
+
+  /* Info Boxes */
+  .infoboxes {
+    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
+    padding: 30px;
+
+    .box {
+      background: #FFF;
+      border: 4px solid $color-brand-primary;
+      color: #666;
+      line-height: 1.6;
+      margin: 0 0 30px 0;
+      padding: 30px;
+      text-align: left;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      &.listing {
+        height: 400px;
+        overflow: auto;
+      }
+
+      h3 {
+        color: #333;
+        margin: 0;
+
+        &.margin {
+          margin-bottom: 1rem;
+        }
+      }
+      p {
+        margin: 0 0 1rem 0;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        img {
+          height: 100px;
+        }
+      }
+      ul {
+        padding-left: 20px;
+
+        &:last-child { margin-bottom: 0; }
+        li {
+          margin-bottom: 1rem;
+
+          &:last-child { margin-bottom: 0; }
+        }
+      }
+    }
+  } // /info boxes
+
+  /* Buy Now */
+  .buy-now {
+    background: #FFF;
+    padding: 30px;
+
+    .wrap {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      background: #F3F3F3;
+      border-top: 4px solid $color-brand-primary;
+      flex-basis: 100%;
+      line-height: 1.6;
+      margin: 0 0 30px 0;
+      padding: 30px;
+      text-align: left;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      h4 {
+        color: #333;
+        font-weight: bold;
+        margin: 0 0 .5rem 0;
+      }
+      p {
+        margin: 0 0 1rem 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+      ul {
+        padding-left: 20px;
+
+        &:last-child { margin-bottom: 0; }
+        li {
+          margin-bottom: 1rem;
+
+          &:last-child { margin-bottom: 0; }
+        }
+      }
+
+      a.btn {
+        display: block;
+        line-height: 1.4;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: normal;
+      }
+    }
+  } // end buy-now
+
+  /* FAQ */
+  .faq {
+    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
+    color: #FFF;
+    line-height: 1.4;
+    padding: 30px;
+    text-align: left;
+
+    h3 {
+      color: #FFF;
+    }
+    h4 {
+      margin-top: 2rem;
+    }
+  }
+} // end mobile
+
+// Tablet
+@media only screen and (min-width: 601px) {
+  article.category-5mr {
+    /* Jumbotron */
+    .jumbo {
+      h1 {
+        font-size: 3rem;
+        padding: 40px 40px 0 40px;
+      }
+      .separator {
+        background-size: auto 84px;
+        height: 84px;
+        margin: 30px 0;
+      }
+      h2 {
+        padding: 0 40px 40px 40px;
+      }
+    }// end jumbotron
+
+    /* Info & Testimonials */
+    .intro-testimonials {
+      padding: 40px;
+    } // end intro & testimonials
+
+    /* Info Boxes */
+    .infoboxes {
+      padding: 40px;
+
+      .box {
+
+        &.listing {
+          height: 400px;
+          overflow: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+        }
+
+        h3 {
+          color: #333;
+          margin: 0;
+          flex-basis: 100%;
+        }
+      }
+    } // /info boxes
+
+    /* Buy Now */
+    .buy-now {
+      padding: 40px;
+
+      .box {
+
+        a.btn {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      }
+    } // end buy-now
+
+    /* FAQ */
+    .faq {
+      padding: 40px;
+
+      .wrap {
+        max-width: 550px;
+        margin: 0 auto;
+      }
+    } // end faq
+  }
+} // end tablet
+
+// Big Tablet
+@media only screen and (min-width: 851px) {
+  article.category-5mr {
+
+    /* Jumbotron */
+    .jumbo {
+
+      h1 {
+        font-size: 4rem;
+        padding: 60px 60px 0 60px;
+      }
+      .separator {
+        background-size: auto 120px;
+        height: 120px;
+        margin: 40px 0;
+        width: 100%;
+      }
+      h2 {
+        font-size: 1.5rem;
+        line-height: 1.4;
+        max-width: 600px;
+        padding: 0 60px 60px 60px;
+      }
+    }// end jumbotron
+
+    /* Info & Testimonials */
+    .intro-testimonials {
+      padding: 60px;
+
+      .flexwrap {
+
+        .intro {
+          border-bottom: 0;
+          flex-basis: 400px;
+          flex-grow: 2;
+          margin-right: 60px;
+        }
+        .testimonials {
+          flex-basis: 260px;
+        }
+      }
+    } // end intro & testimonials
+
+    /* Info Boxes */
+    .infoboxes {
+      align-items: stretch;
+      padding: 60px;
+
+      .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .box {
+        flex-grow: 1;
+        margin-bottom: 60px;
+        margin-left: 60px;
+        width: 300px;
+
+        &.flex-1 { order: 1; }
+        &.flex-2 { order: 2; }
+        &.flex-3 {
+          flex-basis: 600px;
+          flex-grow: 0;
+          max-width: 600px;
+          order: 3;
+          margin: 0;
+        }
+
+        &:last-child {
+          margin: 0;
+        }
+
+        &.listing {
+          height: 413px;
+        }
+      }
+    } // /info boxes
+
+    /* Buy Now */
+    .buy-now {
+      padding: 60px;
+      text-align: left;
+
+      h3 {
+        flex-basis: 100%;
+      }
+
+      .box {
+        flex-basis: 300px;
+        flex-grow: 1;
+        margin: 0 60px 0 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    } // end buy-now
+
+    /* FAQ */
+    .faq {
+      padding: 60px;
+    } // end faq
+  }
+} // end big tablet
+
+// Desktop
+@media only screen and (min-width: 1001px) {
+  article.category-5mr {
+
+    /* Jumbotron */
+    .jumbo {
+
+      h1 {
+        font-size: 5rem;
+      }
+      .separator {
+        background-size: auto;
+        height: 169px;
+      }
+      h2 {
+        font-size: 2rem;
+        line-height: 1.4;
+        max-width: 720px;
+        padding: 0 60px 60px 60px;
+      }
+    }// end jumbotron
+  }
+}
