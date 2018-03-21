@@ -111,11 +111,15 @@ article.category-5mr {
       &.listing {
         height: 400px;
         overflow: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
       }
 
       h3 {
         color: #333;
         margin: 0;
+        flex-basis: 100%;
 
         &.margin {
           margin-bottom: 1rem;
@@ -129,7 +133,7 @@ article.category-5mr {
         }
 
         img {
-          height: 100px;
+          height: 70px;
         }
       }
       ul {
@@ -257,8 +261,6 @@ article.category-5mr {
         }
 
         h3 {
-          color: #333;
-          margin: 0;
           flex-basis: 100%;
         }
       }
@@ -321,13 +323,10 @@ article.category-5mr {
       .flexwrap {
 
         .intro {
-          border-bottom: 0;
-          flex-basis: 100%;
           margin: 0 auto 30px auto;
           max-width: 600px;
         }
         .testimonials {
-          flex-basis: 100%;
           max-width: 600px;
           margin: 0 auto 30px auto;
         }
