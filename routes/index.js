@@ -73,8 +73,8 @@ exports = module.exports = function (app) {
   app.all('/contact', postLimiter, routes.views.contact);
   app.get('/emailThanks', routes.views.emailThanks);
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
-  app.get('/go-pro', routes.views.goPro);
-  app.get('/go-pro-thanks', routes.views.goProThanks);
+  // app.get('/go-pro', routes.views.goPro);
+  // app.get('/go-pro-thanks', routes.views.goProThanks);
   app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
   app.get('/newsletter/thanks', routes.views.newsletter.thanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
