@@ -4,6 +4,9 @@
       <article>
         {{#if categoryInfo.hasIntroPage}}
           {{{categoryInfo.introPageHtml}}}
+          {{#if user}}
+            <input type="hidden" id="stripeEmail" value="{{user.email}}" />
+          {{/if}}
         {{else}}
           <!-- TITLE BOX -->
           <section class="title-box">
