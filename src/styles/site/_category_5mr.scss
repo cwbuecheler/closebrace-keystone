@@ -186,10 +186,16 @@ article.category-5mr {
   .buy-now {
     background: #FFF;
     padding: 30px;
+    text-align: center;
 
     .wrap {
       display: flex;
       flex-wrap: wrap;
+    }
+
+    h3 {
+      margin-bottom: 3rem;
+      text-align: center;
     }
 
     .box {
@@ -406,7 +412,7 @@ article.category-5mr {
         flex-grow: 1;
         margin: 0 60px 0 0;
 
-        &:last-child {
+        &:nth-child(odd) {
           margin: 0;
         }
       }
