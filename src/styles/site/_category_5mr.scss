@@ -1,9 +1,35 @@
+body {
+  padding-top: 0;
+}
+
+footer a:link, footer a:visited {
+  color:#05d7fe;
+}
+footer a:hover {
+  color:#05d7fe;
+}
+
 // Mobile
 article.category-5mr {
 
+  font-size: 1.125rem;
+
+  a:link, a:visited {
+    color: #FFF;
+  }
+
+  h1, h2, h3, h4, h5 {
+    color: #6D6D6D;
+    font-weight: 200;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+
   .wrap {
-    max-width: 1000px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     margin: 0 auto;
+    max-width: 1000px;
   }
 
   /* Jumbotron */
@@ -66,6 +92,7 @@ article.category-5mr {
           color: $color-grey-medium;
           font-size: 2.5rem;
           font-style: italic;
+          font-weight: 200;
           line-height: 1.4;
           padding: 5px 10px;
           text-align: center;
@@ -74,19 +101,25 @@ article.category-5mr {
       .testimonials {
         flex-basis: 100%;
         line-height: 1.6;
+        text-align: left;
 
         .testimonial {
-          margin-bottom: 1.5rem;
-          text-align: right;
+          margin-bottom: 2.5rem;
+          font-size: .875rem;
 
           span {
-            color: $color-brand-primary;
+            color: $color-grey-dark;
             display: block;
-            margin: 0;
-            text-align: left;
+            font-family: Palatino,Georgia,serif;
+            font-size:1.25rem;
+            font-style: italic;
+            margin: 0 0 .5rem 0;
           }
         }
       }
+    }
+    .btn {
+      background-color: #009ab6;
     }
   } // end intro & testimonials
 
@@ -97,7 +130,7 @@ article.category-5mr {
 
     .box {
       background: #FFF;
-      border: 4px solid $color-brand-primary;
+      border: 4px solid #009ab6;
       color: #666;
       line-height: 1.6;
       margin: 0 0 30px 0;
@@ -161,7 +194,7 @@ article.category-5mr {
 
     .box {
       background: #F3F3F3;
-      border-top: 4px solid $color-brand-primary;
+      border-top: 4px solid #009ab6;
       flex-basis: 100%;
       line-height: 1.6;
       margin: 0 0 30px 0;
@@ -201,23 +234,30 @@ article.category-5mr {
         max-width: 100%;
         overflow: hidden;
         white-space: normal;
+        background-color: #009ab6;
       }
     }
   } // end buy-now
 
   /* FAQ */
   .faq {
-    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
-    color: #FFF;
+    background: #F3F3F3;
+    color: #777;
     line-height: 1.4;
     padding: 30px;
     text-align: left;
 
+    a:link, a:visited, a:hover {
+      color: #009ab6;
+    }
+
     h3 {
-      color: #FFF;
+      color: #000;
     }
     h4 {
       margin-top: 2rem;
+      color: #000;
+      font-size: 1.375rem;
     }
   }
 } // end mobile
@@ -284,7 +324,7 @@ article.category-5mr {
       padding: 40px;
 
       .wrap {
-        max-width: 550px;
+        max-width: 600px;
         margin: 0 auto;
       }
     } // end faq
@@ -339,33 +379,15 @@ article.category-5mr {
       padding: 60px;
 
       .wrap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+
       }
 
       .box {
-        flex-grow: 1;
-        margin-bottom: 60px;
-        margin-left: 60px;
-        width: 300px;
-
-        &.flex-1 { order: 1; }
-        &.flex-2 { order: 2; }
-        &.flex-3 {
-          flex-basis: 600px;
-          flex-grow: 0;
-          max-width: 600px;
-          order: 3;
-          margin: 0;
-        }
+        max-width: 600px;
+        margin: 0 auto 30px auto;
 
         &:last-child {
-          margin: 0;
-        }
-
-        &.listing {
-          height: 413px;
+          margin: 0 auto;
         }
       }
     } // /info boxes

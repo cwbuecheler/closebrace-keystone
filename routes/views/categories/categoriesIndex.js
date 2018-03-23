@@ -14,6 +14,12 @@ module.exports = (req, res) => {
     category: req.params.category,
   };
 
+  // splash page remove header
+  if (locals.filters.category === 'five-minute-react') {
+    locals.noheader = true;
+  }
+
+
   // set a basic categoryname for displaying
   locals.categoryName = locals.filters.category;
 

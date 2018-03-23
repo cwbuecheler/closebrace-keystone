@@ -1,0 +1,128 @@
+        <!-- COMMENTS -->
+        <section class="comments">
+
+          <h3>Add a Comment</h3>
+          <a name="comment-box" id="commentBox"></a>
+          {{#if user}}
+            {{#if user.isVerified}}
+              {{#if user.isPro}}
+                <p class="alert alert-info">Looking for help with this tutorial? As a CloseBrace Pro, you can also <a href="mailto:tutorials@closebrace.com?subject=Support: {{post.title}}" target="_blank">send us an email</a></p>
+              {{/if}}
+              <div class="add-comment form-in-content">
+                <div class="author">
+                  <div class="user-avatar">
+                    {{#if user.userImage.version}}
+                      <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{user.userImage.version}}/{{user.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+                    {{else}}
+                      <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v1491315007/usericon_id76rb.png" alt="Default User Icon" class="user-icon hide-phone" />
+                    {{/if}}
+                    {{#if user.isPro}}
+                      <a href="/go-pro" class="pro-badge">pro</a>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="text">
+                  <!-- submission handled via ajax -->
+                  <fieldset>
+                    <input type="hidden" id="hidPostID" value="{{post._id}}" />
+                    <input type="hidden" id="hidPostTitle" value="{{post.title}}" />
+                    <textarea name="comment" id="textAddComment"></textarea>
+                  </fieldset>
+                  <div class="button-container">
+                    <p>You can use <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> in comments.</p>
+                    <button type="button" id="btnAddComment" class="btn btn-primary">Add Comment</button>
+                  </div>
+                </div>
+              </div>
+            {{else}}
+              <p class="alert alert-warning"><em>Sorry, only verified accounts can post comments, and your account is not currently verified. You can fix that by checking your email and confirming your account. Didn't get the email? Visit your <a href="/account/profile">Profile Page</a> to re-send it!</em></p>
+            {{/if}}
+          {{else}}
+            <p>Please log in to comment.</p>
+          {{/if}}
+          <h3>Comments</h3>
+          {{#each comments}}
+            <a name="{{this.id}}"></a>
+            <div class="comment">
+              {{#ifIsFlagged this.flaggers ../user.id}}
+                <div class="text text-flagged">
+                  <p>You flagged this comment. It will be reviewed by admins and will either be removed or allowed to remain, but you won't see it again.</p>
+                </div>
+              {{else}}
+                <div class="author">
+                  <div class="user-avatar">
+                    {{#if this.author.userImage.version}}
+                      <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v{{this.author.userImage.version}}/{{this.author.userImage.public_id}}.jpg" alt="User Icon" class="user-icon" />
+                    {{else}}
+                      <img src="https://res.cloudinary.com/closebrace/image/upload/t_user_icon/v1491315007/usericon_id76rb.png" alt="Default User Icon" class="user-icon" />
+                    {{/if}}
+                    {{#if this.author.isPro}}
+                      <a href="/go-pro" class="pro-badge">pro</a>
+                    {{/if}}
+                  </div>
+                  <!--
+                  <span class="points">
+                    99,999<br />pts.
+                  </span>
+                  -->
+                </div>
+                <div class="text {{#if isUserDeleted}}text-flagged{{/if}}">
+                  <h5>by <a href="/u/{{this.author.userName}}">{{this.author.userName}}</a> at {{this.createdAtFormatted}}</h5>
+                  <div class="md">
+                    {{#if isUserDeleted}}
+                      <p>The user has deleted this comment</p>
+                    {{else}}
+                      {{{this.content.html}}}
+                    {{/if}}
+                  </div>
+                  <!--
+                  <div class="plus-one">
+                    <button type="button" class="btn btn-grey btn-outling">+1</a></button>
+                  </div>
+                  -->
+                  <div class="links">
+
+                    {{! don't show any links if someone's logged out or not verified }}
+                    {{#if ../user}}
+                      {{#if ../user.isVerified}}
+
+                        {{! Admin Users}}
+                        {{#if ../user.isAdmin}}
+                          <a href="#" class="link-delete-comment" data-commentID="{{this.id}}">Admin Delete</a>
+                          {{#ifeq ../user.id this.author.id}}
+                            {{#unless this.isUserDeleted}}
+                              | <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a>
+                            {{/unless}}
+                          {{/ifeq}}
+                          {{#unless this.isUserDeleted}}
+                            | <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a> |
+                            <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                          {{/unless}}
+                        {{else}}
+
+                          {{! User viewing own comment }}
+                          {{#ifeq ../user.id this.author.id}}
+                            {{#unless this.isUserDeleted}}
+                              <a href="#" class="link-delete-comment-user" data-commentID="{{this.id}}">Delete</a> |
+                            {{/unless}}
+                            {{#unless this.isUserDeleted}}
+                              <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                            {{/unless}}
+                          {{! User is viewing someone else's comment }}
+                          {{else}}
+                            <a href="#" class="flag link-flag-comment" data-flagger="{{../user.id}}" data-commentID="{{this.id}}">Flag</a>
+                            {{#unless this.isUserDeleted}}
+                              | <a href="#" class="reply-link" data-commentID="{{this.id}}" data-author="{{this.author.userName}}">Reply</a>
+                            {{/unless}}
+                          {{/ifeq}}
+                        {{/if}}
+
+                      {{/if}}
+                    {{/if}}
+                  </div>
+                </div>
+              {{/ifIsFlagged}}
+            </div>
+          {{/each}}
+        </section>
+        <!-- /COMMENTS -->
