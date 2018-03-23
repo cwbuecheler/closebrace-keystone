@@ -1,11 +1,11 @@
-body {
+body.no-header {
   padding-top: 0;
 }
 
-footer a:link, footer a:visited {
+footer.special-footer a:link, footer.special-footer a:visited {
   color:#05d7fe;
 }
-footer a:hover {
+footer.special-footer a:hover {
   color:#05d7fe;
 }
 
@@ -39,7 +39,7 @@ article.category-5mr {
 
     h1 {
       color: #FFF;
-      font-family: 'segoe ui';
+      font-family: Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
       font-weight: 600;
       margin: 0;
       padding: 30px 30px 0 30px;

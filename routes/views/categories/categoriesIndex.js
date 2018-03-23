@@ -17,6 +17,7 @@ module.exports = (req, res) => {
   // splash page remove header
   if (locals.filters.category === 'five-minute-react') {
     locals.noheader = true;
+    locals.specialfooter = true;
   }
 
 
