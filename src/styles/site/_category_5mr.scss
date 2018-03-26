@@ -183,11 +183,21 @@ article.category-5mr {
       }
 
       &.listing {
-        height: 400px;
-        overflow: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
+
+        .hide {
+          display: none;
+        }
+        .show {
+          display: block;
+        }
+        .btn {
+          border-color: #009ab6;
+          color: #009ab6;
+        }
+        .all-courses {
+          flex-wrap: wrap;
+          justify-content: space-around;
+        }
       }
 
       h3 {
@@ -366,8 +376,6 @@ article.category-5mr {
       .box {
 
         &.listing {
-          height: 400px;
-          overflow: auto;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;

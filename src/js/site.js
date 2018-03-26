@@ -328,7 +328,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-
   // Delete Account Step 1 Click
   if(idExists('btnDeleteAccountStep1')) {
     getById('btnDeleteAccountStep1').addEventListener('click', function(e){
@@ -581,6 +580,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Close Checkout on page navigation:
     window.addEventListener('popstate', function() {
       stripeHandler.close();
+    });
+
+    // Five Minute React Page - show course listing
+    getById('btnShowAllCourses').addEventListener('click', function(e) {
+      e.preventDefault();
+      // hide the button
+      getById('coursesButton').style.display = 'none';
+      // show the stuff
+      getById('allCourses').style.display = 'flex';
     });
   }
 
