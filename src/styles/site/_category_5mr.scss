@@ -1,25 +1,51 @@
+body.no-header {
+  padding-top: 0;
+}
+
+footer.special-footer a:link, footer.special-footer a:visited {
+  color:#05d7fe;
+}
+footer.special-footer a:hover {
+  color:#05d7fe;
+}
+
 // Mobile
 article.category-5mr {
 
+  font-size: 1.125rem;
+
+  a:link, a:visited {
+    color: #FFF;
+  }
+
+  h1, h2, h3, h4, h5 {
+    color: #6D6D6D;
+    font-weight: 200;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+
   .wrap {
-    max-width: 1000px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     margin: 0 auto;
+    max-width: 1000px;
   }
 
   /* Jumbotron */
   .jumbo {
-    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
+    background: #444 url("https://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
     margin: 0;
 
     h1 {
       color: #FFF;
-      font-family: 'segoe ui';
+      font-family: Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
       font-weight: 600;
       margin: 0;
       padding: 30px 30px 0 30px;
     }
     .separator {
-      background-image: url("http://res.cloudinary.com/closebrace/image/upload/v1520963195/react_logo_lines_dxgpgp.png");
+      background-image: url("https://res.cloudinary.com/closebrace/image/upload/v1520963195/react_logo_lines_dxgpgp.png");
       background-position: center;
       background-repeat: no-repeat;
       background-size: auto 40px;
@@ -66,38 +92,86 @@ article.category-5mr {
           color: $color-grey-medium;
           font-size: 2.5rem;
           font-style: italic;
+          font-weight: 200;
           line-height: 1.4;
           padding: 5px 10px;
           text-align: center;
+        }
+        .logos {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0 auto 15px auto;
+          justify-content: center;
+
+          img {
+            margin: 15px;
+          }
         }
       }
       .testimonials {
         flex-basis: 100%;
         line-height: 1.6;
+        text-align: left;
 
         .testimonial {
-          margin-bottom: 1.5rem;
-          text-align: right;
+          margin-bottom: 2.5rem;
+          font-size: .875rem;
 
           span {
-            color: $color-brand-primary;
+            color: $color-grey-dark;
             display: block;
-            margin: 0;
-            text-align: left;
+            font-family: Palatino,Georgia,serif;
+            font-size:1.25rem;
+            font-style: italic;
+            margin: 0 0 .5rem 0;
           }
         }
       }
     }
+    .btn {
+      background-color: #009ab6;
+    }
   } // end intro & testimonials
+
+  /* About */
+  .about {
+    background: #f3f3f3;
+    color: #7f7f7f;
+    line-height: 1.6;
+    padding: 30px;
+    text-align: left;
+    width: 100%;
+
+    .wrap {
+      h3 {
+        color: #7f7f7f;
+        font-size: 1.25rem;
+        line-height: 1;
+        margin: 0 0 1rem 0;
+      }
+      p {
+        margin: 0;
+      }
+      img {
+        border-radius: 50%;
+        border: 2px solid #FFF;
+        display: block;
+        float: right;
+        height: 80px;
+        margin: 0 0 0 20px;
+        width: 80px;
+      }
+    }
+  } // end about
 
   /* Info Boxes */
   .infoboxes {
-    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
+    background: #444 url("https://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
     padding: 30px;
 
     .box {
       background: #FFF;
-      border: 4px solid $color-brand-primary;
+      border: 4px solid #009ab6;
       color: #666;
       line-height: 1.6;
       margin: 0 0 30px 0;
@@ -109,11 +183,21 @@ article.category-5mr {
       }
 
       &.listing {
-        height: 400px;
-        overflow: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
+
+        .hide {
+          display: none;
+        }
+        .show {
+          display: block;
+        }
+        .btn {
+          border-color: #009ab6;
+          color: #009ab6;
+        }
+        .all-courses {
+          flex-wrap: wrap;
+          justify-content: space-around;
+        }
       }
 
       h3 {
@@ -133,7 +217,7 @@ article.category-5mr {
         }
 
         img {
-          height: 70px;
+          width: 100px;
         }
       }
       ul {
@@ -153,15 +237,21 @@ article.category-5mr {
   .buy-now {
     background: #FFF;
     padding: 30px;
+    text-align: center;
 
     .wrap {
       display: flex;
       flex-wrap: wrap;
     }
 
+    h3 {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
     .box {
       background: #F3F3F3;
-      border-top: 4px solid $color-brand-primary;
+      border-top: 4px solid #009ab6;
       flex-basis: 100%;
       line-height: 1.6;
       margin: 0 0 30px 0;
@@ -201,23 +291,30 @@ article.category-5mr {
         max-width: 100%;
         overflow: hidden;
         white-space: normal;
+        background-color: #009ab6;
       }
     }
   } // end buy-now
 
   /* FAQ */
   .faq {
-    background: #444 url("http://res.cloudinary.com/closebrace/image/upload/v1520961629/5mr_texture_small_iu6hp1.png");
-    color: #FFF;
+    background: #F3F3F3;
+    color: #777;
     line-height: 1.4;
     padding: 30px;
     text-align: left;
 
+    a:link, a:visited, a:hover {
+      color: #009ab6;
+    }
+
     h3 {
-      color: #FFF;
+      color: #000;
     }
     h4 {
       margin-top: 2rem;
+      color: #000;
+      font-size: 1.375rem;
     }
   }
 } // end mobile
@@ -246,6 +343,32 @@ article.category-5mr {
       padding: 40px;
     } // end intro & testimonials
 
+    /* About */
+    .about {
+      padding: 60px;
+
+      .wrap {
+        margin: 0 auto;
+        max-width: 720px;
+
+        h3 {
+          margin-bottom: .25rem;
+        }
+        p {
+          margin: 0;
+        }
+        img {
+          border-radius: 0;
+          border: 0;
+          display: block;
+          float: right;
+          height: 250px;
+          margin: 0 0 0 30px;
+          width: 250px;
+        }
+      }
+    } // end about
+
     /* Info Boxes */
     .infoboxes {
       padding: 40px;
@@ -253,8 +376,6 @@ article.category-5mr {
       .box {
 
         &.listing {
-          height: 400px;
-          overflow: auto;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
@@ -284,7 +405,7 @@ article.category-5mr {
       padding: 40px;
 
       .wrap {
-        max-width: 550px;
+        max-width: 600px;
         margin: 0 auto;
       }
     } // end faq
@@ -339,33 +460,15 @@ article.category-5mr {
       padding: 60px;
 
       .wrap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+
       }
 
       .box {
-        flex-grow: 1;
-        margin-bottom: 60px;
-        margin-left: 60px;
-        width: 300px;
-
-        &.flex-1 { order: 1; }
-        &.flex-2 { order: 2; }
-        &.flex-3 {
-          flex-basis: 600px;
-          flex-grow: 0;
-          max-width: 600px;
-          order: 3;
-          margin: 0;
-        }
+        max-width: 600px;
+        margin: 0 auto 30px auto;
 
         &:last-child {
-          margin: 0;
-        }
-
-        &.listing {
-          height: 413px;
+          margin: 0 auto;
         }
       }
     } // /info boxes
@@ -384,7 +487,7 @@ article.category-5mr {
         flex-grow: 1;
         margin: 0 60px 0 0;
 
-        &:last-child {
+        &:nth-child(odd) {
           margin: 0;
         }
       }
