@@ -2,7 +2,7 @@
 const sanitizer = require('sanitizer');
 const nodemailer = require('nodemailer');
 const cbOptions = require('../../options.js');
-// const stripe = require('stripe')(cbOptions.stripe.privateKey);
+const stripe = require('stripe')(cbOptions.stripe.privateKeyTest);
 
 // create reusable transporter object using the default SMTP transport
 const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
@@ -41,8 +41,6 @@ const sendUserEmail = (stripeToken, data) => {
     if (error) { return false; }
     return true;
   });
-
-  return mailSuccess;
 };
 
 // Email CloseBrace function
@@ -56,7 +54,7 @@ const sendCloseBraceEmail = (stripeToken, data) => {
   };
 
   // send mail with defined transport object
-  const mailSuccess = transporter.sendMail(mailOptions, (error) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) { return false; }
     return true;
   });
@@ -69,25 +67,19 @@ exports.course = (req, res) => {
   const data = (req.method === 'POST') ? req.body : req.query;
   const stripeToken = data.token;
 
-  const entries = Object.entries(stripeToken);
-
-  // sanitize form data
-  for (const [key] of entries) {
-    if (typeof stripeToken[key] === 'string') {
-      stripeToken[key] = sanitizer.sanitize(stripeToken[key]);
+  // Submit the charge to Stripe
+  stripe.charges.create({
+    amount: data.purchasePrice,
+    currency: 'usd',
+    source: stripeToken.id,
+    description: 'Charge for joshua.anderson@example.com',
+  }, (err, charge) => {
+    if (err || !charge) {
+      return res.apiError('Problem processing card', err);
     }
-  }
 
-  const mailSuccess = sendUserEmail(stripeToken, data);
-
-  sendCloseBraceEmail(stripeToken, data);
-
-  if (mailSuccess) {
-    return res.apiResponse({
-      success: true,
-    });
-  }
-  return res.apiResponse({
-    success: false,
+    sendUserEmail(stripeToken, data);
+    sendCloseBraceEmail(stripeToken, data);
+    return res.apiResponse({ success: true, charge });
   });
 };
