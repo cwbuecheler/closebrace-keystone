@@ -407,6 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if(idExists('stripePage')) {
 
     let purchaseType = '';
+    let purchasePrice = 0;
 
     // Fill in the email address if the user happens to be logged in
     var stripeEmail = '';
@@ -414,7 +415,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle stripe submissions
     var stripeHandler = StripeCheckout.configure({
-      key: 'pk_live_iq9qNCpiYhwmRVohIPLdWeXD',
+      key: 'pk_test_a8h2HENfpffkX4W1FlStNcYv',
       image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
       locale: 'auto',
       token: function(token) {
@@ -423,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function() {
           aja()
           .method('post')
           .url('/api/purchase')
-          .body({ token, purchaseType })
+          .body({ token, purchaseType, purchasePrice })
           .cache(false)
           .on('200', function(response){
             // Redirect to the thanks page
@@ -431,11 +432,11 @@ document.addEventListener("DOMContentLoaded", function() {
           })
            .on('40x', function(response){
               //something is definitely wrong
-              alert('Your payment was processed but something went wrong delivering your order. Please contact us immediately to sort it out!')
+              alert('Something went wrong while processing your payment. Please email billing@closebrae.com immediately to sort it out!')
           })
           .on('500', function(response){
               //oh crap
-              alert('Your payment was processed but something went wrong delivering your order. Please contact us immediately to sort it out!')
+              alert('Something went wrong while processing your payment. Please email billing@closebrae.com immediately to sort it out!')
           })
           .go();
         }
@@ -446,8 +447,9 @@ document.addEventListener("DOMContentLoaded", function() {
     getById('btnBuyReactOnly').addEventListener('click', function(e) {
       e.preventDefault();
 
-      // Set the purchase type
+      // Set the purchase type & price
       purchaseType = '5mr-react-only';
+      purchasePrice = 9700;
 
       // Open Checkout with further options:
       stripeHandler.open({
@@ -464,6 +466,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Set the purchase type
       purchaseType = '5mr-full-stack';
+      purchasePrice = 19300;
 
       // Open Checkout with further options:
       stripeHandler.open({
