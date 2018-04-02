@@ -74,7 +74,6 @@ exports.course = (req, res) => {
     source: stripeToken.id,
     description: 'Charge for joshua.anderson@example.com',
   }, (err, charge) => {
-    console.log(charge);
     if (err || !charge) {
       return res.apiError('Problem processing card', err);
     }
