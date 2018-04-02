@@ -415,7 +415,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle stripe submissions
     var stripeHandler = StripeCheckout.configure({
-      key: 'pk_test_a8h2HENfpffkX4W1FlStNcYv',
+      key: 'pk_live_iq9qNCpiYhwmRVohIPLdWeXD',
       image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
       locale: 'auto',
       token: function(token) {

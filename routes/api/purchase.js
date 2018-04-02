@@ -2,7 +2,7 @@
 const sanitizer = require('sanitizer');
 const nodemailer = require('nodemailer');
 const cbOptions = require('../../options.js');
-const stripe = require('stripe')(cbOptions.stripe.privateKeyTest);
+const stripe = require('stripe')(cbOptions.stripe.privateKey);
 
 // create reusable transporter object using the default SMTP transport
 const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
