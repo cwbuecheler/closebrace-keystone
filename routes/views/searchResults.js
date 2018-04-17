@@ -4,7 +4,6 @@ const sanitizer = require('sanitizer');
 const Post = keystone.list('Post');
 const Category = keystone.list('PostCategory');
 const SearchTerm = keystone.list('SearchTerm').model;
-const Tag = keystone.list('Tag');
 
 exports = module.exports = function (req, res) {
 
@@ -86,28 +85,6 @@ exports = module.exports = function (req, res) {
       }
       else {
         locals.categories = null;
-      }
-      return next(err);
-    });
-  });
-
-  // Get Tags
-  view.on('init', (next) => {
-    if (req.body.searchTerms === '' || !req.body.searchTerms) {
-      locals.tags = null;
-      return next();
-    }
-
-    const q = Tag.model.find({
-      name: new RegExp(req.body.searchTerms, 'i'),
-    });
-
-    q.exec((err, results) => {
-      if (results) {
-        locals.tags = results;
-      }
-      else {
-        locals.tags = null;
       }
       return next(err);
     });

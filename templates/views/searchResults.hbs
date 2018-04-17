@@ -9,15 +9,6 @@
         </section>
         <!-- /TITLE BOX -->
 
-        {{#if tags}}
-          <h2>Tags Matching "{{searchTerms}}"</h2>
-          <ul>
-          {{#each tags}}
-            <li><a href="/tags/{{this.slug}}">{{this.name}}</a>
-          {{/each}}
-          </ul>
-        {{/if}}
-
         {{#if categories}}
           <h2>Categories Matching "{{searchTerms}}"</h2>
           <ul>
@@ -36,12 +27,10 @@
           </ul>
         {{/if}}
 
-        {{#unless tags}}
-    	    {{#unless categories}}
-	          {{#unless posts}}
-              <h2>No results found</h2>
-	          {{/unless}}
-	        {{/unless}}
+  	    {{#unless categories}}
+          {{#unless posts}}
+            <h2>No results found</h2>
+          {{/unless}}
         {{/unless}}
 
       </article>
