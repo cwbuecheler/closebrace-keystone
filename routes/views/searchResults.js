@@ -100,11 +100,18 @@ exports = module.exports = function (req, res) {
     const regex = new RegExp(req.body.searchTerms, 'i');
     const q = Post.model.find()
     .where('content.md', regex)
-    .sort({ 'publishedAt': -1 });
+    .sort({ publishedAt: -1 })
+    .populate('category');
 
     q.exec((err, results) => {
       if (results) {
-        locals.posts = results;
+        const filteredPosts = results.filter((post) => {
+          if (post.category && post.category.key) {
+            return post.category.key !== 'five-minute-react';
+          }
+          return true;
+        });
+        locals.posts = filteredPosts;
       }
       else {
         locals.posts = null;

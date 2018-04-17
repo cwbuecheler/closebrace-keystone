@@ -19,7 +19,7 @@
         {{/if}}
 
         {{#if posts}}
-          <h2>Posts Matching "{{searchTerms}}"</h2>
+          <h2>Free Posts Matching "{{searchTerms}}"</h2>
           <ul>
           {{#each posts}}
             <li><a href="/{{toLowerCase this.postType}}s/{{this.publishedAtFormatted}}/{{this.slug}}">{{this.title}}</a></li>
