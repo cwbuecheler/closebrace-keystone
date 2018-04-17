@@ -109,9 +109,9 @@ const knownEvents = {
     }
     console.log(`${req.body.type}: event processed`);
 
-    if (req.body.data && req.body.data.object && req.body.data.object.customer) {
+    if (req.body.data && req.body.data.object && req.body.data.object.source.name) {
       // find user by Stripe ID
-      User.model.findOne().where('stripeID', req.body.data.object.customer).exec((err, user) => {
+      User.model.findOne().where('stripeID', req.body.data.object.source.name).exec((err, user) => {
         if (err) return next(err);
 
         if (!user) {
@@ -132,7 +132,7 @@ const knownEvents = {
       });
     }
     else {
-      return next(new Error('body.data.object.customer is undefined'));
+      return next(new Error('body.data.object.source.name is undefined'));
     }
 
     return res.status(200).end();
