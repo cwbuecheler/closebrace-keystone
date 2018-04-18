@@ -21,7 +21,7 @@ exports = module.exports = function (req, res) {
       state: 'published',
       postType: 'Article',
       slug: locals.filters.post,
-    }).populate('author tags category');
+    }).populate('author category');
 
     q.exec(function(err, result) {
       locals.post = result;

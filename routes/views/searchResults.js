@@ -4,7 +4,6 @@ const sanitizer = require('sanitizer');
 const Post = keystone.list('Post');
 const Category = keystone.list('PostCategory');
 const SearchTerm = keystone.list('SearchTerm').model;
-const Tag = keystone.list('Tag');
 
 exports = module.exports = function (req, res) {
 
@@ -91,28 +90,6 @@ exports = module.exports = function (req, res) {
     });
   });
 
-  // Get Tags
-  view.on('init', (next) => {
-    if (req.body.searchTerms === '' || !req.body.searchTerms) {
-      locals.tags = null;
-      return next();
-    }
-
-    const q = Tag.model.find({
-      name: new RegExp(req.body.searchTerms, 'i'),
-    });
-
-    q.exec((err, results) => {
-      if (results) {
-        locals.tags = results;
-      }
-      else {
-        locals.tags = null;
-      }
-      return next(err);
-    });
-  });
-
   // Get Posts
   view.on('post', (next) => {
     if (req.body.searchTerms === '' || !req.body.searchTerms) {
@@ -123,11 +100,18 @@ exports = module.exports = function (req, res) {
     const regex = new RegExp(req.body.searchTerms, 'i');
     const q = Post.model.find()
     .where('content.md', regex)
-    .sort({ 'publishedAt': -1 });
+    .sort({ publishedAt: -1 })
+    .populate('category');
 
     q.exec((err, results) => {
       if (results) {
-        locals.posts = results;
+        const filteredPosts = results.filter((post) => {
+          if (post.category && post.category.key) {
+            return post.category.key !== 'five-minute-react';
+          }
+          return true;
+        });
+        locals.posts = filteredPosts;
       }
       else {
         locals.posts = null;
