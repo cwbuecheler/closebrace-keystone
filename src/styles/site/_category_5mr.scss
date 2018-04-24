@@ -242,6 +242,7 @@ article.category-5mr {
     .wrap {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     h3 {
@@ -292,6 +293,19 @@ article.category-5mr {
         overflow: hidden;
         white-space: normal;
         background-color: #009ab6;
+      }
+
+      .drip-form {
+        text-align: center;
+
+        label {
+          display: none;
+        }
+        input[type=email] {
+          padding: 8px;
+          margin: 0 0 .5rem 0;
+          width: 260px;
+        }
       }
     }
   } // end buy-now

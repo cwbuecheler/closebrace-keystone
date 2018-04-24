@@ -18,32 +18,32 @@
  * http://expressjs.com/api.html#app.VERB
  */
 
-var keystone = require('keystone');
-var middleware = require('./middleware');
-var importRoutes = keystone.importer(__dirname);
-var RateLimit = require('express-rate-limit');
-var cbOptions = require('../options.js');
+const keystone = require('keystone');
+const middleware = require('./middleware');
+const RateLimit = require('express-rate-limit');
+
+const importRoutes = keystone.importer(__dirname);
+// const cbOptions = require('../options.js');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
-var routes = {
-	views: importRoutes('./views'),
+const routes = {
+  views: importRoutes('./views'),
   api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
-exports = module.exports = function (app) {
-
+module.exports = (app) => {
   // needed for rate limiter
   app.enable('trust proxy');
 
-  var postLimiter = new RateLimit({
-    windowMs: 15*60*1000, // 15 minutes 
+  const postLimiter = new RateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
-    delayMs: 0 // disabled 
+    delayMs: 0, // disabled
   });
 
   // Views
@@ -82,6 +82,7 @@ exports = module.exports = function (app) {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:date/:post', routes.views.tutorials.post);
+  app.get('/tutorials/five-minute-react-email-thanks', routes.views.tutorials.fiveMinuteReactEmailThanks);
   app.get('/tutorials/five-minute-react-thanks', routes.views.tutorials.fiveMinuteReactThanks);
   app.get('/tutorials/list/:category/:code', routes.views.tutorials.list);
   app.get('/u/:username', routes.views.publicProfile);
@@ -97,10 +98,11 @@ exports = module.exports = function (app) {
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
   app.post('/api/purchase', keystone.middleware.api, routes.api.purchase.course);
-  //app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
+  // app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
   app.post('/api/stripe/events', routes.api.stripe.stripeEvents);
 
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-	// app.get('/protected', middleware.requireUser, routes.views.protected);
-
+  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+  // app.get('/protected', middleware.requireUser, routes.views.protected);
 };
+
+exports = module.exports;
