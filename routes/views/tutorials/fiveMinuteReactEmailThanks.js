@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   // Set locals
   locals.section = 'tutorials';
 
-  view.render('tutorials/fiveMinuteReactThanks');
+  view.render('tutorials/fiveMinuteReactEmailThanks');
 };
 
 exports = module.exports;
