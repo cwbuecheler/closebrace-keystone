@@ -286,13 +286,14 @@ article.category-5mr {
         }
       }
 
-      a.btn {
+      a.btn, input.btn {
         display: block;
         line-height: 1.4;
         max-width: 100%;
         overflow: hidden;
         white-space: normal;
         background-color: #009ab6;
+        margin: 0 auto;
       }
 
       .drip-form {
