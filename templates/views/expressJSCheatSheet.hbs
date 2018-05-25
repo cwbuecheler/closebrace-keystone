@@ -24,11 +24,17 @@
                   <h3 data-drip-attribute="headline">Free Express.js Cheat Sheet</h3>
                   <fieldset>
                     <div data-drip-attribute="description"></div>
-                      <div>
-                          <label for="drip-email">Email Address
-                            <input type="email" id="drip-email" name="fields[email]" value="" />
-                          </label>
-                      </div>
+                    <div>
+                      <label for="drip-email">Email Address
+                        <input type="email" id="drip-email" name="fields[email]" value="" />
+                      </label>
+                    </div>
+                    <div>
+                      <label for="drip-eu-consent"><input type="checkbox" name="fields[eu_consent]" id="drip-eu-consent" value="granted" checked> I consent to receive information and tutorials from CloseBrace by email</label>
+                    </div>
+                    <div>
+                      <input type="hidden" name="fields[eu_consent_message]" value="I consent to receive information and tutorials from CloseBrace by email">
+                    </div>
                     <div>
                       <input type="submit" value="Get Your Download Now" data-drip-attribute="sign-up-button" class="btn btn-primary" />
                     </div>
