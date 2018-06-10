@@ -9,7 +9,7 @@ const Course = new keystone.List('Course', {
 
 Course.add({
   name: { type: String, initial: true, required: true },
-  basePrice: { type: Types.Number, required: true },
+  basePrice: { type: Types.Number, initial: true, required: true, default: 0 },
 });
 
 Course.track = true;

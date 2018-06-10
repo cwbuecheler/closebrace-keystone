@@ -10,7 +10,7 @@ Coupon.add({
   code: { type: String, initial: true, required: true },
   expiration: { type: Types.Date },
   percentage: { type: Types.Number },
-  courses: { type: Types.Relationship, ref: 'Course' },
+  courses: { type: Types.Relationship, ref: 'Course', multiple: true },
 });
 
 Coupon.track = true;
