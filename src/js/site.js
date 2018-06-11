@@ -1,17 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   /* Perform on Load ================================================ */
-  /* Check for ad blockers */
-  if(getById('sauWs0UJTcvwx')) {
-    isAdsBlocked = false;
-  }
-  else {
-    isAdsBlocked = true;
-  }
-  if(isAdsBlocked === true) { displayAdNotice('adblock-notice'); }
 
   /* Site Globals =================================================== */
-  var isAdsBlocked = false;
 
   /* Event Catchers ================================================= */
 
@@ -432,11 +423,11 @@ document.addEventListener("DOMContentLoaded", function() {
           })
            .on('40x', function(response){
               //something is definitely wrong
-              alert('Something went wrong while processing your payment. Please email billing@closebrae.com immediately to sort it out!')
+              alert('Something went wrong while processing your payment. Please email billing@closebrace.com immediately to sort it out!')
           })
           .on('500', function(response){
               //oh crap
-              alert('Something went wrong while processing your payment. Please email billing@closebrae.com immediately to sort it out!')
+              alert('Something went wrong while processing your payment. Please email billing@closebrace.com immediately to sort it out!')
           })
           .go();
         }
@@ -447,16 +438,18 @@ document.addEventListener("DOMContentLoaded", function() {
     getById('btnBuyReactOnly').addEventListener('click', function(e) {
       e.preventDefault();
 
+      const price = parseInt(`${e.target.getAttribute('data-price')}00`);
+
       // Set the purchase type & price
       purchaseType = '5mr-react-only';
-      purchasePrice = 9700;
+      purchasePrice = price;
 
       // Open Checkout with further options:
       stripeHandler.open({
         name: 'React-Only Course',
         description: 'Five Minute React by CloseBrace',
         email: stripeEmail,
-        amount: 9700,
+        amount: price,
       });
     });
 
@@ -464,16 +457,18 @@ document.addEventListener("DOMContentLoaded", function() {
     getById('btnBuyFullStack').addEventListener('click', function(e) {
       e.preventDefault();
 
+      const price = parseInt(`${e.target.getAttribute('data-price')}00`);
+
       // Set the purchase type
       purchaseType = '5mr-full-stack';
-      purchasePrice = 19300;
+      purchasePrice = price;
 
       // Open Checkout with further options:
       stripeHandler.open({
         name: 'Full-Stack Course',
         description: 'Five Minute React by CloseBrace',
         email: stripeEmail,
-        amount: 19300,
+        amount: price,
       });
     });
 
@@ -595,6 +590,62 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Manage prices and coupons on course pages
+  const setPrices = (priceArray, coupon = 100) => {
+    const fraction = coupon / 100;
+    const finalPrices = priceArray.map((price) => Math.floor(price * fraction));
+    const courses = getById('courseCodes').value.split(',');
+
+    for (let i = 0; i < courses.length; i += 1) {
+      // get the named nodes
+      const list = Array.from(getByClass(courses[i]));
+      list.forEach((node) => {
+        node.innerHTML = `$${finalPrices[i]}`;
+      });
+      const buyBtn = document.querySelector(`.btnBuy${courses[i]}`);
+      buyBtn.setAttribute('data-price', finalPrices[i]);
+    }
+  }
+
+  // Set course prices on course pages
+  if (idExists('courseCodes')) {
+    const priceArray = getById('basePrices').value.split(',');
+    setPrices(priceArray);
+
+    // Handle coupons
+    getById('btnCheckCoupon').addEventListener('click', function(e) {
+      e.preventDefault();
+      const couponCode = getById('coupon').value;
+      const courses = getById('courseCodes').value.split(',');
+      if (couponCode && couponCode !== '') {
+        // Hit the API
+        aja()
+        .method('post')
+        .url('/api/coupons/check')
+        .body({ couponCode, courses })
+        .cache(false)
+        .on('200', function(response) {
+          setPrices(priceArray, response.percentage);
+          getById('specialText').innerHTML = 'Coupon Applied';
+        })
+         .on('40x', function(response) {
+            alert('Something went wrong, please contact billing@closebrace.com for help!')
+        })
+        .on('500', function(response) {
+          const resp = JSON.parse(response);
+          if (resp.error) {
+            alert(resp.detail);
+          }
+          else {
+            alert('Something went wrong while processing your coupon. Please try again!')
+          }
+        })
+        .go();
+      }
+    });
+
+  }
+
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {
     var displaySpans = getByClass(displaySpan);
@@ -604,6 +655,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   }
+
 });
 
 function idExists(el) {
