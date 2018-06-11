@@ -15,6 +15,7 @@ PostCategory.add({
   totalHours: { type: String },
   hasIntroPage: { type: Boolean, label: 'Has an Intro Page' },
   introPageHtml: { type: Types.Html, height: 500 },
+  isPaidCourse: { type: Boolean, label: 'Is a Paid Course' },
 });
 
 PostCategory.relationship({ ref: 'Post', refPath: 'category' });

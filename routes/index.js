@@ -96,6 +96,7 @@ module.exports = (app) => {
   app.post('/api/comments/:id/update', keystone.middleware.api, routes.api.comments.update);
   app.post('/api/comments/:id/remove', keystone.middleware.api, routes.api.comments.remove);
   app.all('/api/comments/flag', keystone.middleware.api, routes.api.comments.flag);
+  app.all('/api/coupons/check', keystone.middleware.api, routes.api.coupons.check);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
   app.post('/api/purchase', keystone.middleware.api, routes.api.purchase.course);
   // app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
