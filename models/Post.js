@@ -17,6 +17,8 @@ Post.add({
   subHead: { type: String, required: true, initial: true },
   author: { type: Types.Relationship, ref: 'User', filters: { isAuthor: 'true' }, index: true },
   postType: { type: Types.Select, options: 'Tutorial, Article, Lesson, Blog, Other' },
+  course: { type: Types.Relationship, ref: 'Course', many: true, emptyOption: true },
+  lessonNumber: { type: Types.Number },
   category: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true },
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
   tags: { type: Types.Relationship, ref: 'Tag', many: true, emptyOption: true },
