@@ -19,6 +19,10 @@ module.exports = (req, res) => {
     locals.noheader = true;
     locals.specialfooter = true;
   }
+  if (locals.filters.category === 'dead-simple-react-native') {
+    locals.noheader = true;
+    locals.specialfooter = true;
+  }
 
 
   // set a basic categoryname for displaying
