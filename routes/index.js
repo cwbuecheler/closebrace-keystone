@@ -85,6 +85,7 @@ module.exports = (app) => {
   app.get('/terms-of-service', routes.views.termsOfService);
   app.get('/tutorials', routes.views.tutorials.tutorialsIndex);
   app.get('/tutorials/:date/:post', routes.views.tutorials.post);
+  app.get('/tutorials/dead-simple-react-native-email-thanks', routes.views.tutorials.deadSimpleReactNativeEmailThanks);
   app.get('/tutorials/five-minute-react-email-thanks', routes.views.tutorials.fiveMinuteReactEmailThanks);
   app.get('/tutorials/five-minute-react-thanks', routes.views.tutorials.fiveMinuteReactThanks);
   app.get('/tutorials/list/:category/:code', routes.views.tutorials.list);
