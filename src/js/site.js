@@ -643,8 +643,18 @@ document.addEventListener("DOMContentLoaded", function() {
         .go();
       }
     });
-
   }
+
+  if(idExists('stripePage2')) {
+    // DSRN page - show course listing
+    getById('btnShowAllCourses').addEventListener('click', function(e) {
+      e.preventDefault();
+      // hide the button
+      getById('coursesButton').style.display = 'none';
+      // show the stuff
+      getById('allCourses').style.display = 'flex';
+    });
+  };
 
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {
