@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle stripe submissions
     var stripeHandler = StripeCheckout.configure({
-      key: 'pk_live_iq9qNCpiYhwmRVohIPLdWeXD',
+      key: 'pk_test_a8h2HENfpffkX4W1FlStNcYv',
       image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
       locale: 'auto',
       token: function(token) {
@@ -643,8 +643,18 @@ document.addEventListener("DOMContentLoaded", function() {
         .go();
       }
     });
-
   }
+
+  if(idExists('stripePage2')) {
+    // DSRN page - show course listing
+    getById('btnShowAllCourses').addEventListener('click', function(e) {
+      e.preventDefault();
+      // hide the button
+      getById('coursesButton').style.display = 'none';
+      // show the stuff
+      getById('allCourses').style.display = 'flex';
+    });
+  };
 
   /* Functions ====================================================== */
   function displayAdNotice(displaySpan) {

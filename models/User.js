@@ -1,21 +1,21 @@
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
-var md5 = require('js-md5');
-var nodemailer = require('nodemailer');
-var cbOptions = require('../options.js');
-var stripe = require("stripe")(cbOptions.stripe.privateKey);
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
+const md5 = require('js-md5');
+const nodemailer = require('nodemailer');
+const cbOptions = require('../options.js');
+const stripe = require('stripe')(cbOptions.stripe.privateKey);
 
 /**
  * User Model
  * ==========
  */
-var User = new keystone.List('User');
+const User = new keystone.List('User');
 
 User.add({
-	name: { type: Types.Name, required: true, index: true },
-	email: { type: Types.Email, initial: true, required: true, index: true },
+  name: { type: Types.Name, required: true, index: true },
+  email: { type: Types.Email, initial: true, required: true, index: true },
   userName: { type: String, initial: true, required: true, index: true },
-	password: { type: Types.Password, initial: true, required: true },
+  password: { type: Types.Password, initial: true, required: true },
   userImage: { type: Types.CloudinaryImage },
   location: { type: String },
   website: { type: String },
@@ -29,9 +29,9 @@ User.add({
   stripeSubscriptionStart: { type: Date },
   stripeSubscriptionID: { type: String },
   dateJoined: { type: Types.Date, default: Date.now },
-  courses: { type: Types.Relationship, ref: 'PostCategory', emptyOption: true, many: true },
+  courses: { type: Types.Relationship, ref: 'Course', emptyOption: true, many: true },
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
+  isAdmin: { type: Boolean, label: 'Is an Administrator', index: true },
   isAuthor: { type: Boolean, label: 'Is a Post Author', index: true },
   isPro: { type: Boolean, label: 'Is a Pro User', index: true },
   isPlatinum: { type: Boolean, label: 'Is a Platinum User', index: true },
@@ -40,7 +40,7 @@ User.add({
 
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function () {
-	return this.isAdmin;
+  return this.isAdmin;
 });
 
 /**

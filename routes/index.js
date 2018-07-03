@@ -71,6 +71,9 @@ module.exports = (app) => {
   app.all('/comments/unsubscribe/:id', routes.views.comments.unsubscribe);
   app.get('/community-guidelines', routes.views.communityGuidelines);
   app.all('/contact', postLimiter, routes.views.contact);
+  app.get('/courses/', routes.views.courses.coursesIndex);
+  app.get('/courses/:course', routes.views.courses.courseList);
+  app.get('/courses/:course/:slug', routes.views.courses.lessonPage);
   app.get('/emailThanks', routes.views.emailThanks);
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   // app.get('/go-pro', routes.views.goPro);
