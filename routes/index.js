@@ -78,6 +78,8 @@ module.exports = (app) => {
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   // app.get('/go-pro', routes.views.goPro);
   // app.get('/go-pro-thanks', routes.views.goProThanks);
+  app.get('/newsletter/sponsor', routes.views.newsletter.sponsor);
+  app.get('/newsletter/sponsor-thanks', routes.views.newsletter.sponsorThanks);
   app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
   app.get('/newsletter/thanks', routes.views.newsletter.thanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
@@ -103,6 +105,7 @@ module.exports = (app) => {
   app.all('/api/coupons/check', keystone.middleware.api, routes.api.coupons.check);
   app.all('/api/pro/register', keystone.middleware.api, routes.api.pro.register);
   app.post('/api/purchase', keystone.middleware.api, routes.api.purchase.course);
+  app.post('/api/sponsor', keystone.middleware.api, routes.api.sponsor.purchase);
   // app.all('/api/stripe/events',  stripeWebhook.middleware, middleware.stripeEvents)
   app.post('/api/stripe/events', routes.api.stripe.stripeEvents);
 

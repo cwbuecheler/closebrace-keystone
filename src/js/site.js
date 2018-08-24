@@ -590,6 +590,56 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Newsletter Sponsorship Stripe Integration
+  if (idExists('newsletterSponsorship')) {
+
+    let price = 0;
+
+    // Handle stripe submissions
+    var stripeHandler = StripeCheckout.configure({
+      key: 'pk_live_iq9qNCpiYhwmRVohIPLdWeXD',
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_19SoCBK2sFMaOukMmerchant-icon-1482259458497-closebrace_logo_notext_green_300.png',
+      locale: 'auto',
+      token: function(token) {
+        if (token) {
+          // Hit the API
+          aja()
+          .method('post')
+          .url('/api/sponsor')
+          .body({ token, price })
+          .cache(false)
+          .on('200', function(response){
+            // Redirect to the thanks page
+            window.location = '/newsletter/sponsor-thanks';
+          })
+           .on('40x', function(response){
+              //something is definitely wrong
+              alert('Something went wrong while processing your payment. Please email billing@closebrace.com immediately to sort it out!')
+          })
+          .on('500', function(response){
+              //oh crap
+              alert('Something went wrong while processing your payment. Please email billing@closebrace.com immediately to sort it out!')
+          })
+          .go();
+        }
+      },
+    });
+
+    // Checkout button click
+    getById('btnCheckout').addEventListener('click', function(e) {
+      e.preventDefault();
+      const priceFromForm = parseInt(getById('levelSelect').value);
+      price = priceFromForm;
+
+      // Open Checkout with further options:
+      stripeHandler.open({
+        name: 'Newsletter Sponsorship',
+        amount: price,
+      });
+    });
+
+  }
+
   // Manage prices and coupons on course pages
   const setPrices = (priceArray, coupon = 100) => {
     const fraction = coupon / 100;
