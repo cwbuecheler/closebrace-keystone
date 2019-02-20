@@ -20,25 +20,34 @@
           <div class="signup-wrap center">
             <div style="width: 100%; max-width: 500px; padding: 20px; border:1px solid #DDD; background: #EEE;">
               <div class="mailchimp-form">
-                <form action="https://www.getdrip.com/forms/406963401/submissions" method="post" data-drip-embedded-form="406963401">
-                  <h3 data-drip-attribute="headline">Free Express.js Cheat Sheet</h3>
-                  <fieldset>
-                    <div data-drip-attribute="description"></div>
-                    <div>
-                      <label for="drip-email">Email Address
-                        <input type="email" id="drip-email" name="fields[email]" value="" />
-                      </label>
+                <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+                <form action="https://app.convertkit.com/forms/840314/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="840314" data-uid="bf3d58a5ea" data-format="inline" data-version="5" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;redirect&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;https://closebrace.com/cheatsheetthanks&quot;},&quot;modal&quot;:{&quot;trigger&quot;:null,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:null,&quot;devices&quot;:null,&quot;show_once_every&quot;:null},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:null,&quot;trigger&quot;:null,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:null,&quot;devices&quot;:null,&quot;show_once_every&quot;:null}}}" min-width="400 500 600 700 800">
+                  <div data-style="minimal">
+                    <h3 class="formkit-header" data-element="header">Free Express.js Cheat Sheet</h1>
+                    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                    <div data-element="fields" data-stacked="true" class="seva-fields formkit-fields">
+                      <fieldset>
+                        <div class="formkit-field">
+                          <label for="email_address"><input class="formkit-input" name="email_address" placeholder="captaincode@closebrace.com" required="" type="text" /></label>
+                        </div>
+                      </fieldset>
+                      <div class="formkit-field">
+                        <fieldset data-group="checkboxes" class="formkit-7042" type="Custom" order="1" save_as="Tag" group="field">
+                          <div class="formkit-checkboxes" data-element="tags-checkboxes" data-group="checkbox">
+                            <label for="tag-684456-768558"><input class="formkit-checkbox" id="tag-684456-768558" type="checkbox" name="tags[]" value="768558" checked> I CONSENT TO RECEIVE INFORMATION AND TUTORIALS FROM CLOSEBRACE BY EMAIL</label>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <button data-element="submit" class="formkit-submit formkit-submit btn btn-primary">
+                        <div class="formkit-spinner">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                        <span>GET YOUR DOWNLOAD NOW</span>
+                      </button>
                     </div>
-                    <div>
-                      <label for="drip-eu-consent"><input type="checkbox" name="fields[eu_consent]" id="drip-eu-consent" value="granted" checked> I consent to receive information and tutorials from CloseBrace by email</label>
-                    </div>
-                    <div>
-                      <input type="hidden" name="fields[eu_consent_message]" value="I consent to receive information and tutorials from CloseBrace by email">
-                    </div>
-                    <div>
-                      <input type="submit" value="Get Your Download Now" data-drip-attribute="sign-up-button" class="btn btn-primary" />
-                    </div>
-                  </fieldset>
+                  </div>
                 </form>
               </div>
             </div>
