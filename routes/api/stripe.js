@@ -21,7 +21,7 @@ const sendStripeEmail = (info, text) => {
   thisEmail.subject += info;
 
   // send mail
-  mg.messages().send(mailOptions, (error, body) => {
+  mg.messages().send(thisEmail, (error, body) => {
     if (error) { console.log(error); }
   });
 };
