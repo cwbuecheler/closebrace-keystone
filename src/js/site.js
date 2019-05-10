@@ -665,7 +665,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle coupons
     getById('btnCheckCoupon').addEventListener('click', function(e) {
       e.preventDefault();
-      const couponCode = getById('coupon').value;
+      const couponCode = getById('coupon').value.trim();
       const courses = getById('courseCodes').value.split(',');
       if (couponCode && couponCode !== '') {
         // Hit the API
