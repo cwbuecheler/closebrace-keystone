@@ -1,8 +1,13 @@
 const keystone = require('keystone');
+const mailgun = require('mailgun-js');
+const cbOptions = require('../options.js');
+
+const DOMAIN = cbOptions.mailgun.domain;
+const apiKey = cbOptions.mailgun.apiKey;
+const mg = mailgun({ apiKey, domain: DOMAIN });
+
 const Types = keystone.Field.Types;
 const md5 = require('js-md5');
-const nodemailer = require('nodemailer');
-const cbOptions = require('../options.js');
 const stripe = require('stripe')(cbOptions.stripe.privateKey);
 
 /**
@@ -53,10 +58,6 @@ User.schema.methods.resetPassword = function(callback) {
   user.save(function(err) {
     if (err) return callback(err);
 
-    // create reusable transporter object using the default SMTP transport
-    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-    var transporter = nodemailer.createTransport(mailString);
-
     // setup e-mail data with unicode symbols
     var mailOptions = {
       from: '"CloseBrace" <contact@closebrace.com>', // sender address
@@ -66,9 +67,9 @@ User.schema.methods.resetPassword = function(callback) {
       html: '<h3>Reset Your Password</h3><p>We\'ve received a request to reset your password.</p><p>Please visit this URL to complete the password reset: <a href="https://closebrace.com/account/reset-password/' + user.resetPasswordKey + '">https://closebrace.com/account/reset-password/' + user.resetPasswordKey + '</a></p><p>If you weren\'t the person who requested this change, don\'t worry - no changes can be made to your password without using that link. If you\'ve received this email repeatedly, you might be the target of a hacking attempt, and should email <a href="mailto:contact@closebrace.com">contact@closebrace.com</a> immediately so that we can investigate. Thanks!</p>' // html body
     };
 
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info){
-      callback();
+    // send mail
+    mg.messages().send(mailOptions, (error, body) => {
+      return callback();
     });
 
   });
@@ -139,9 +140,6 @@ User.schema.methods.updateStripeCard = function(data, callback) {
 
   user.save(function(err) {
     if (err) return callback(err);
-    // create reusable transporter object using the default SMTP transport
-    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-    var transporter = nodemailer.createTransport(mailString);
 
     // setup e-mail data with unicode symbols
     var mailOptions = {
@@ -152,8 +150,8 @@ User.schema.methods.updateStripeCard = function(data, callback) {
       html: '<p>We\'ve received and processed a request to update the credit card associated with your CloseBrace Pro subscription (either updating an existing card, or providing a new one for future billing). You should be all set. If you recently received a card failure email, there\'s nothing left to do -- your new card will be automatically billed when the system tries again to renew in a day or two. In the interim, all your CloseBrace Pro benefits remain active.</p>' // html body
     };
 
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info){
+    // send mail
+    mg.messages().send(mailOptions, (error, body) => {
       return callback();
     });
   });
@@ -161,10 +159,6 @@ User.schema.methods.updateStripeCard = function(data, callback) {
 
 User.schema.methods.stripeAlertCardFail = function(callback) {
   var user = this;
-
-  // create reusable transporter object using the default SMTP transport
-  const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-  var transporter = nodemailer.createTransport(mailString);
 
   // setup e-mail data with unicode symbols
   var mailOptions = {
@@ -175,10 +169,11 @@ User.schema.methods.stripeAlertCardFail = function(callback) {
     html: '<h3>Your Subscription Renewal Failed</h3><p>Hello, we\`re trying to renew your subscription to CloseBrace Pro, but have encountered an unfortunate error: your card was declined. This could mean that your card has expired, or that you\'ve received a new card but haven\'t updated with our service. If you need to update your card information, you can do so at https://closebrace.com/account/profile ... we will try to bill your card three total times before cancelling your subscription (you will get this email each time if it continues to fail). If you want to stop those emails, you can also cancel your subscription at the previously-mentioned URL.</p>' // html body
   };
 
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, function(error, info){
+  // send mail
+  mg.messages().send(mailOptions, (error, body) => {
     return callback();
   });
+
 }
 
 
@@ -187,10 +182,6 @@ User.schema.methods.cancelStripeSubscription = function(cancelType, callback) {
 
   // On initial cancel, just send the emails, since there will still be time in the billing period
   if (cancelType === 'cancel-initial') {
-    // create reusable transporter object using the default SMTP transport
-    const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-    var transporter = nodemailer.createTransport(mailString);
-
     // setup e-mail data with unicode symbols
     var mailOptions = {
       from: '"CloseBrace" <contact@closebrace.com>', // sender address
@@ -200,8 +191,8 @@ User.schema.methods.cancelStripeSubscription = function(cancelType, callback) {
       html: '<h3>Sorry to See You Go</h3><p>We\'ve received a request to cancel your CloseBrace Pro subscription, and have done so. You will continue to enjoy Pro benefits until the end of your billing cycle. If you did not initiate this request, please <a href="mailto:contact@closebrace.com">email contact@closebrace</a> immediately so that we can investigate. Thanks!</p>' // html body
     };
 
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info){
+    // send mail
+    mg.messages().send(mailOptions, (error, body) => {
       return callback();
     });
   }

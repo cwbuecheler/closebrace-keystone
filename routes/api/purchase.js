@@ -1,12 +1,14 @@
 // const keystone = require('keystone');
 const sanitizer = require('sanitizer');
 const nodemailer = require('nodemailer');
+const mailgun = require('mailgun-js');
 const cbOptions = require('../../options.js');
-const stripe = require('stripe')(cbOptions.stripe.privateKey);
 
-// create reusable transporter object using the default SMTP transport
-const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-const transporter = nodemailer.createTransport(mailString);
+const DOMAIN = cbOptions.mailgun.domain;
+const apiKey = cbOptions.mailgun.apiKey;
+const mg = mailgun({ apiKey, domain: DOMAIN });
+
+const stripe = require('stripe')(cbOptions.stripe.privateKey);
 
 // Email user function
 const sendUserEmail = (stripeToken, data) => {
@@ -38,8 +40,8 @@ const sendUserEmail = (stripeToken, data) => {
     html: htmlText, // html body
   };
 
-  // send mail with defined transport object
-  const mailSuccess = transporter.sendMail(mailOptions, (error) => {
+  // send mail
+  mg.messages().send(mailOptions, (error, body) => {
     if (error) { return false; }
     return true;
   });
@@ -55,8 +57,8 @@ const sendCloseBraceEmail = (stripeToken, data) => {
     html: `<p>A new ${data.purchaseType} sale occurred.</p>`, // html body
   };
 
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error) => {
+  // send mail
+  mg.messages().send(mailOptions, (error, body) => {
     if (error) { return false; }
     return true;
   });

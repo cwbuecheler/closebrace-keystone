@@ -1,12 +1,13 @@
-const cbOptions = require('../../options.js');
 const keystone = require('keystone');
-const nodemailer = require('nodemailer');
+const mailgun = require('mailgun-js');
+const cbOptions = require('../../options.js');
+
+const DOMAIN = cbOptions.mailgun.domain;
+const apiKey = cbOptions.mailgun.apiKey;
+const mg = mailgun({ apiKey, domain: DOMAIN });
 
 const User = keystone.list('User');
 
-// create reusable transporter object using the default SMTP transport
-const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-const transporter = nodemailer.createTransport(mailString);
 const mailOptions = {
   from: '"CloseBrace" <contact@closebrace.com>', // sender address
   to: 'billing@closebrace.com', // list of receivers
@@ -18,8 +19,9 @@ const sendStripeEmail = (info, text) => {
   const thisEmail = Object.assign({}, mailOptions);
   thisEmail.text = text;
   thisEmail.subject += info;
-  // send mail with defined transport object
-  transporter.sendMail(thisEmail, (error) => {
+
+  // send mail
+  mg.messages().send(mailOptions, (error, body) => {
     if (error) { console.log(error); }
   });
 };

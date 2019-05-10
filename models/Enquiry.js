@@ -1,6 +1,10 @@
 const cbOptions = require('../options.js');
 const keystone = require('keystone');
-const nodemailer = require('nodemailer');
+const mailgun = require('mailgun-js');
+
+const DOMAIN = cbOptions.mailgun.domain;
+const apiKey = cbOptions.mailgun.apiKey;
+const mg = mailgun({ apiKey, domain: DOMAIN });
 
 const Types = keystone.Field.Types;
 
@@ -32,10 +36,6 @@ Enquiry.add({
 Enquiry.schema.methods.sendAlert = (name, callback) => {
   const enquiry = this;
 
-  // create reusable transporter object using the default SMTP transport
-  const mailString = `smtps://CloseBrace:${cbOptions.mandrill.apiKey}@smtp.mandrillapp.com`;
-  const transporter = nodemailer.createTransport(mailString);
-
   // setup e-mail data with unicode symbols
   const mailOptions = {
     from: '"CloseBrace" <contact@closebrace.com>', // sender address
@@ -45,9 +45,9 @@ Enquiry.schema.methods.sendAlert = (name, callback) => {
     html: '<h3>New Enquiry</h3><p>A new enquiry was posted to CloseBrace. Go read it!</p>', // html body
   };
 
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
-    callback();
+  // send mail
+  mg.messages().send(mailOptions, (error, body) => {
+    return callback();
   });
 };
 
