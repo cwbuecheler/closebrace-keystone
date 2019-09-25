@@ -78,6 +78,7 @@ module.exports = (app) => {
   app.get('/expressjscheatsheet', routes.views.expressJSCheatSheet);
   // app.get('/go-pro', routes.views.goPro);
   // app.get('/go-pro-thanks', routes.views.goProThanks);
+  app.get('/newsletter/reconfirm', routes.views.newsletter.reconfirm);
   app.get('/newsletter/sponsor', routes.views.newsletter.sponsor);
   app.get('/newsletter/sponsor-thanks', routes.views.newsletter.sponsorThanks);
   app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
