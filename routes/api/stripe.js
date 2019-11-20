@@ -374,6 +374,11 @@ const knownEvents = {
     console.log(`${req.body.type}: event processed`);
     res.status(200).end();
   },
+  'payment_intent.payment_failed': (req, res) => {
+    sendStripeEmail(req.body.type, 'A payment intent failed.');
+    console.log(`${req.body.type}: event processed`);
+    res.status(200).end();
+  },
   'payout.canceled': (req, res) => {
     sendStripeEmail(req.body.type, 'A payout was canceled.');
     console.log(`${req.body.type}: event processed`);
