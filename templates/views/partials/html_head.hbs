@@ -3,8 +3,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     {{#if post}}
-      <title>CloseBrace | {{{post.title}}}</title>
+      <title>{{{post.title}}} | CloseBrace</title>
       <meta name="description" content="{{{post.subHead}}}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:site" content="@closebracejs">
+      <meta name="twitter:creator" content="@closebracejs">
+      <meta name="twitter:title" content="{{{post.title}}}">
+      <meta name="twitter:description" content="{{{post.subHead}}}">
+      <meta name="twitter:image" content="https://res.cloudinary.com/closebrace/image/upload/c_fill,g_north,h_314,q_60,w_600,x_0,y_0/v{{post.mainImage.version}}/{{post.mainImage.public_id}}.jpg">
+      <meta name="twitter:image:alt" content="Article Thumbnail - {{{post.title}}}"
     {{else}}
       <title>CloseBrace - JavaScript Tutorials and Resources</title>
       <meta name="description" content="Tutorials and Recources By JavaScript Developers, For JavaScript Developers">
