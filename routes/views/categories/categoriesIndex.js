@@ -15,10 +15,12 @@ module.exports = (req, res) => {
   };
 
   // splash page remove header
+  /*
   if (locals.filters.category === 'five-minute-react') {
     locals.noheader = true;
     locals.specialfooter = true;
   }
+  */
   if (locals.filters.category === 'dead-simple-react-native') {
     locals.noheader = true;
     locals.specialfooter = true;
@@ -53,10 +55,15 @@ module.exports = (req, res) => {
       state: 'published',
       hideFromIndex: false,
     })
-    .sort('+publishedAt')
+    .sort('+createdAt')
     .populate('author category');
 
     q.exec(function(err, results) {
+      results = results.sort((post, post2) => {
+        if (post.createdAt < post2.createdAt) { return -1 }
+        if (post.createdAt > post2.createdAt) { return 1 }
+        return 0;
+      });
 
       if (!results || results.length < 1) {
         locals.firstPost = null;

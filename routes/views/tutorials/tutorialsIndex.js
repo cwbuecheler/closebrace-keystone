@@ -33,7 +33,7 @@ module.exports = (req, res) => {
       postType: 'Tutorial',
       hideFromIndex: false,
     })
-    .sort('-publishedAt')
+    .sort('-createdAt')
     .populate('author category');
 
     // Get posts and count them by category
