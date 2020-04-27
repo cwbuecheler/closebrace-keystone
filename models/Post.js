@@ -50,14 +50,14 @@ Post.add({
 }, 'Permissions', {
   isProLocked: { type: Boolean, label: 'Is Pro Locked', index: true },
   hideFromIndex: { type: Boolean, label: 'Hide From Index', default: false },
+  is301: { type: Boolean, label: 'Is a 301', default: false },
+  redirectUrl: { type: String, label: '301 Redirect Url' },
 });
 
 // Provide access to Keystone
 Post.schema.virtual('canAccessKeystone').get(() => this.isAdmin);
 
-Post.schema.methods.isPublished = function() {
-    return true;
-}
+Post.schema.methods.isPublished = () => true;
 
 /**
  * Registration
