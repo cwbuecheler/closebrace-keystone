@@ -92,7 +92,7 @@ module.exports = (app) => {
   app.get('/tutorials/five-minute-react-email-thanks', routes.views.tutorials.fiveMinuteReactEmailThanks);
   app.get('/tutorials/five-minute-react-thanks', routes.views.tutorials.fiveMinuteReactThanks);
   app.get('/tutorials/list/:category/:code', routes.views.tutorials.list);
-  app.get('/u/:username', routes.views.publicProfile);
+  app.get('/u/:username', routes.views.index);
 
   // API
   app.get('/api/comments/list', keystone.middleware.api, routes.api.comments.list);
