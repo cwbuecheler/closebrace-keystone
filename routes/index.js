@@ -48,7 +48,7 @@ module.exports = (app) => {
 
   // Views
   // app.get('/', routes.views.index);
-  app.get('/', routes.views.categories.categoriesIndex);
+  app.get('/', routes.views.categories.tutorialsIndex);
   app.get('/about', routes.views.about);
   app.all('/account/avatar-upload', postLimiter, routes.views.account.avatarUpload);
   app.all('/account/cancel-pro-subscription', postLimiter, routes.views.account.cancelProSubscription);
@@ -83,7 +83,7 @@ module.exports = (app) => {
   app.get('/newsletter/sponsor', routes.views.newsletter.sponsor);
   app.get('/newsletter/sponsor-thanks', routes.views.newsletter.sponsorThanks);
   // app.get('/newsletter/subscribe', routes.views.newsletter.subscribe);
-  app.get('/newsletter/subscribe', routes.views.categories.categoriesIndex);
+  app.get('/newsletter/subscribe', routes.views.categories.tutorialsIndex);
   app.get('/newsletter/thanks', routes.views.newsletter.thanks);
   app.get('/privacy-policy', routes.views.privacyPolicy);
   app.all('/search', postLimiter, routes.views.searchResults);
